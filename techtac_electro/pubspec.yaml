@@ -31,6 +31,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  flutter_iconly: ^1.0.2
+  iconly: ^1.0.1
   provider: ^6.1.1
   shared_preferences: ^2.2.2
 

@@ -3,14 +3,13 @@ import 'package:provider/provider.dart';
 import 'package:techtac_electro/consts/theme_data.dart';
 import 'package:techtac_electro/provider/dark_theme_provider.dart';
 import 'package:techtac_electro/screens/btn_bar_screen.dart';
-import 'package:techtac_electro/screens/home_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();

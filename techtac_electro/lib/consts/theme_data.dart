@@ -4,7 +4,6 @@ class Styles {
   static ThemeData themeData(bool isDarkTheme, BuildContext context) {
     return ThemeData(
       scaffoldBackgroundColor:
-          //0A1931  // white yellow 0xFFFCF8EC
           isDarkTheme ? const Color(0xFF00001a) : const Color(0xFFFFFFFF),
       primaryColor: Colors.blue,
       colorScheme: ThemeData().colorScheme.copyWith(
@@ -19,6 +18,10 @@ class Styles {
           colorScheme: isDarkTheme
               ? const ColorScheme.dark()
               : const ColorScheme.light()),
+      textTheme: TextTheme(
+        bodyText1: TextStyle(color: isDarkTheme ? Colors.white : Colors.black),
+        bodyText2: TextStyle(color: isDarkTheme ? Colors.white : Colors.black),
+      ),
     );
   }
 }

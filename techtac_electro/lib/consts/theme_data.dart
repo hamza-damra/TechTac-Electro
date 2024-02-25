@@ -19,7 +19,6 @@ class Styles {
               ? const ColorScheme.dark()
               : const ColorScheme.light()),
       textTheme: TextTheme(
-        bodyText1: TextStyle(color: isDarkTheme ? Colors.white : Colors.black),
         bodyText2: TextStyle(color: isDarkTheme ? Colors.white : Colors.black),
       ),
     );

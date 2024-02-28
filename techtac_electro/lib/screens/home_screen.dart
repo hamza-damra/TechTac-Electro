@@ -22,9 +22,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ? Icons.dark_mode_outlined
               : Icons.light_mode_outlined),
           onChanged: (bool value) {
-            setState(() {
-              themeProvider.setDarkTheme(value);
-            });
+            setState(
+              () {
+                themeProvider.setDarkTheme(value);
+              },
+            );
           },
           value: themeProvider.getIsDarkTheme,
         ),

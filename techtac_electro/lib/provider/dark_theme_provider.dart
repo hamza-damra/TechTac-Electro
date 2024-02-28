@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:techtac_electro/services/dark_theme_pref.dart';
 
 class ThemeProvider with ChangeNotifier {
   static const THEME_STATUS = "THEME_STATUS";

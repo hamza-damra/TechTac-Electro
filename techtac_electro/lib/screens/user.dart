@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:techtac_electro/provider/dark_theme_provider.dart';
+import 'package:techtac_electro/services/assets_manager.dart';
+import 'package:techtac_electro/widgets/custom_listt_ile.dart';
+import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 
 class UserScreen extends StatefulWidget {
@@ -23,174 +26,133 @@ class _UserScreenState extends State<UserScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final themeState = Provider.of<ThemeProvider>(context);
-    final Color color = themeState.getIsDarkTheme ? Colors.white : Colors.black;
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return Scaffold(
-      body: Center(
-        heightFactor: 1,
-        widthFactor: 1,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding:
-                const EdgeInsets.only(top: 56.0, left: 8, right: 8, bottom: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                RichText(
-                  text: TextSpan(
-                    text: 'Hi,  ',
-                    style: const TextStyle(
-                      color: Colors.cyan,
-                      fontSize: 27,
-                      fontWeight: FontWeight.bold,
+        appBar: AppBar(
+          title: Text('Profile screen'),
+          leading: Image.asset(AssetsManager.shoppingCart),
+        ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Visibility(
+              visible: false,
+              child: Padding(
+                padding: EdgeInsets.all(20.0),
+                child: TitlesTextWidget(
+                    label: "Please login to have ultimate access"),
+              ),
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Row(
+                children: [
+                  Container(
+                    height: 60,
+                    width: 60,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Theme.of(context).cardColor,
+                      border: Border.all(
+                          color: Theme.of(context).colorScheme.background,
+                          width: 3),
+                      image: const DecorationImage(
+                        image: NetworkImage(
+                            'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'),
+                        fit: BoxFit.fill,
+                      ),
                     ),
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: 'Hamza Damra',
-                          style: TextStyle(
-                            color: color,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              print('My name is pressed');
-                            }),
+                  ),
+                  const SizedBox(width: 7),
+                  const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TitlesTextWidget(label: "Mohammad Hirbawi"),
+                      SubtitleTextWidget(label: 'MohammadHirbawi6@gmail.com'),
                     ],
                   ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                CustomTextWidget(
-                  text: 'hamza.damra@students.alquds.edu',
-                  color: color,
-                  fontSize: 18,
-                  // isTitle: true,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Divider(
-                  thickness: 2,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                _listTiles(
-                  title: 'Address 2',
-                  subtitle: 'Add or remove address',
-                  icon: IconlyLight.profile,
-                  onPressed: () async {
-                    await _showAddressDialog();
-                  },
-                  color: color,
-                ),
-                _listTiles(
-                  title: 'Orders',
-                  icon: IconlyLight.bag,
-                  subtitle: null,
-                  onPressed: () {},
-                  color: color,
-                ),
-                _listTiles(
-                  title: 'Wishlist',
-                  icon: IconlyLight.heart,
-                  onPressed: () {},
-                  color: color,
-                ),
-                _listTiles(
-                  title: 'Viewed',
-                  icon: IconlyLight.show,
-                  onPressed: () {},
-                  color: color,
-                ),
-                _listTiles(
-                  title: 'Forget password',
-                  icon: IconlyLight.unlock,
-                  onPressed: () {},
-                  color: color,
-                ),
-                SwitchListTile(
-                  title: CustomTextWidget(
-                    text:
-                        themeState.getIsDarkTheme ? 'Dark mode' : 'Light mode',
-                    color: color,
-                    fontSize: 18,
-                    // isTitle: true,
-                  ),
-                  secondary: Icon(themeState.getIsDarkTheme
-                      ? Icons.dark_mode_outlined
-                      : Icons.light_mode_outlined),
-                  onChanged: (bool value) {
-                    setState(() {
-                      themeState.setDarkTheme(value);
-                    });
-                  },
-                  value: themeState.getIsDarkTheme,
-                ),
-                _listTiles(
-                  title: 'Logout',
-                  icon: IconlyLight.logout,
-                  onPressed: () {},
-                  color: color,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Future<void> _showAddressDialog() async {
-    await showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('Update'),
-            content: TextField(
-              onChanged: (value) {
-                _addressTextController.text;
-              },
-              controller: _addressTextController,
-              maxLines: 5,
-              decoration: const InputDecoration(hintText: "Your address"),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {},
-                child: const Text("update"),
+                ],
               ),
-            ],
-          );
-        });
-  }
-
-  Widget _listTiles({
-    required String title,
-    String? subtitle,
-    required IconData icon,
-    required Function onPressed,
-    required Color color,
-  }) {
-    return ListTile(
-      title: CustomTextWidget(
-        text: title,
-        color: color,
-        fontSize: 18,
-      ),
-      subtitle: CustomTextWidget(
-        text: subtitle ?? "",
-        color: color,
-        fontSize: 16,
-      ),
-      leading: Icon(icon),
-      trailing: const Icon(IconlyLight.arrowRight2),
-      onTap: () {
-        onPressed();
-      },
-    );
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const TitlesTextWidget(label: 'General'),
+                  CustomListTile(
+                    imagesPath: AssetsManager.orderSvg,
+                    text: "All orders",
+                    function: () {},
+                  ),
+                  CustomListTile(
+                    imagesPath: AssetsManager.wishlistSvg,
+                    text: "WishList",
+                    function: () {},
+                  ),
+                  CustomListTile(
+                    imagesPath: AssetsManager.recent,
+                    text: "Viewed recently",
+                    function: () {},
+                  ),
+                  CustomListTile(
+                    imagesPath: AssetsManager.address,
+                    text: "Address",
+                    function: () {},
+                  ),
+                  const Divider(thickness: 1),
+                  const SizedBox(width: 7),
+                  const TitlesTextWidget(label: "Settings"),
+                  const SizedBox(width: 7),
+                  SwitchListTile(
+                    title: Text(themeProvider.getIsDarkTheme
+                        ? "Dark mode"
+                        : "Light mode"),
+                    secondary: Image.asset(
+                      AssetsManager.theme,
+                      height: 30,
+                    ),
+                    onChanged: (bool value) {
+                      setState(
+                        () {
+                          themeProvider.setDarkTheme(value);
+                        },
+                      );
+                    },
+                    value: themeProvider.getIsDarkTheme,
+                  ),
+                  const Divider(thickness: 1),
+                ],
+              ),
+            ),
+            Center(
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 255, 17, 0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+                onPressed: () {},
+                icon: Icon(
+                  Icons.login,
+                  color: themeProvider.getIsDarkTheme
+                      ? Colors.black
+                      : Colors.white,
+                ),
+                label: Text(
+                  "Login",
+                  style: TextStyle(
+                    color: themeProvider.getIsDarkTheme
+                        ? Colors.black
+                        : Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ));
   }
 }

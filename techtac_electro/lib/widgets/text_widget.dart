@@ -1,25 +1,29 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
-// ignore: must_be_immutable
-class CustomTextWidget extends StatelessWidget {
-  CustomTextWidget(
-      {super.key,
-      required this.text,
-      this.isTitle = false,
-      required this.fontSize,
-      required this.color});
-  final String text;
+class TitlesTextWidget extends StatelessWidget {
+  const TitlesTextWidget({
+    Key? key,
+    required this.label,
+    this.fontSize = 20,
+    this.color,
+    this.maxLines,
+  }) : super(key: key);
+
+  final String label;
   final double fontSize;
-  final Color color;
-  bool isTitle;
-  int maxLines = 10;
+  final Color? color;
+  final int? maxLines;
   @override
   Widget build(BuildContext context) {
-    return Text(text,
-        overflow: TextOverflow.ellipsis,
-        style: TextStyle(
-            fontSize: fontSize,
-            color: color,
-            fontWeight: isTitle ? FontWeight.bold : FontWeight.normal));
+    return Text(
+      label,
+      maxLines: maxLines,
+      // textAlign: TextAlign.justify,
+      style: TextStyle(
+          color: color,
+          fontSize: fontSize,
+          fontWeight: FontWeight.bold,
+          overflow: TextOverflow.ellipsis),
+    );
   }
 }

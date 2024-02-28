@@ -23,8 +23,8 @@ class _UserScreenState extends State<UserScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final themeState = Provider.of<DarkThemeProvider>(context);
-    final Color color = themeState.getDarkTheme ? Colors.white : Colors.black;
+    final themeState = Provider.of<ThemeProvider>(context);
+    final Color color = themeState.getIsDarkTheme ? Colors.white : Colors.black;
     return Scaffold(
       body: Center(
         heightFactor: 1,
@@ -114,20 +114,21 @@ class _UserScreenState extends State<UserScreen> {
                 ),
                 SwitchListTile(
                   title: CustomTextWidget(
-                    text: themeState.getDarkTheme ? 'Dark mode' : 'Light mode',
+                    text:
+                        themeState.getIsDarkTheme ? 'Dark mode' : 'Light mode',
                     color: color,
                     fontSize: 18,
                     // isTitle: true,
                   ),
-                  secondary: Icon(themeState.getDarkTheme
+                  secondary: Icon(themeState.getIsDarkTheme
                       ? Icons.dark_mode_outlined
                       : Icons.light_mode_outlined),
                   onChanged: (bool value) {
                     setState(() {
-                      themeState.setDarkTheme = value;
+                      themeState.setDarkTheme(value);
                     });
                   },
-                  value: themeState.getDarkTheme,
+                  value: themeState.getIsDarkTheme,
                 ),
                 _listTiles(
                   title: 'Logout',

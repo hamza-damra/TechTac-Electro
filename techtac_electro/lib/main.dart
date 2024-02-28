@@ -16,17 +16,16 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  DarkThemeProvider themeChangeProvider = DarkThemeProvider();
+  ThemeProvider themeChangeProvider = ThemeProvider();
 
   // This widget is the root of your application.
-  void getCurrentAppTheme() async {
-    themeChangeProvider.setDarkTheme =
-        await themeChangeProvider.darkThemePrefs.getTheme();
+  void getCurrentAppTheme(bool value) async {
+    await themeChangeProvider.setDarkTheme(value);
   }
 
   @override
   void initState() {
-    getCurrentAppTheme();
+    getCurrentAppTheme(true);
     super.initState();
   }
 
@@ -38,12 +37,11 @@ class _MyAppState extends State<MyApp> {
           return themeChangeProvider;
         })
       ],
-      child:
-          Consumer<DarkThemeProvider>(builder: (context, themeProvider, child) {
+      child: Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
         return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
-            theme: Styles.themeData(themeProvider.getDarkTheme, context),
+            theme: Styles.themeData(themeProvider.getIsDarkTheme, context),
             home: const BottomBarScreen());
       }),
     );

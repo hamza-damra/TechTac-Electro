@@ -3,7 +3,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:techtac_electro/provider/dark_theme_provider.dart';
 import 'package:techtac_electro/screens/cart.dart';
-import 'package:techtac_electro/screens/categories.dart';
+import 'package:techtac_electro/screens/search.dart';
 import 'package:techtac_electro/screens/home_screen.dart';
 import 'package:techtac_electro/screens/user.dart';
 
@@ -18,7 +18,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   int _selectedIndex = 0;
   final List _pages = [
     const HomeScreen(),
-    const CategoriesScreen(),
+    const SearchScreen(),
     const CartScreen(),
     const UserScreen(),
   ];
@@ -31,8 +31,8 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final themeState = Provider.of<DarkThemeProvider>(context);
-    bool _isDark = themeState.getDarkTheme;
+    final themeState = Provider.of<ThemeProvider>(context);
+    bool _isDark = themeState.getIsDarkTheme;
 
     return Scaffold(
       body: _pages[_selectedIndex],
@@ -52,9 +52,8 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
               label: "Home",
             ),
             BottomNavigationBarItem(
-              icon: Icon(_selectedIndex == 1
-                  ? IconlyBold.category
-                  : IconlyLight.category),
+              icon: Icon(
+                  _selectedIndex == 1 ? IconlyBold.search : IconlyLight.search),
               label: "Categories",
             ),
             BottomNavigationBarItem(

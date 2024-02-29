@@ -4,6 +4,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:techtac_electro/provider/dark_theme_provider.dart';
 import 'package:techtac_electro/services/assets_manager.dart';
+import 'package:techtac_electro/widgets/app_name_text.dart';
 import 'package:techtac_electro/widgets/custom_listt_ile.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
@@ -29,11 +30,17 @@ class _UserScreenState extends State<UserScreen> {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Profile screen'),
-          leading: Image.asset(AssetsManager.shoppingCart),
+      appBar: AppBar(
+        title: AppNameTextWidget(
+          fontSize: 20,
         ),
-        body: Column(
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset(AssetsManager.shoppingCart),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Visibility(
@@ -44,7 +51,7 @@ class _UserScreenState extends State<UserScreen> {
                     label: "Please login to have ultimate access"),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Row(
@@ -77,7 +84,7 @@ class _UserScreenState extends State<UserScreen> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 24),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -143,7 +150,7 @@ class _UserScreenState extends State<UserScreen> {
                       : Colors.white,
                 ),
                 label: Text(
-                  "Login",
+                  "Logout",
                   style: TextStyle(
                     color: themeProvider.getIsDarkTheme
                         ? Colors.black
@@ -153,6 +160,8 @@ class _UserScreenState extends State<UserScreen> {
               ),
             ),
           ],
-        ));
+        ),
+      ),
+    );
   }
 }

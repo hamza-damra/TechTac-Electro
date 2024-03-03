@@ -1,11 +1,9 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:techtac_electro/provider/dark_theme_provider.dart';
 import 'package:techtac_electro/services/assets_manager.dart';
 import 'package:techtac_electro/widgets/app_name_text.dart';
-import 'package:techtac_electro/widgets/custom_listt_ile.dart';
+import 'package:techtac_electro/widgets/custom_listTile.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 

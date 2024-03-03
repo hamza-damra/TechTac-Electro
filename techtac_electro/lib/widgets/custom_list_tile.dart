@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:techtac_electro/services/assets_manager.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 
 class CustomListTile extends StatelessWidget {

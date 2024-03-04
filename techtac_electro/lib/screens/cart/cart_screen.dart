@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:techtac_electro/screens/cart/bottom_checkout.dart';
 import 'package:techtac_electro/screens/cart/cart_widget.dart';
 import 'package:techtac_electro/services/assets_manager.dart';
 import 'package:techtac_electro/widgets/empty_bag.dart';
@@ -20,6 +21,7 @@ class CartScreen extends StatelessWidget {
             ),
           )
         : Scaffold(
+            bottomSheet: const CartBottomCheckout(),
             appBar: AppBar(
               title: const TitlesTextWidget(label: "Cart (5)"),
               leading: Padding(
@@ -39,7 +41,7 @@ class CartScreen extends StatelessWidget {
             body: ListView.builder(
               itemCount: 15,
               itemBuilder: (context, index) {
-                return CartWidget();
+                return const CartWidget();
               },
             ),
           );

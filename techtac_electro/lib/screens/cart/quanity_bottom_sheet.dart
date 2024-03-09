@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';

@@ -18,7 +18,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   int _selectedIndex = 0;
   final List _pages = [
     const HomeScreen(),
-    const SearchScreen(),
+    SearchScreen(),
     const CartScreen(),
     const UserScreen(),
   ];
@@ -57,14 +57,18 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
               label: "Categories",
             ),
             BottomNavigationBarItem(
-              icon:
-                  Icon(_selectedIndex == 2 ? IconlyBold.buy : IconlyLight.buy),
+              icon: Badge(
+                  label: Text("6"),
+                  child: Icon(_selectedIndex == 2
+                      ? IconlyBold.bag2
+                      : IconlyLight.bag2)),
               label: "Cart",
             ),
             BottomNavigationBarItem(
-              icon: Icon(
-                  _selectedIndex == 3 ? IconlyBold.user2 : IconlyLight.user2),
-              label: "User",
+              icon: Icon(_selectedIndex == 3
+                  ? IconlyBold.profile
+                  : IconlyLight.profile),
+              label: "Profile",
             ),
           ]),
     );

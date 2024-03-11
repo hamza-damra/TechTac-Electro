@@ -1,11 +1,15 @@
-import 'dart:math';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:techtac_electro/services/assets_manager.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 
+import '../services/assets_manager.dart';
+import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
+
+import '../widgets/products/product_widget.dart';
+
 class SearchScreen extends StatefulWidget {
-  SearchScreen({super.key});
+  const SearchScreen({super.key});
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -13,6 +17,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   late TextEditingController searchTextController;
+
   @override
   void initState() {
     searchTextController = TextEditingController();
@@ -32,42 +37,58 @@ class _SearchScreenState extends State<SearchScreen> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: const TitlesTextWidget(label: "Search"),
-          leading: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(AssetsManager.shoppingCart),
+          appBar: AppBar(
+            title: const TitlesTextWidget(label: "Search"),
+            leading: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(AssetsManager.shoppingCart),
+            ),
           ),
-        ),
-        body: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Column(children: [
-            TextField(
-              controller: searchTextController,
-              decoration: InputDecoration(
-                filled: true,
-                prefixIcon: const Icon(Icons.search),
-                suffixIcon: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      searchTextController.clear();
-                      FocusScope.of(context).unfocus();
-                    });
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 15.0,
+                ),
+                TextField(
+                  controller: searchTextController,
+                  decoration: InputDecoration(
+                    filled: true,
+                    prefixIcon: const Icon(Icons.search),
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          searchTextController.clear();
+                          FocusScope.of(context).unfocus();
+                        });
+                      },
+                      child: const Icon(
+                        Icons.clear,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                  onChanged: (value) {},
+                  onSubmitted: (value) {
+                    log(searchTextController.text);
                   },
-                  child: const Icon(
-                    Icons.clear,
-                    color: Colors.red,
+                ),
+                const SizedBox(
+                  height: 15.0,
+                ),
+                Expanded(
+                  child: DynamicHeightGridView(
+                    itemCount: 220,
+                    builder: ((context, index) {
+                      return const ProductWidget();
+                    }),
+                    crossAxisCount: 2,
                   ),
                 ),
-              ),
-              onChanged: (value) {},
-              onSubmitted: (value) {
-                print("{$searchTextController.text}");
-              },
+              ],
             ),
-          ]),
-        ),
-      ),
+          )),
     );
   }
 }

@@ -2,7 +2,7 @@ class AssetsManager {
   static String imagesPath = "assets/images";
   static String profileImagesPath = "assets/images/profile";
   static String bagImagesPath = "assets/images/bag";
-  static String bannersImagesPath = "assets/banners";
+  static String bannersImagesPath = "assets/images/banners";
   static String categoriesImagesPath = "assets/categories";
 
   // general images

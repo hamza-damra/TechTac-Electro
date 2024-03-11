@@ -29,7 +29,7 @@ class _UserScreenState extends State<UserScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: AppNameTextWidget(
+        title: const AppNameTextWidget(
           fontSize: 20,
         ),
         leading: Padding(

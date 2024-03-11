@@ -6,6 +6,7 @@ import 'package:techtac_electro/screens/btm_bar_screen.dart';
 
 void main() {
   runApp(const MyApp());
+  //testing
 }
 
 class MyApp extends StatefulWidget {

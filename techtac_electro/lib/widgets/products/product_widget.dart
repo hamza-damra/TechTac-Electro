@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:techtac_electro/consts/app_constants.dart';
+import 'package:techtac_electro/screens/inner_screens/product_details.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 
@@ -23,8 +24,8 @@ class _ProductWidgetState extends State<ProductWidget> {
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: GestureDetector(
-        onTap: () {
-          log("TODO navigate to the product details screen");
+        onTap: () async {
+          await Navigator.pushNamed(context, ProductDatails.routeName);
         },
         child: Column(
           children: [
@@ -36,11 +37,17 @@ class _ProductWidgetState extends State<ProductWidget> {
                 height: size.height * 0.22,
               ),
             ),
+            const SizedBox(
+              height: 15,
+            ),
             Row(
               children: [
                 Flexible(
                   flex: 5,
-                  child: TitlesTextWidget(label: "Title " * 10),
+                  child: TitlesTextWidget(
+                    label: "Title " * 10,
+                    maxLines: 2,
+                  ),
                 ),
                 Flexible(
                   child: IconButton(
@@ -49,6 +56,9 @@ class _ProductWidgetState extends State<ProductWidget> {
                   ),
                 ),
               ],
+            ),
+            const SizedBox(
+              height: 15,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -5,7 +5,7 @@ import 'package:techtac_electro/provider/dark_theme_provider.dart';
 import 'package:techtac_electro/screens/cart/cart_screen.dart';
 import 'package:techtac_electro/screens/search_screen.dart';
 import 'package:techtac_electro/screens/home_screen.dart';
-import 'package:techtac_electro/screens/user_screen.dart';
+import 'package:techtac_electro/screens/profile_screen.dart';
 
 class BottomBarScreen extends StatefulWidget {
   const BottomBarScreen({super.key});
@@ -20,7 +20,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     const HomeScreen(),
     const SearchScreen(),
     const CartScreen(),
-    const UserScreen(),
+    const ProfileScreen(),
   ];
   void _selectedPage(int index) {
     //to choose the page

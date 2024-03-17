@@ -6,17 +6,17 @@ import 'package:techtac_electro/widgets/text_widget.dart';
 
 import '../../widgets/products/product_widget.dart';
 
-class WishlistScreen extends StatelessWidget {
-  static const routName = '/WishlistScreen';
-  const WishlistScreen({super.key});
-  final bool isEmpty = true;
+class ViewedRecentlyScreen extends StatelessWidget {
+  static const routName = '/ViewedRecentlyScreen';
+  const ViewedRecentlyScreen({super.key});
+  final bool isEmpty = false;
   @override
   Widget build(BuildContext context) {
     return isEmpty
         ? Scaffold(
             body: EmptyBagWidget(
-              imagePath: AssetsManager.bagWish,
-              title: "Your wishlist is empty",
+              imagePath: AssetsManager.shoppingBasket,
+              title: "Your Viewed recently is empty",
               subtitle:
                   'Looks like you didn\'t add anything yet to your cart \ngo ahead and start shopping now',
               buttonText: "Shop Now",
@@ -24,7 +24,7 @@ class WishlistScreen extends StatelessWidget {
           )
         : Scaffold(
             appBar: AppBar(
-              title: const TitlesTextWidget(label: "Wishlist (5)"),
+              title: const TitlesTextWidget(label: "Viewed recently (5)"),
               leading: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Image.asset(AssetsManager.shoppingCart),

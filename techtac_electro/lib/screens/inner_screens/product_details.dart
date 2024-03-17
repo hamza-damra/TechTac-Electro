@@ -1,34 +1,36 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:techtac_electro/consts/app_constants.dart';
-import 'package:techtac_electro/widgets/app_name_text.dart';
-import 'package:techtac_electro/widgets/products/heart_btn.dart';
-import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
+import '../../widgets/app_name_text.dart';
+import '../../widgets/products/heart_btn.dart';
+import '../../widgets/subtitle_text.dart';
 
-class ProductDatails extends StatelessWidget {
-  static const routeName = '/productDetails';
-  const ProductDatails({super.key});
+class ProductDetails extends StatefulWidget {
+  static const routName = '/ProductDetails';
+  const ProductDetails({super.key});
 
+  @override
+  State<ProductDetails> createState() => _ProductDetailsState();
+}
+
+class _ProductDetailsState extends State<ProductDetails> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       appBar: AppBar(
-        title: const AppNameTextWidget(
-          fontSize: 20,
-        ),
+        title: const AppNameTextWidget(fontSize: 20),
         centerTitle: true,
         leading: IconButton(
-          onPressed: () {
-            Navigator.canPop(context) ? Navigator.pop(context) : null;
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            size: 18,
-          ),
-        ),
+            onPressed: () {
+              Navigator.canPop(context) ? Navigator.pop(context) : null;
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              size: 18,
+            )),
+        // automaticallyImplyLeading: false,
       ),
       body: Column(
         children: [
@@ -38,7 +40,9 @@ class ProductDatails extends StatelessWidget {
             width: double.infinity,
             boxFit: BoxFit.contain,
           ),
-          const SizedBox(height: 10),
+          const SizedBox(
+            height: 10.0,
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -56,7 +60,9 @@ class ProductDatails extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 14),
+                    const SizedBox(
+                      width: 14,
+                    ),
                     const SubtitleTextWidget(
                       label: "166.5\$",
                       color: Colors.blue,
@@ -66,7 +72,7 @@ class ProductDatails extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 25,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -86,13 +92,13 @@ class ProductDatails extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.lightBlue,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
+                                borderRadius: BorderRadius.circular(
+                                  30,
+                                ),
                               ),
                             ),
                             onPressed: () {},
-                            icon: const Icon(
-                              Icons.add_shopping_cart,
-                            ),
+                            icon: const Icon(Icons.add_shopping_cart),
                             label: const Text(
                               "Add to cart",
                             ),
@@ -103,19 +109,19 @@ class ProductDatails extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 25,
                 ),
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     TitlesTextWidget(label: "About this item"),
-                    SubtitleTextWidget(label: "In phones"),
+                    SubtitleTextWidget(label: "In Phones")
                   ],
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 25,
                 ),
-                SubtitleTextWidget(label: "descreption" * 20),
+                SubtitleTextWidget(label: "description " * 15),
               ],
             ),
           )

@@ -1,13 +1,10 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:techtac_electro/consts/app_constants.dart';
-import 'package:techtac_electro/provider/dark_theme_provider.dart';
 import 'package:techtac_electro/screens/cart/ctg_rounded_widget.dart';
 import 'package:techtac_electro/services/assets_manager.dart';
 import 'package:techtac_electro/widgets/app_name_text.dart';
 import 'package:techtac_electro/widgets/products/latest_arrival.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 
 class HomeScreen extends StatefulWidget {

@@ -18,7 +18,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   int _selectedIndex = 0;
   final List _pages = [
     const HomeScreen(),
-    SearchScreen(),
+    const SearchScreen(),
     const CartScreen(),
     const UserScreen(),
   ];
@@ -32,18 +32,18 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<ThemeProvider>(context);
-    bool _isDark = themeState.getIsDarkTheme;
+    bool isDark = themeState.getIsDarkTheme;
 
     return Scaffold(
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: _isDark ? Theme.of(context).cardColor : Colors.white,
+          backgroundColor: isDark ? Theme.of(context).cardColor : Colors.white,
           type: BottomNavigationBarType.fixed,
           showSelectedLabels: false,
           showUnselectedLabels: false,
           currentIndex: _selectedIndex,
-          unselectedItemColor: _isDark ? Colors.white10 : Colors.black12,
-          selectedItemColor: _isDark ? Colors.lightBlue[200] : Colors.black87,
+          unselectedItemColor: isDark ? Colors.white10 : Colors.black12,
+          selectedItemColor: isDark ? Colors.lightBlue[200] : Colors.black87,
           onTap: _selectedPage,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -58,7 +58,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             ),
             BottomNavigationBarItem(
               icon: Badge(
-                  label: Text("6"),
+                  label: const Text("6"),
                   child: Icon(_selectedIndex == 2
                       ? IconlyBold.bag2
                       : IconlyLight.bag2)),

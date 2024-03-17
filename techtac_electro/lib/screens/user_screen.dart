@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:techtac_electro/provider/dark_theme_provider.dart';
+import 'package:techtac_electro/screens/inner_screens/wishlist.dart';
 import 'package:techtac_electro/services/assets_manager.dart';
 import 'package:techtac_electro/widgets/app_name_text.dart';
 import 'package:techtac_electro/widgets/custom_list_tile.dart';
@@ -95,7 +96,9 @@ class _UserScreenState extends State<UserScreen> {
                   CustomListTile(
                     imagesPath: AssetsManager.wishlistSvg,
                     text: "WishList",
-                    function: () {},
+                    function: () {
+                      Navigator.pushNamed(context, WishListScreen.routeName);
+                    },
                   ),
                   CustomListTile(
                     imagesPath: AssetsManager.recent,

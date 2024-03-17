@@ -1,12 +1,8 @@
-import 'dart:developer';
-
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:techtac_electro/consts/app_constants.dart';
 import 'package:techtac_electro/screens/inner_screens/product_details.dart';
+import 'package:techtac_electro/widgets/products/heart_btn.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 
@@ -47,42 +43,48 @@ class _ProductWidgetState extends State<ProductWidget> {
                   child: TitlesTextWidget(
                     label: "Title " * 10,
                     maxLines: 2,
+                    fontSize: 18,
                   ),
                 ),
-                Flexible(
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(IconlyLight.heart),
-                  ),
+                const Flexible(
+                  flex: 2,
+                  child: HeartButtonWidget(),
                 ),
               ],
             ),
             const SizedBox(
               height: 15,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Flexible(
-                  flex: 3,
-                  child: SubtitleTextWidget(label: "166.5\$"),
-                ),
-                Flexible(
-                  child: Material(
-                    borderRadius: BorderRadius.circular(16.0),
-                    color: Colors.lightBlue,
-                    child: InkWell(
-                      splashColor: Colors.red,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Flexible(
+                    flex: 3,
+                    child: SubtitleTextWidget(label: "166.5\$"),
+                  ),
+                  Flexible(
+                    child: Material(
                       borderRadius: BorderRadius.circular(16.0),
-                      onTap: () {},
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Icon(Icons.add_shopping_cart_rounded),
+                      color: Colors.lightBlue,
+                      child: InkWell(
+                        splashColor: Colors.red,
+                        borderRadius: BorderRadius.circular(16.0),
+                        onTap: () {},
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Icon(Icons.add_shopping_cart_rounded),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    //change
+                    width: 1,
+                  ),
+                ],
+              ),
             ),
             const SizedBox(
               height: 10,

@@ -1,12 +1,9 @@
-import 'dart:developer';
-
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:techtac_electro/consts/app_constants.dart';
 import 'package:techtac_electro/screens/inner_screens/product_details.dart';
+import 'package:techtac_electro/widgets/products/heart_btn.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
-import 'package:techtac_electro/widgets/text_widget.dart';
 
 class LatestArrivalProductWidget extends StatelessWidget {
   const LatestArrivalProductWidget({super.key});
@@ -48,13 +45,7 @@ class LatestArrivalProductWidget extends StatelessWidget {
                     FittedBox(
                       child: Row(
                         children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              IconlyLight.heart,
-                              size: 18,
-                            ),
-                          ),
+                          const HeartButtonWidget(),
                           IconButton(
                             onPressed: () {},
                             icon: const Icon(

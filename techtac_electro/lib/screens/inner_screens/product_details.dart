@@ -1,9 +1,8 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:techtac_electro/consts/app_constants.dart';
-import 'package:techtac_electro/services/assets_manager.dart';
 import 'package:techtac_electro/widgets/app_name_text.dart';
+import 'package:techtac_electro/widgets/products/heart_btn.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 
@@ -74,13 +73,8 @@ class ProductDatails extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Material(
-                        color: Colors.teal.shade200,
-                        shape: const CircleBorder(),
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(IconlyLight.heart),
-                        ),
+                      HeartButtonWidget(
+                        color: Colors.blue.shade300,
                       ),
                       const SizedBox(
                         width: 10,

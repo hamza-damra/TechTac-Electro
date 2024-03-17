@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:techtac_electro/services/assets_manager.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 
 class EmptyBagWidget extends StatelessWidget {
-  EmptyBagWidget(
+  const EmptyBagWidget(
       {super.key,
       required this.imagePath,
       required this.title,

@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
         child,
       ) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'Shop Smart AR',
           theme: Styles.themeData(
               isDarkTheme: themeProvider.getIsDarkTheme, context: context),

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:techtac_electro/provider/dark_theme_provider.dart';
 import 'package:techtac_electro/screens/inner_screens/viewed_recently.dart';
 import 'package:techtac_electro/screens/inner_screens/wishlist.dart';
+import 'package:techtac_electro/services/my_app_method.dart';
 import 'package:techtac_electro/widgets/app_name_text.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
@@ -150,11 +151,18 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  onPressed: () {},
                   icon: const Icon(Icons.login),
                   label: const Text(
                     "Login",
                   ),
+                  onPressed: () async {
+                    await MyAppMethods.showErrorORWarningDialog(
+                      context: context,
+                      subtitle: "Are You Sure?",
+                      fct: () {},
+                      isError: false,
+                    );
+                  },
                 ),
               ),
             ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:techtac_electro/provider/dark_theme_provider.dart';
+import 'package:techtac_electro/screens/auth/login.dart';
 import 'package:techtac_electro/screens/inner_screens/viewed_recently.dart';
 import 'package:techtac_electro/screens/root_screen.dart';
 import 'consts/theme_data.dart';
@@ -34,7 +35,8 @@ class MyApp extends StatelessWidget {
           title: 'Shop Smart AR',
           theme: Styles.themeData(
               isDarkTheme: themeProvider.getIsDarkTheme, context: context),
-          home: const BottomBarScreen(),
+          //home: const RootScreen(),
+          home: const LoginScreen(),
           routes: {
             ProductDetails.routName: (context) => const ProductDetails(),
             WishlistScreen.routName: (context) => const WishlistScreen(),

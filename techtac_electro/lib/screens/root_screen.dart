@@ -7,14 +7,14 @@ import 'package:techtac_electro/screens/search_screen.dart';
 import 'package:techtac_electro/screens/home_screen.dart';
 import 'package:techtac_electro/screens/profile_screen.dart';
 
-class BottomBarScreen extends StatefulWidget {
-  const BottomBarScreen({super.key});
+class RootScreen extends StatefulWidget {
+  const RootScreen({super.key});
 
   @override
-  State<BottomBarScreen> createState() => _BottomBarScreenState();
+  State<RootScreen> createState() => _RootScreenState();
 }
 
-class _BottomBarScreenState extends State<BottomBarScreen> {
+class _RootScreenState extends State<RootScreen> {
   int _selectedIndex = 0;
   final List _pages = [
     const HomeScreen(),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:techtac_electro/consts/my_validators.dart';
+import 'package:techtac_electro/services/my_app_method.dart';
 import 'package:techtac_electro/widgets/app_name_text.dart';
 import 'package:techtac_electro/widgets/auth/pick_image_widget.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
@@ -101,7 +102,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   width: size.width * 0.3,
                   child: PickImageWidget(
                     pickedImage: _pickedImage,
-                    function: () {},
+                    function: () async {
+                      await MyAppMethods.imagePickerDialog(
+                        context: context,
+                        cameraFCT: () {},
+                        galleryFCT: () {},
+                        removeFCT: () {},
+                      );
+                    },
                   ),
                 ),
                 const SizedBox(

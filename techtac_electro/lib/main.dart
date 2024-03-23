@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:techtac_electro/provider/dark_theme_provider.dart';
-import 'package:techtac_electro/screens/auth/login.dart';
-import 'package:techtac_electro/screens/auth/register.dart';
+import 'package:techtac_electro/screens/inner_screens/orders/orders_screen.dart';
 import 'package:techtac_electro/screens/inner_screens/viewed_recently.dart';
+import 'package:techtac_electro/screens/root_screen.dart';
 import 'consts/theme_data.dart';
+import 'screens/auth/login.dart';
+import 'screens/auth/register.dart';
 import 'screens/inner_screens/product_details.dart';
 import 'screens/inner_screens/wishlist.dart';
 
@@ -31,18 +33,19 @@ class MyApp extends StatelessWidget {
         child,
       ) {
         return MaterialApp(
-          debugShowCheckedModeBanner: false,
           title: 'Shop Smart AR',
           theme: Styles.themeData(
               isDarkTheme: themeProvider.getIsDarkTheme, context: context),
-          //home: const RootScreen(),
-          home: const LoginScreen(),
+          home: const RootScreen(),
+          // home: const RegisterScreen(),
           routes: {
             ProductDetails.routName: (context) => const ProductDetails(),
             WishlistScreen.routName: (context) => const WishlistScreen(),
             ViewedRecentlyScreen.routName: (context) =>
                 const ViewedRecentlyScreen(),
-                RegisterScreen.routName:(context) => const RegisterScreen()
+            RegisterScreen.routName: (context) => const RegisterScreen(),
+            LoginScreen.routName:(context) => const LoginScreen(),
+            OrdersScreenFree.routeName: (context) => const OrdersScreenFree(),
           },
         );
       }),

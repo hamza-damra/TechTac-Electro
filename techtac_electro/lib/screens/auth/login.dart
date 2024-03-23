@@ -6,8 +6,8 @@ import 'package:techtac_electro/widgets/app_name_text.dart';
 import 'package:techtac_electro/widgets/auth/google_btn.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
-
 class LoginScreen extends StatefulWidget {
+  static const routName = '/LoginScreen';
   const LoginScreen({super.key});
 
   @override

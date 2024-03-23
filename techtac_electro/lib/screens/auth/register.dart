@@ -59,7 +59,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Future<void> _registerFct() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
-    if (isValid) {}
+    if (isValid) {
+      _formKey.currentState!.save();
+      if (_pickedImage == null) {
+        MyAppMethods.showErrorORWarningDialog(
+          context: context,
+          subtitle: "Make sure to pick up an image",
+          fct: () {},
+        );
+      }
+    }
+  }
+
+  Future<void> localImagePicker() async {
+    final ImagePicker picker = ImagePicker();
+    await MyAppMethods.imagePickerDialog(
+      context: context,
+      cameraFCT: () async {
+        _pickedImage = await picker.pickImage(source: ImageSource.camera);
+        setState(() {});
+      },
+      galleryFCT: () async {
+        _pickedImage = await picker.pickImage(source: ImageSource.gallery);
+      },
+      removeFCT: () {
+        setState(() {
+          _pickedImage = null;
+        });
+      },
+    );
   }
 
   @override
@@ -103,12 +131,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: PickImageWidget(
                     pickedImage: _pickedImage,
                     function: () async {
-                      await MyAppMethods.imagePickerDialog(
-                        context: context,
-                        cameraFCT: () {},
-                        galleryFCT: () {},
-                        removeFCT: () {},
-                      );
+                      await localImagePicker();
                     },
                   ),
                 ),

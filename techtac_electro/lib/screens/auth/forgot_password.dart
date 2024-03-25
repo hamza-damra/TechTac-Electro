@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import '../../consts/my_validators.dart';
-import '../../services/assets_manager.dart';
-import '../../widgets/app_name_text.dart';
-import '../../widgets/subtitle_text.dart';
-import '../../widgets/title_text.dart';
+import 'package:techtac_electro/consts/my_validators.dart';
+import 'package:techtac_electro/services/assets_manager.dart';
+import 'package:techtac_electro/widgets/app_name_text.dart';
+import 'package:techtac_electro/widgets/subtitle_text.dart';
+import 'package:techtac_electro/widgets/text_widget.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   static const routeName = '/ForgotPasswordScreen';

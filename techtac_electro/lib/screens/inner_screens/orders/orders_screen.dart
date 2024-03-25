@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:techtac_electro/services/assets_manager.dart';
+import 'package:techtac_electro/widgets/empty_bag.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
-import '../../../../widgets/empty_bag.dart';
-import '../../../services/assets_manager.dart';
 import 'orders_widget.dart';
 
 class OrdersScreenFree extends StatefulWidget {

@@ -4,8 +4,6 @@ import 'package:techtac_electro/consts/app_constants.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 
-
-
 class OrdersWidgetFree extends StatefulWidget {
   const OrdersWidgetFree({super.key});
 

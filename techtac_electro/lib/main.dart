@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:techtac_electro/provider/dark_theme_provider.dart';
+import 'package:techtac_electro/screens/auth/forgot_password.dart';
+import 'package:techtac_electro/screens/auth/login.dart';
+import 'package:techtac_electro/screens/auth/register.dart';
 import 'package:techtac_electro/screens/inner_screens/orders/orders_screen.dart';
 import 'package:techtac_electro/screens/inner_screens/viewed_recently.dart';
 import 'package:techtac_electro/screens/root_screen.dart';
 import 'consts/theme_data.dart';
-import 'screens/auth/login.dart';
-import 'screens/auth/register.dart';
 import 'screens/inner_screens/product_details.dart';
 import 'screens/inner_screens/wishlist.dart';
 
@@ -44,8 +45,10 @@ class MyApp extends StatelessWidget {
             ViewedRecentlyScreen.routName: (context) =>
                 const ViewedRecentlyScreen(),
             RegisterScreen.routName: (context) => const RegisterScreen(),
-            LoginScreen.routName:(context) => const LoginScreen(),
+            LoginScreen.routName: (context) => const LoginScreen(),
             OrdersScreenFree.routeName: (context) => const OrdersScreenFree(),
+            ForgotPasswordScreen.routeName: (context) =>
+                const ForgotPasswordScreen(),
           },
         );
       }),

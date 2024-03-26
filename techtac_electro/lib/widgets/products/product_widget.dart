@@ -7,7 +7,13 @@ import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 
 class ProductWidget extends StatefulWidget {
-  const ProductWidget({super.key});
+  const ProductWidget({
+    super.key,
+    this.image,
+    this.title,
+    this.price,
+  });
+  final String? image, title, price;
 
   @override
   State<ProductWidget> createState() => _ProductWidgetState();
@@ -28,7 +34,7 @@ class _ProductWidgetState extends State<ProductWidget> {
             ClipRRect(
               borderRadius: BorderRadius.circular(30.0),
               child: FancyShimmerImage(
-                imageUrl: AppConstants.productImageUrl,
+                imageUrl: widget.image ?? AppConstants.productImageUrl,
                 width: double.infinity,
                 height: size.height * 0.22,
               ),
@@ -41,7 +47,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                 Flexible(
                   flex: 5,
                   child: TitlesTextWidget(
-                    label: "Title " * 10,
+                    label: widget.title ?? "Title " * 10,
                     maxLines: 2,
                     fontSize: 18,
                   ),
@@ -60,9 +66,10 @@ class _ProductWidgetState extends State<ProductWidget> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Flexible(
+                  Flexible(
                     flex: 3,
-                    child: SubtitleTextWidget(label: "166.5\$"),
+                    child: SubtitleTextWidget(
+                        label: "${widget.price}" ?? "166.5\$"),
                   ),
                   Flexible(
                     child: Material(

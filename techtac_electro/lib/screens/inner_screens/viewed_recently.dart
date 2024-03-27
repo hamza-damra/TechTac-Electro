@@ -42,7 +42,9 @@ class ViewedRecentlyScreen extends StatelessWidget {
             body: DynamicHeightGridView(
               itemCount: 220,
               builder: ((context, index) {
-                return const ProductWidget();
+                return const ProductWidget(
+                  productId: "",
+                );
               }),
               crossAxisCount: 2,
             ),

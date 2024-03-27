@@ -1,7 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:techtac_electro/models/product_model.dart';
+import 'package:techtac_electro/provider/product_provider.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 
 import '../services/assets_manager.dart';
@@ -33,6 +35,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final productProvider = Provider.of<ProductProvider>(context);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -80,12 +83,11 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
                 Expanded(
                   child: DynamicHeightGridView(
-                    itemCount: ProductModel.localProds.length,
+                    itemCount: productProvider.getProducts.length,
                     builder: ((context, index) {
-                      return ProductWidget(
-                        image: ProductModel.localProds[index].productImage,
-                        price: ProductModel.localProds[index].productPrice,
-                        title: ProductModel.localProds[index].productTitle,
+                      return ChangeNotifierProvider.value(
+                        value: productProvider.getProducts[index],
+                        child: const ProductWidget(),
                       );
                     }),
                     crossAxisCount: 2,

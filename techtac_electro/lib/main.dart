@@ -8,6 +8,7 @@ import 'package:techtac_electro/screens/auth/register.dart';
 import 'package:techtac_electro/screens/inner_screens/orders/orders_screen.dart';
 import 'package:techtac_electro/screens/inner_screens/viewed_recently.dart';
 import 'package:techtac_electro/screens/root_screen.dart';
+import 'package:techtac_electro/screens/search_screen.dart';
 import 'consts/theme_data.dart';
 import 'screens/inner_screens/product_details.dart';
 import 'screens/inner_screens/wishlist.dart';
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
             OrdersScreenFree.routeName: (context) => const OrdersScreenFree(),
             ForgotPasswordScreen.routeName: (context) =>
                 const ForgotPasswordScreen(),
+            SearchScreen.routName: (context) => const SearchScreen(),
           },
         );
       }),

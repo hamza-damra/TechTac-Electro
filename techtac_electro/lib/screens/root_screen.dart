@@ -16,63 +16,68 @@ class RootScreen extends StatefulWidget {
 }
 
 class _RootScreenState extends State<RootScreen> {
-  int _selectedIndex = 0;
-  final List _pages = [
+  late PageController controller;
+  int currentScreen = 0;
+  List<Widget> screens = [
     const HomeScreen(),
     const SearchScreen(),
     const CartScreen(),
-    const ProfileScreen(),
+    const ProfileScreen()
   ];
-  void _selectedPage(int index) {
-    //to choose the page
-    setState(() {
-      _selectedIndex = index;
-    });
+  @override
+  void initState() {
+    super.initState();
+    controller = PageController(
+      initialPage: currentScreen,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context);
-    final themeState = Provider.of<ThemeProvider>(context);
-    bool isDark = themeState.getIsDarkTheme;
-
     return Scaffold(
-      body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: isDark ? Theme.of(context).cardColor : Colors.white,
-          type: BottomNavigationBarType.fixed,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          currentIndex: _selectedIndex,
-          unselectedItemColor: isDark ? Colors.white10 : Colors.black12,
-          selectedItemColor: isDark ? Colors.lightBlue[200] : Colors.black87,
-          onTap: _selectedPage,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(
-                  _selectedIndex == 0 ? IconlyBold.home : IconlyLight.home),
-              label: "Home",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                  _selectedIndex == 1 ? IconlyBold.search : IconlyLight.search),
-              label: "Categories",
-            ),
-            BottomNavigationBarItem(
-              icon: Badge(
-                  label: Text(cartProvider.getCartItems.length.toString()),
-                  child: Icon(_selectedIndex == 2
-                      ? IconlyBold.bag2
-                      : IconlyLight.bag2)),
-              label: "Cart",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(_selectedIndex == 3
-                  ? IconlyBold.profile
-                  : IconlyLight.profile),
-              label: "Profile",
-            ),
-          ]),
+      body: PageView(
+        controller: controller,
+        physics: const NeverScrollableScrollPhysics(),
+        children: screens,
+      ),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: currentScreen,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        elevation: 2,
+        height: kBottomNavigationBarHeight,
+        onDestinationSelected: (index) {
+          setState(() {
+            currentScreen = index;
+          });
+          controller.jumpToPage(currentScreen);
+        },
+        destinations: [
+          const NavigationDestination(
+            selectedIcon: Icon(IconlyBold.home),
+            icon: Icon(IconlyLight.home),
+            label: "Home",
+          ),
+          const NavigationDestination(
+            selectedIcon: Icon(IconlyBold.search),
+            icon: Icon(IconlyLight.search),
+            label: "Search",
+          ),
+          NavigationDestination(
+            selectedIcon: const Icon(IconlyBold.bag2),
+            icon: Badge(
+                backgroundColor: Colors.blue,
+                label: Text(cartProvider.getCartItems.length.toString()),
+                child: const Icon(IconlyLight.bag2)),
+            label: "Cart",
+          ),
+          const NavigationDestination(
+            selectedIcon: Icon(IconlyBold.profile),
+            icon: Icon(IconlyLight.profile),
+            label: "Profile",
+          ),
+        ],
+      ),
     );
   }
 }

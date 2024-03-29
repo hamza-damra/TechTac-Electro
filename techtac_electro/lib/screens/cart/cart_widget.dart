@@ -59,12 +59,13 @@ class CartWidget extends StatelessWidget {
                                       color: Colors.red,
                                     ),
                                   ),
-                                  const HeartButtonWidget(),
+                                  const HeartButtonWidget()
                                 ],
                               ),
                             ],
                           ),
                           Row(
+                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               SubtitleTextWidget(
                                 label: "${getCurrProduct.productPrice}\$",
@@ -75,7 +76,8 @@ class CartWidget extends StatelessWidget {
                               OutlinedButton.icon(
                                 style: OutlinedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30)),
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
                                   side: const BorderSide(
                                     width: 2,
                                     color: Colors.blue,
@@ -87,8 +89,8 @@ class CartWidget extends StatelessWidget {
                                         .scaffoldBackgroundColor,
                                     shape: const RoundedRectangleBorder(
                                       borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(16),
-                                        topRight: Radius.circular(16),
+                                        topLeft: Radius.circular(16.0),
+                                        topRight: Radius.circular(16.0),
                                       ),
                                     ),
                                     context: context,

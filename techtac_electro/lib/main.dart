@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:techtac_electro/provider/cart_provider.dart';
 import 'package:techtac_electro/provider/dark_theme_provider.dart';
 import 'package:techtac_electro/provider/product_provider.dart';
 import 'package:techtac_electro/screens/auth/forgot_password.dart';
@@ -32,6 +33,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => ProductProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => CartProvider(),
+        )
       ],
       child: Consumer<ThemeProvider>(builder: (
         context,
@@ -39,6 +43,7 @@ class MyApp extends StatelessWidget {
         child,
       ) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'Shop Smart AR',
           theme: Styles.themeData(
               isDarkTheme: themeProvider.getIsDarkTheme, context: context),

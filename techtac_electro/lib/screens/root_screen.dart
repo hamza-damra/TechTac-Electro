@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
+import 'package:techtac_electro/provider/cart_provider.dart';
 import 'package:techtac_electro/provider/dark_theme_provider.dart';
 import 'package:techtac_electro/screens/cart/cart_screen.dart';
 import 'package:techtac_electro/screens/search_screen.dart';
@@ -31,6 +32,7 @@ class _RootScreenState extends State<RootScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
     final themeState = Provider.of<ThemeProvider>(context);
     bool isDark = themeState.getIsDarkTheme;
 
@@ -58,7 +60,7 @@ class _RootScreenState extends State<RootScreen> {
             ),
             BottomNavigationBarItem(
               icon: Badge(
-                  label: const Text("6"),
+                  label: Text(cartProvider.getCartItems.length.toString()),
                   child: Icon(_selectedIndex == 2
                       ? IconlyBold.bag2
                       : IconlyLight.bag2)),

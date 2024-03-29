@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:techtac_electro/provider/cart_provider.dart';
 import 'package:techtac_electro/screens/cart/bottom_checkout.dart';
 import 'package:techtac_electro/screens/cart/cart_widget.dart';
 import 'package:techtac_electro/services/assets_manager.dart';
 import 'package:techtac_electro/widgets/empty_bag.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 
+
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
   final bool isEmpty = false;
   @override
   Widget build(BuildContext context) {
-    return isEmpty
+    final cartProvider = Provider.of<CartProvider>(context);
+    return cartProvider.getCartItems.isEmpty
         ? Scaffold(
             body: EmptyBagWidget(
               imagePath: AssetsManager.shoppingBasket,
@@ -23,7 +27,8 @@ class CartScreen extends StatelessWidget {
         : Scaffold(
             bottomSheet: const CartBottomCheckout(),
             appBar: AppBar(
-              title: const TitlesTextWidget(label: "Cart (5)"),
+              title: TitlesTextWidget(
+                  label: "Cart (${cartProvider.getCartItems.length})"),
               leading: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Image.asset(AssetsManager.shoppingCart),
@@ -39,9 +44,12 @@ class CartScreen extends StatelessWidget {
               ],
             ),
             body: ListView.builder(
-              itemCount: 15,
+              itemCount: cartProvider.getCartItems.length,
               itemBuilder: (context, index) {
-                return const CartWidget();
+                return ChangeNotifierProvider.value(
+                  value: cartProvider.getCartItems.values.toList()[index],
+                  child: const CartWidget(),
+                );
               },
             ),
           );

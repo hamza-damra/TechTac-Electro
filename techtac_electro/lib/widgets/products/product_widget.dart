@@ -1,8 +1,6 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:techtac_electro/consts/app_constants.dart';
-import 'package:techtac_electro/models/product_model.dart';
 import 'package:techtac_electro/provider/cart_provider.dart';
 import 'package:techtac_electro/provider/product_provider.dart';
 import 'package:techtac_electro/screens/inner_screens/product_details.dart';
@@ -15,6 +13,7 @@ class ProductWidget extends StatefulWidget {
     super.key,
     required this.productId,
   });
+
   final String productId;
   @override
   State<ProductWidget> createState() => _ProductWidgetState();
@@ -23,13 +22,14 @@ class ProductWidget extends StatefulWidget {
 class _ProductWidgetState extends State<ProductWidget> {
   @override
   Widget build(BuildContext context) {
-    //final productModelProvider = Provider.of<ProductModel>(context);
+    // final productModelProvider = Provider.of<ProductModel>(context);
     final productProvider = Provider.of<ProductProvider>(context);
     final getCurrProduct = productProvider.findByProdId(widget.productId);
     final cartProvider = Provider.of<CartProvider>(context);
+
     Size size = MediaQuery.of(context).size;
     return getCurrProduct == null
-        ? SizedBox.shrink()
+        ? const SizedBox.shrink()
         : Padding(
             padding: const EdgeInsets.all(3.0),
             child: GestureDetector(
@@ -51,7 +51,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                     ),
                   ),
                   const SizedBox(
-                    height: 15,
+                    height: 15.0,
                   ),
                   Row(
                     children: [
@@ -70,7 +70,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                     ],
                   ),
                   const SizedBox(
-                    height: 15,
+                    height: 15.0,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -91,17 +91,17 @@ class _ProductWidgetState extends State<ProductWidget> {
                               splashColor: Colors.red,
                               borderRadius: BorderRadius.circular(16.0),
                               onTap: () {
-                                if (cartProvider.isProductInCard(
+                                if (cartProvider.isProductInCart(
                                     productId: getCurrProduct.productId)) {
                                   return;
                                 }
-                                cartProvider.addProductsToCart(
+                                cartProvider.addProductToCart(
                                     productId: getCurrProduct.productId);
                               },
                               child: Padding(
-                                padding: EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(8.0),
                                 child: Icon(
-                                  cartProvider.isProductInCard(
+                                  cartProvider.isProductInCart(
                                           productId: getCurrProduct.productId)
                                       ? Icons.check
                                       : Icons.add_shopping_cart_rounded,
@@ -112,10 +112,9 @@ class _ProductWidgetState extends State<ProductWidget> {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          //change
-                          width: 1,
-                        ),
+                        // SizedBox(
+                        //   width: 1,
+                        // ),
                       ],
                     ),
                   ),

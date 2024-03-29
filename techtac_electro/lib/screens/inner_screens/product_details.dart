@@ -1,7 +1,6 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:techtac_electro/consts/app_constants.dart';
 import 'package:techtac_electro/provider/product_provider.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 import '../../widgets/app_name_text.dart';

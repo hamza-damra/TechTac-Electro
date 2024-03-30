@@ -7,7 +7,6 @@ import 'package:techtac_electro/services/assets_manager.dart';
 import 'package:techtac_electro/widgets/empty_bag.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 
-
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
   final bool isEmpty = false;
@@ -43,6 +42,14 @@ class CartScreen extends StatelessWidget {
                 ),
               ],
             ),
+            body: ListView.builder(
+              itemCount: cartProvider.getCartItems.length,
+              itemBuilder: (context, index) {
+                return ChangeNotifierProvider.value(
+                  value: cartProvider.getCartItems.values.toList()[index],
+                  child: const CartWidget(),
+                );
+              },
             body: Column(
               children: [
                 Expanded(
@@ -67,3 +74,4 @@ class CartScreen extends StatelessWidget {
           );
   }
 }
+

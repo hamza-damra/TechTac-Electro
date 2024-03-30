@@ -1,6 +1,8 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:techtac_electro/consts/app_constants.dart';
+import 'package:techtac_electro/models/product_model.dart';
 import 'package:techtac_electro/screens/inner_screens/product_details.dart';
 import 'package:techtac_electro/widgets/products/heart_btn.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
@@ -11,6 +13,7 @@ class LatestArrivalProductWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final productModel = Provider.of<ProductModel>(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
@@ -26,7 +29,7 @@ class LatestArrivalProductWidget extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: FancyShimmerImage(
-                    imageUrl: AppConstants.productImageUrl,
+                    imageUrl: productModel.productImage,
                     width: double.infinity,
                     height: size.height * 0.28,
                   ),
@@ -38,7 +41,7 @@ class LatestArrivalProductWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Title " * 10,
+                      productModel.productTitle,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                     ),
@@ -56,9 +59,9 @@ class LatestArrivalProductWidget extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const FittedBox(
+                    FittedBox(
                       child: SubtitleTextWidget(
-                        label: "166.5\$",
+                        label: "${productModel.productPrice}\$",
                         color: Colors.blue,
                       ),
                     ),

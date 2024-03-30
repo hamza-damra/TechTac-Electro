@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:techtac_electro/models/cart_model.dart';
+import 'package:techtac_electro/provider/cart_provider.dart';
 import 'package:techtac_electro/provider/product_provider.dart';
 import 'package:techtac_electro/screens/cart/quanity_bottom_sheet.dart';
 import 'package:techtac_electro/widgets/products/heart_btn.dart';
@@ -16,6 +17,8 @@ class CartWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartModelProvider = Provider.of<CartModel>(context);
     final productProvider = Provider.of<ProductProvider>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
+
     final getCurrProduct =
         productProvider.findByProdId(cartModelProvider.productId);
     Size size = MediaQuery.of(context).size;
@@ -53,7 +56,10 @@ class CartWidget extends StatelessWidget {
                               Column(
                                 children: [
                                   IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      cartProvider.removeOneItem(
+                                          productID: getCurrProduct.productId);
+                                    },
                                     icon: const Icon(
                                       Icons.clear,
                                       color: Colors.red,

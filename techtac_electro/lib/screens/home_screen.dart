@@ -1,6 +1,8 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:techtac_electro/consts/app_constants.dart';
+import 'package:techtac_electro/provider/product_provider.dart';
 import 'package:techtac_electro/screens/cart/ctg_rounded_widget.dart';
 import 'package:techtac_electro/services/assets_manager.dart';
 import 'package:techtac_electro/widgets/app_name_text.dart';
@@ -18,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final productProvider = Provider.of<ProductProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -72,7 +75,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     scrollDirection: Axis.horizontal,
                     itemCount: 10,
                     itemBuilder: (context, index) {
-                      return const LatestArrivalProductWidget();
+                      return ChangeNotifierProvider.value(
+                          value: productProvider.getProducts[index],
+                          child: const LatestArrivalProductWidget());
                     }),
               ),
               const SizedBox(

@@ -4,6 +4,7 @@ import 'package:techtac_electro/provider/cart_provider.dart';
 import 'package:techtac_electro/screens/cart/bottom_checkout.dart';
 import 'package:techtac_electro/screens/cart/cart_widget.dart';
 import 'package:techtac_electro/services/assets_manager.dart';
+import 'package:techtac_electro/services/my_app_method.dart';
 import 'package:techtac_electro/widgets/empty_bag.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 
@@ -34,7 +35,16 @@ class CartScreen extends StatelessWidget {
               ),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    MyAppMethods.showErrorORWarningDialog(
+                      isError: false,
+                      context: context,
+                      subtitle: "Remove Items",
+                      fct: () {
+                        cartProvider.clearLocalCart();
+                      },
+                    );
+                  },
                   icon: const Icon(
                     Icons.delete_forever_rounded,
                     color: Colors.red,
@@ -42,14 +52,6 @@ class CartScreen extends StatelessWidget {
                 ),
               ],
             ),
-            body: ListView.builder(
-              itemCount: cartProvider.getCartItems.length,
-              itemBuilder: (context, index) {
-                return ChangeNotifierProvider.value(
-                  value: cartProvider.getCartItems.values.toList()[index],
-                  child: const CartWidget(),
-                );
-              },
             body: Column(
               children: [
                 Expanded(
@@ -74,4 +76,3 @@ class CartScreen extends StatelessWidget {
           );
   }
 }
-

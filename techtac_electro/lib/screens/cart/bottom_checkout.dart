@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:techtac_electro/provider/cart_provider.dart';
+import 'package:techtac_electro/provider/product_provider.dart';
+import 'package:techtac_electro/provider/product_provider.dart';
+import 'package:techtac_electro/provider/product_provider.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 
@@ -7,6 +12,8 @@ class CartBottomCheckout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final productProvider = Provider.of<ProductProvider>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
@@ -21,15 +28,16 @@ class CartBottomCheckout extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Flexible(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              Flexible(
+                child: ListView(
                   children: [
-                    FittedBox(
-                        child: TitlesTextWidget(
-                            label: "Total (6 products/6 Items)")),
+                    TitlesTextWidget(
+                        fontSize: 17,
+                        label:
+                            "Total (${cartProvider.getCartItems.length} products/${cartProvider.getQty()})"),
                     SubtitleTextWidget(
-                      label: "16.99\$",
+                      label:
+                          "${cartProvider.getTotal(productProvider: productProvider)}\$",
                       color: Colors.blue,
                     ),
                   ],

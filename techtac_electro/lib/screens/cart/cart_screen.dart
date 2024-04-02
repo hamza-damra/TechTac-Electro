@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:techtac_electro/provider/cart_provider.dart';
-import 'package:techtac_electro/screens/cart/bottom_checkout.dart';
 import 'package:techtac_electro/screens/cart/cart_widget.dart';
 import 'package:techtac_electro/services/assets_manager.dart';
 import 'package:techtac_electro/services/my_app_method.dart';
 import 'package:techtac_electro/widgets/empty_bag.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
+import 'bottom_checkout.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -37,13 +37,12 @@ class CartScreen extends StatelessWidget {
                 IconButton(
                   onPressed: () {
                     MyAppMethods.showErrorORWarningDialog(
-                      isError: false,
-                      context: context,
-                      subtitle: "Remove Items",
-                      fct: () {
-                        cartProvider.clearLocalCart();
-                      },
-                    );
+                        isError: false,
+                        context: context,
+                        subtitle: "Remove items",
+                        fct: () {
+                          cartProvider.clearLocalCart();
+                        });
                   },
                   icon: const Icon(
                     Icons.delete_forever_rounded,

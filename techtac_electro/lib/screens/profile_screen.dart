@@ -6,7 +6,6 @@ import 'package:techtac_electro/screens/auth/login.dart';
 import 'package:techtac_electro/screens/inner_screens/orders/orders_screen.dart';
 import 'package:techtac_electro/screens/inner_screens/viewed_recently.dart';
 import 'package:techtac_electro/screens/inner_screens/wishlist.dart';
-import 'package:techtac_electro/services/my_app_method.dart';
 import 'package:techtac_electro/widgets/app_name_text.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';

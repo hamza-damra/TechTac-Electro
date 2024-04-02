@@ -1,18 +1,20 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:techtac_electro/provider/viewed_prod_provider.dart';
 import 'package:techtac_electro/services/assets_manager.dart';
 import 'package:techtac_electro/widgets/empty_bag.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
-
 import '../../widgets/products/product_widget.dart';
 
 class ViewedRecentlyScreen extends StatelessWidget {
   static const routName = '/ViewedRecentlyScreen';
   const ViewedRecentlyScreen({super.key});
-  final bool isEmpty = false;
+
   @override
   Widget build(BuildContext context) {
-    return isEmpty
+    final viewedProvider = Provider.of<ViewedProdProvider>(context);
+    return viewedProvider.getviewedProdItems.isEmpty
         ? Scaffold(
             body: EmptyBagWidget(
               imagePath: AssetsManager.shoppingBasket,
@@ -24,7 +26,9 @@ class ViewedRecentlyScreen extends StatelessWidget {
           )
         : Scaffold(
             appBar: AppBar(
-              title: const TitlesTextWidget(label: "Viewed recently (5)"),
+              title: TitlesTextWidget(
+                  label:
+                      "Viewed recently (${viewedProvider.getviewedProdItems.length})"),
               leading: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Image.asset(AssetsManager.shoppingCart),
@@ -40,10 +44,15 @@ class ViewedRecentlyScreen extends StatelessWidget {
               ],
             ),
             body: DynamicHeightGridView(
-              itemCount: 220,
+              itemCount: viewedProvider.getviewedProdItems.length,
               builder: ((context, index) {
-                return const ProductWidget(
-                  productId: "",
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ProductWidget(
+                    productId: viewedProvider.getviewedProdItems.values
+                        .toList()[index]
+                        .productId,
+                  ),
                 );
               }),
               crossAxisCount: 2,

@@ -1,24 +1,31 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:techtac_electro/consts/app_constants.dart';
-import 'package:techtac_electro/models/product_model.dart';
-import 'package:techtac_electro/screens/inner_screens/product_details.dart';
-import 'package:techtac_electro/widgets/products/heart_btn.dart';
+import 'package:techtac_electro/provider/viewed_prod_provider.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
+import '../../models/product_model.dart';
+import '../../screens/inner_screens/product_details.dart';
+import 'heart_btn.dart';
 
-class LatestArrivalProductWidget extends StatelessWidget {
-  const LatestArrivalProductWidget({super.key});
+class LatestArrivalProductsWidget extends StatelessWidget {
+  const LatestArrivalProductsWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final productModel = Provider.of<ProductModel>(context);
+    final productsModel = Provider.of<ProductModel>(context);
+    final viewedProvider = Provider.of<ViewedProdProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () async {
-          await Navigator.pushNamed(context, ProductDetails.routName);
+          viewedProvider.addProductToHistory(
+              productId: productsModel.productId);
+          await Navigator.pushNamed(
+            context,
+            ProductDetails.routName,
+            arguments: productsModel.productId,
+          );
         },
         child: SizedBox(
           width: size.width * 0.45,
@@ -29,26 +36,28 @@ class LatestArrivalProductWidget extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: FancyShimmerImage(
-                    imageUrl: productModel.productImage,
-                    width: double.infinity,
-                    height: size.height * 0.28,
+                    imageUrl: productsModel.productImage,
+                    width: size.width * 0.28,
+                    height: size.width * 0.28,
                   ),
                 ),
               ),
-              const SizedBox(width: 7),
+              const SizedBox(
+                width: 7,
+              ),
               Flexible(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      productModel.productTitle,
-                      overflow: TextOverflow.ellipsis,
+                      productsModel.productTitle,
                       maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     FittedBox(
                       child: Row(
                         children: [
-                          const HeartButtonWidget(),
+                          HeartButtonWidget(productId: productsModel.productId),
                           IconButton(
                             onPressed: () {},
                             icon: const Icon(
@@ -61,7 +70,7 @@ class LatestArrivalProductWidget extends StatelessWidget {
                     ),
                     FittedBox(
                       child: SubtitleTextWidget(
-                        label: "${productModel.productPrice}\$",
+                        label: "${productsModel.productPrice}\$",
                         color: Colors.blue,
                       ),
                     ),

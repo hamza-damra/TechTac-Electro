@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:techtac_electro/provider/cart_provider.dart';
 import 'package:techtac_electro/provider/product_provider.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
+
+
 import '../../widgets/app_name_text.dart';
 import '../../widgets/products/heart_btn.dart';
 import '../../widgets/subtitle_text.dart';
@@ -20,12 +22,12 @@ class _ProductDetailsState extends State<ProductDetails> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     final productProvider =
         Provider.of<ProductProvider>(context, listen: false);
     final productId = ModalRoute.of(context)!.settings.arguments as String;
     final getCurrProduct = productProvider.findByProdId(productId);
     final cartProvider = Provider.of<CartProvider>(context);
-
     return Scaffold(
       appBar: AppBar(
         title: const AppNameTextWidget(fontSize: 20),
@@ -91,6 +93,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               HeartButtonWidget(
+                                productId: getCurrProduct.productId,
                                 color: Colors.blue.shade300,
                               ),
                               const SizedBox(
@@ -128,7 +131,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                       cartProvider.isProductInCart(
                                               productId:
                                                   getCurrProduct.productId)
-                                          ? "In Cart"
+                                          ? "In cart"
                                           : "Add to cart",
                                     ),
                                   ),
@@ -143,7 +146,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            TitlesTextWidget(label: "About this item"),
+                            const TitlesTextWidget(label: "About this item"),
                             SubtitleTextWidget(
                                 label: "In ${getCurrProduct.productCategory}")
                           ],
@@ -152,7 +155,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                           height: 25,
                         ),
                         SubtitleTextWidget(
-                            label: getCurrProduct.productDescription),
+                          label: getCurrProduct.productDescription,
+                        ),
                       ],
                     ),
                   )

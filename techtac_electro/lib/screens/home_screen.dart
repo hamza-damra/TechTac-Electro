@@ -4,19 +4,14 @@ import 'package:provider/provider.dart';
 import 'package:techtac_electro/consts/app_constants.dart';
 import 'package:techtac_electro/provider/product_provider.dart';
 import 'package:techtac_electro/screens/cart/ctg_rounded_widget.dart';
-import 'package:techtac_electro/services/assets_manager.dart';
-import 'package:techtac_electro/widgets/app_name_text.dart';
 import 'package:techtac_electro/widgets/products/latest_arrival.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
+import '../services/assets_manager.dart';
+import '../widgets/app_name_text.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -24,9 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const AppNameTextWidget(
-          fontSize: 20,
-        ),
+        title: const AppNameTextWidget(fontSize: 20),
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Image.asset(AssetsManager.shoppingCart),
@@ -37,14 +30,11 @@ class _HomeScreenState extends State<HomeScreen> {
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            // mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 height: size.height * 0.24,
                 child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(12.0),
-                    topRight: Radius.circular(12.0),
-                  ),
                   child: Swiper(
                     itemBuilder: (BuildContext context, int index) {
                       return Image.asset(
@@ -55,9 +45,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     autoplay: true,
                     itemCount: AppConstants.bannersImages.length,
                     pagination: const SwiperPagination(
-                        alignment: Alignment.bottomCenter,
-                        builder: DotSwiperPaginationBuilder(
-                            color: Colors.white, activeColor: Colors.red)),
+                      alignment: Alignment.bottomCenter,
+                      builder: DotSwiperPaginationBuilder(
+                        color: Colors.white,
+                        activeColor: Colors.red,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -68,7 +61,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 label: "Latest arrival",
                 fontSize: 22,
               ),
-              const SizedBox(height: 18),
+              const SizedBox(
+                height: 18,
+              ),
               SizedBox(
                 height: size.height * 0.2,
                 child: ListView.builder(
@@ -77,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemBuilder: (context, index) {
                       return ChangeNotifierProvider.value(
                           value: productProvider.getProducts[index],
-                          child: const LatestArrivalProductWidget());
+                          child: const LatestArrivalProductsWidget());
                     }),
               ),
               const SizedBox(
@@ -87,21 +82,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 label: "Categories",
                 fontSize: 22,
               ),
-              const SizedBox(height: 18),
+              const SizedBox(
+                height: 18,
+              ),
               GridView.count(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: 4,
-                children: List.generate(
-                  AppConstants.categoriesList.length,
-                  (index) {
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  crossAxisCount: 4,
+                  children: List.generate(AppConstants.categoriesList.length,
+                      (index) {
                     return CategoryRoundedWidget(
                       image: AppConstants.categoriesList[index].image,
                       name: AppConstants.categoriesList[index].name,
                     );
-                  },
-                ),
-              ),
+                  }))
             ],
           ),
         ),

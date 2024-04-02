@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:techtac_electro/provider/cart_provider.dart';
 import 'package:techtac_electro/provider/dark_theme_provider.dart';
 import 'package:techtac_electro/provider/product_provider.dart';
+import 'package:techtac_electro/provider/viewed_prod_provider.dart';
+import 'package:techtac_electro/provider/wishlist_provider.dart';
 import 'package:techtac_electro/screens/auth/forgot_password.dart';
 import 'package:techtac_electro/screens/auth/login.dart';
 import 'package:techtac_electro/screens/auth/register.dart';
@@ -35,7 +37,13 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => CartProvider(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (_) => WishlistProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ViewedProdProvider()
+          )
       ],
       child: Consumer<ThemeProvider>(builder: (
         context,

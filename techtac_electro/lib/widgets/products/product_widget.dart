@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:techtac_electro/provider/cart_provider.dart';
 import 'package:techtac_electro/provider/product_provider.dart';
+import 'package:techtac_electro/provider/viewed_prod_provider.dart';
 import 'package:techtac_electro/screens/inner_screens/product_details.dart';
-import 'package:techtac_electro/widgets/products/heart_btn.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
+
+import 'heart_btn.dart';
 
 class ProductWidget extends StatefulWidget {
   const ProductWidget({
@@ -27,6 +29,7 @@ class _ProductWidgetState extends State<ProductWidget> {
     final getCurrProduct = productProvider.findByProdId(widget.productId);
     final cartProvider = Provider.of<CartProvider>(context);
 
+    final viewedProvider = Provider.of<ViewedProdProvider>(context);
     Size size = MediaQuery.of(context).size;
     return getCurrProduct == null
         ? const SizedBox.shrink()
@@ -34,6 +37,8 @@ class _ProductWidgetState extends State<ProductWidget> {
             padding: const EdgeInsets.all(3.0),
             child: GestureDetector(
               onTap: () async {
+                viewedProvider.addProductToHistory(
+                    productId: getCurrProduct.productId);
                 await Navigator.pushNamed(
                   context,
                   ProductDetails.routName,
@@ -63,9 +68,10 @@ class _ProductWidgetState extends State<ProductWidget> {
                           fontSize: 18,
                         ),
                       ),
-                      const Flexible(
+                      Flexible(
                         flex: 2,
-                        child: HeartButtonWidget(),
+                        child: HeartButtonWidget(
+                            productId: getCurrProduct.productId),
                       ),
                     ],
                   ),

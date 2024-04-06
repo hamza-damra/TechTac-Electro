@@ -19,20 +19,22 @@ class CategoryRoundedWidget extends StatelessWidget {
           arguments: name,
         );
       },
-      child: Column(
-        children: [
-          Image.asset(
-            image,
-            height: 50,
-            width: 50,
-          ),
-          const SizedBox(height: 15),
-          SubtitleTextWidget(
-            label: name,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Image.asset(
+              image,
+              height: 50,
+              width: 50,
+            ),
+            const SizedBox(height: 15),
+            SubtitleTextWidget(
+              label: name,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ],
+        ),
       ),
     );
   }

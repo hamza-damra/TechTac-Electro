@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "542912087664",
+    "project_id": "techtacelectro",
+    "storage_bucket": "techtacelectro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542912087664:android:dbc5eaa77b253a274e16b5",
+        "android_client_info": {
+          "package_name": "com.example.techtac_electro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCafT4k49z1hH0KYgTklSj0Cw7RoqsGgL4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

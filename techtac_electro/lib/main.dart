@@ -41,9 +41,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => WishlistProvider(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => ViewedProdProvider()
-          )
+        ChangeNotifierProvider(create: (_) => ViewedProdProvider())
       ],
       child: Consumer<ThemeProvider>(builder: (
         context,

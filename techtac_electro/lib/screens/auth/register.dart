@@ -4,6 +4,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:techtac_electro/consts/my_validators.dart';
+import 'package:techtac_electro/screens/root_screen.dart';
 import 'package:techtac_electro/services/my_app_method.dart';
 import 'package:techtac_electro/widgets/app_name_text.dart';
 import 'package:techtac_electro/widgets/auth/pick_image_widget.dart';
@@ -85,6 +86,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
           toastLength: Toast.LENGTH_SHORT,
           textColor: Colors.white,
         );
+        if (!mounted) return;
+
+        Navigator.pushReplacementNamed(context, RootScreen.routName);
       } on FirebaseAuthException catch (error) {
         await MyAppMethods.showErrorORWarningDialog(
           context: context,

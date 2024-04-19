@@ -78,20 +78,15 @@ class MyApp extends StatelessWidget {
                       context: context),
                   home: const RootScreen(),
                   routes: {
-                    ProductDetails.routName: (context) =>
-                        const ProductDetails(),
-                    WishlistScreen.routName: (context) =>
-                        const WishlistScreen(),
-                    ViewedRecentlyScreen.routName: (context) =>
-                        const ViewedRecentlyScreen(),
-                    RegisterScreen.routName: (context) =>
-                        const RegisterScreen(),
+                    ProductDetails.routName: (context) =>         const ProductDetails(),
+                    WishlistScreen.routName: (context) => const WishlistScreen(),
+                    ViewedRecentlyScreen.routName: (context) => const ViewedRecentlyScreen(),
+                    RegisterScreen.routName: (context) => const RegisterScreen(),
                     LoginScreen.routName: (context) => const LoginScreen(),
-                    OrdersScreenFree.routeName: (context) =>
-                        const OrdersScreenFree(),
-                    ForgotPasswordScreen.routeName: (context) =>
-                        const ForgotPasswordScreen(),
+                    OrdersScreenFree.routeName: (context) => const OrdersScreenFree(),
+                    ForgotPasswordScreen.routeName: (context) =>  const ForgotPasswordScreen(),
                     SearchScreen.routName: (context) => const SearchScreen(),
+                    RootScreen.routName: (context) => const RootScreen(),
                   },
                 );
               },

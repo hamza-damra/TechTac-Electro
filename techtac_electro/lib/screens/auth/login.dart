@@ -1,8 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:techtac_electro/consts/my_validators.dart';
 import 'package:techtac_electro/screens/auth/forgot_password.dart';
 import 'package:techtac_electro/screens/auth/register.dart';
+import 'package:techtac_electro/screens/root_screen.dart';
+import 'package:techtac_electro/services/my_app_method.dart';
 import 'package:techtac_electro/widgets/app_name_text.dart';
 import 'package:techtac_electro/widgets/auth/google_btn.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
@@ -23,6 +27,9 @@ class _LoginScreenState extends State<LoginScreen> {
   late final FocusNode _passwordFocusNode;
   late final _formKey = GlobalKey<FormState>();
   bool obscureText = true;
+  bool _isLoading = false;
+
+  final auth = FirebaseAuth.instance;
   @override
   void initState() {
     _emailController = TextEditingController();
@@ -46,7 +53,44 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> _loginFct() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
-    if (isValid) {}
+
+    if (isValid) {
+      _formKey.currentState!.save();
+
+      try {
+        setState(() {
+          _isLoading = true;
+        });
+        await auth.signInWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+        Fluttertoast.showToast(
+          msg: "Login Successful",
+          toastLength: Toast.LENGTH_SHORT,
+          textColor: Colors.white,
+        );
+        if (!mounted) return;
+
+        Navigator.pushReplacementNamed(context, RootScreen.routName);
+      } on FirebaseAuthException catch (error) {
+        await MyAppMethods.showErrorORWarningDialog(
+          context: context,
+          subtitle: "An error has been occured ${error.message}",
+          fct: () {},
+        );
+      } catch (error) {
+        await MyAppMethods.showErrorORWarningDialog(
+          context: context,
+          subtitle: "An error has been occured $error",
+          fct: () {},
+        );
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
   }
 
   @override
@@ -140,8 +184,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
-                          onPressed: () async {
-                            await Navigator.pushNamed(
+                          onPressed: () {
+                            Navigator.pushNamed(
                                 context, ForgotPasswordScreen.routeName);
                           },
                           child: const SubtitleTextWidget(

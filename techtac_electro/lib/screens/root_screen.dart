@@ -8,6 +8,7 @@ import 'package:techtac_electro/screens/home_screen.dart';
 import 'package:techtac_electro/screens/profile_screen.dart';
 
 class RootScreen extends StatefulWidget {
+    static const routName = '/RootScreen';
   const RootScreen({super.key});
 
   @override

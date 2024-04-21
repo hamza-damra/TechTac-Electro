@@ -1,8 +1,49 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:techtac_electro/screens/root_screen.dart';
+import 'package:techtac_electro/services/my_app_method.dart';
 
 class GoogleButton extends StatelessWidget {
   const GoogleButton({super.key});
+
+  Future<void> _goolgeSignIn({required BuildContext context}) async {
+    final googleSignIn = GoogleSignIn();
+    final googleAccount = await googleSignIn.signIn();
+    if (googleAccount != null) {
+      final googleAuth = await googleAccount.authentication;
+      if (googleAuth.accessToken != null && googleAuth.idToken != null) {
+        try {
+          final authResults = await FirebaseAuth.instance
+              .signInWithCredential(GoogleAuthProvider.credential(
+            accessToken: googleAuth.accessToken,
+            idToken: googleAuth.idToken,
+          ));
+          WidgetsBinding.instance.addPostFrameCallback((_) async {
+            Navigator.pushReplacementNamed(context, RootScreen.routName);
+          });
+        } on FirebaseException catch (error) {
+          WidgetsBinding.instance.addPostFrameCallback((_) async {
+            await MyAppMethods.showErrorORWarningDialog(
+              context: context,
+              subtitle: "An error has been occured ${error.message}",
+              fct: () {},
+            );
+          });
+        } catch (error) {
+          WidgetsBinding.instance.addPostFrameCallback((_) async {
+            await MyAppMethods.showErrorORWarningDialog(
+              context: context,
+              subtitle: "An error has been occured $error",
+              fct: () {},
+            );
+          });
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +64,13 @@ class GoogleButton extends StatelessWidget {
       label: const Text(
         "Sign in with google",
         style: TextStyle(
-          fontSize: 16,
+          fontSize: 16.0,
+          color: Colors.black,
         ),
       ),
-      onPressed: () async {},
+      onPressed: () async {
+        await _goolgeSignIn(context: context);
+      },
     );
   }
 }

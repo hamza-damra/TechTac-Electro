@@ -1,6 +1,8 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:techtac_electro/screens/root_screen.dart';
@@ -8,7 +10,6 @@ import 'package:techtac_electro/services/my_app_method.dart';
 
 class GoogleButton extends StatelessWidget {
   const GoogleButton({super.key});
-
   Future<void> _goolgeSignIn({required BuildContext context}) async {
     final googleSignIn = GoogleSignIn();
     final googleAccount = await googleSignIn.signIn();
@@ -21,6 +22,21 @@ class GoogleButton extends StatelessWidget {
             accessToken: googleAuth.accessToken,
             idToken: googleAuth.idToken,
           ));
+          if (authResults.additionalUserInfo!.isNewUser) {
+            log("this function is called");
+            await FirebaseFirestore.instance
+                .collection("users")
+                .doc(authResults.user!.uid)
+                .set({
+              'userId': authResults.user!.uid,
+              'userName': authResults.user!.displayName,
+              'userImage': authResults.user!.photoURL,
+              'userEmail': authResults.user!.email,
+              'createdAt': Timestamp.now(),
+              'userWish': [],
+              'userCart': [],
+            });
+          }
           WidgetsBinding.instance.addPostFrameCallback((_) async {
             Navigator.pushReplacementNamed(context, RootScreen.routName);
           });
@@ -69,7 +85,7 @@ class GoogleButton extends StatelessWidget {
         ),
       ),
       onPressed: () async {
-        await _goolgeSignIn(context: context);
+        _goolgeSignIn(context: context);
       },
     );
   }

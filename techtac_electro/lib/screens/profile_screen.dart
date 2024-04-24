@@ -23,9 +23,11 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfileScreenState extends State<ProfileScreen>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   User? user = FirebaseAuth.instance.currentUser;
-
   bool _isLoading = true;
   UserModel? userModel;
 
@@ -36,6 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       });
       return;
     }
+
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
       userModel = await userProvider.fetchUserInfo();
@@ -60,6 +63,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
         appBar: AppBar(
@@ -218,10 +222,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       user == null ? "Login" : "Logout",
                     ),
                     onPressed: () async {
-                      await Navigator.pushNamed(
-                        context,
-                        LoginScreen.routName,
-                      );
+                      if (user == null) {
+                        await Navigator.pushNamed(
+                          context,
+                          LoginScreen.routName,
+                        );
+                      } else {
+                        await MyAppMethods.showErrorORWarningDialog(
+                          context: context,
+                          subtitle: "Are you sure?",
+                          fct: () async {
+                            await FirebaseAuth.instance.signOut();
+                            if (!mounted) return;
+                            await Navigator.pushNamed(
+                              context,
+                              LoginScreen.routName,
+                            );
+                          },
+                          isError: false,
+                        );
+                      }
                     },
                   ),
                 ),

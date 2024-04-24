@@ -274,7 +274,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                       ),
                                       onPressed: () async {
-                                        _loginFct();
+                                        Navigator.pushNamed(
+                                            context, RootScreen.routName);
                                       },
                                     ),
                                   ),

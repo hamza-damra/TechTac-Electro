@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:techtac_electro/provider/cart_provider.dart';
 import 'package:techtac_electro/provider/dark_theme_provider.dart';
 import 'package:techtac_electro/provider/product_provider.dart';
+import 'package:techtac_electro/provider/user_provier.dart';
 import 'package:techtac_electro/provider/viewed_prod_provider.dart';
 import 'package:techtac_electro/provider/wishlist_provider.dart';
 import 'package:techtac_electro/screens/auth/forgot_password.dart';
@@ -67,6 +68,7 @@ class MyApp extends StatelessWidget {
               ChangeNotifierProvider(create: (_) => CartProvider()),
               ChangeNotifierProvider(create: (_) => WishlistProvider()),
               ChangeNotifierProvider(create: (_) => ViewedProdProvider()),
+              ChangeNotifierProvider(create: (_) => UserProvider()),
             ],
             child: Consumer<ThemeProvider>(
               builder: (context, themeProvider, child) {
@@ -78,13 +80,19 @@ class MyApp extends StatelessWidget {
                       context: context),
                   home: const RootScreen(),
                   routes: {
-                    ProductDetails.routName: (context) =>         const ProductDetails(),
-                    WishlistScreen.routName: (context) => const WishlistScreen(),
-                    ViewedRecentlyScreen.routName: (context) => const ViewedRecentlyScreen(),
-                    RegisterScreen.routName: (context) => const RegisterScreen(),
+                    ProductDetails.routName: (context) =>
+                        const ProductDetails(),
+                    WishlistScreen.routName: (context) =>
+                        const WishlistScreen(),
+                    ViewedRecentlyScreen.routName: (context) =>
+                        const ViewedRecentlyScreen(),
+                    RegisterScreen.routName: (context) =>
+                        const RegisterScreen(),
                     LoginScreen.routName: (context) => const LoginScreen(),
-                    OrdersScreenFree.routeName: (context) => const OrdersScreenFree(),
-                    ForgotPasswordScreen.routeName: (context) =>  const ForgotPasswordScreen(),
+                    OrdersScreenFree.routeName: (context) =>
+                        const OrdersScreenFree(),
+                    ForgotPasswordScreen.routeName: (context) =>
+                        const ForgotPasswordScreen(),
                     SearchScreen.routName: (context) => const SearchScreen(),
                     RootScreen.routName: (context) => const RootScreen(),
                   },

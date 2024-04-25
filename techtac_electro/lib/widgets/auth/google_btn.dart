@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:techtac_electro/screens/root_screen.dart';
@@ -9,7 +8,6 @@ import 'package:techtac_electro/services/my_app_method.dart';
 
 class GoogleButton extends StatelessWidget {
   const GoogleButton({super.key});
-
   Future<void> _goolgeSignIn({required BuildContext context}) async {
     final googleSignIn = GoogleSignIn();
     final googleAccount = await googleSignIn.signIn();
@@ -85,7 +83,7 @@ class GoogleButton extends StatelessWidget {
         ),
       ),
       onPressed: () async {
-        await _goolgeSignIn(context: context);
+        _goolgeSignIn(context: context);
       },
     );
   }

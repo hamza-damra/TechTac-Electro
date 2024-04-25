@@ -27,6 +27,7 @@ void main() async {
       appId: "1:542912087664:android:dbc5eaa77b253a274e16b5",
       messagingSenderId: "542912087664",
       projectId: "techtacelectro",
+      storageBucket: "techtacelectro.appspot.com",
     ),
   );
   runApp(const MyApp());

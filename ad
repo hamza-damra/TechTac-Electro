@@ -1,0 +1,332 @@
+[33mcommit ede8822cb3a6c4f47b9fc7894cc33c32c06c82d5[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Mohammad Hirbawi <40454410+mohammadhirbawi@users.noreply.github.com>
+Date:   Fri Apr 19 03:25:10 2024 +0200
+
+    Allow the user to Register with error handling
+
+[33mcommit 623fcc8e00e620370ff4e091aae2934dabc7f7a2[m
+Merge: 539aaae 387341d
+Author: Mohammad Hirbawi <40454410+mohammadhirbawi@users.noreply.github.com>
+Date:   Sat Apr 6 20:50:57 2024 +0200
+
+    Merge branch 'main' of https://github.com/hamza-damra/TechTac-Electro
+
+[33mcommit 539aaaefcfd583ff0dc2c8aa4144f61198e28160[m
+Author: Mohammad Hirbawi <40454410+mohammadhirbawi@users.noreply.github.com>
+Date:   Sat Apr 6 20:48:00 2024 +0200
+
+    Connect the user app to the Firebase
+
+[33mcommit 387341de942c7359e0f56a9595e3fc9607c8c5c5[m
+Author: Abu_Saker <hamza.damra@students.alquds.edu>
+Date:   Wed Apr 3 18:01:17 2024 +0300
+
+    fixing overflow issue on ctg_rounded_widget.dart
+
+[33mcommit 1bd506abd55bc585b3e83e78388724c307922727[m
+Author: Abu_Saker <hamza.damra@students.alquds.edu>
+Date:   Tue Apr 2 03:12:03 2024 +0300
+
+    Implement the wishlist state management and finish the viewed recently product state management
+
+[33mcommit 79947417e0495ca23ed9a5f10bc41b8a7552f437[m
+Author: Mohammad Hirbawi <40454410+mohammadhirbawi@users.noreply.github.com>
+Date:   Sun Mar 31 01:44:15 2024 +0300
+
+     Displaying the latest arrival products
+
+[33mcommit 758c5a61fd7449da0bf5b909a09d54bfac3cfd7a[m
+Author: Mohammad Hirbawi <40454410+mohammadhirbawi@users.noreply.github.com>
+Date:   Sat Mar 30 23:51:05 2024 +0300
+
+    Finalize the Cart State Management allow the user to delete items clear cart
+
+[33mcommit 1d7c045c246162a10fcfb27bd1f1d42872e60d66[m
+Author: Abu_Saker <hamza.damra@students.alquds.edu>
+Date:   Fri Mar 29 23:46:19 2024 +0200
+
+    Allow the user to update Cart Item Quantity
+
+[33mcommit a2341a87c7dab10639a531e6fd7eaf3d291aad63[m
+Author: Abu_Saker <hamza.damra@students.alquds.edu>
+Date:   Fri Mar 29 23:06:07 2024 +0200
+
+    Fixing issues
+
+[33mcommit 465c43b4af23a8342b98ba7e6c91d26a2e454827[m
+Merge: 058ac8e bf7a0bb
+Author: Abu_Saker <hamza.damra@students.alquds.edu>
+Date:   Fri Mar 29 22:47:37 2024 +0200
+
+    Display the added product in the Cart
+
+[33mcommit 058ac8eb1e2303d48e761488bd03c827c832b767[m
+Author: Abu_Saker <hamza.damra@students.alquds.edu>
+Date:   Fri Mar 29 22:44:57 2024 +0200
+
+    Display the added product in the Cart
+
+[33mcommit bf7a0bbbf86520f67a5e06a88ac4c18a383aa141[m
+Author: Mohammad Hirbawi <40454410+mohammadhirbawi@users.noreply.github.com>
+Date:   Fri Mar 29 23:41:21 2024 +0300
+
+    Display the added product in the Cart
+
+[33mcommit d4d51254ebd8eecd918f78b231eb3cd7d4c05347[m
+Author: Mohammad Hirbawi <40454410+mohammadhirbawi@users.noreply.github.com>
+Date:   Fri Mar 29 21:16:01 2024 +0300
+
+    Start with the Cart State Management and allow the user to add to his Cart
+
+[33mcommit 8dfb7f3f061dfbd8250bdac712988fdc61901766[m
+Author: Mohammad Hirbawi <40454410+mohammadhirbawi@users.noreply.github.com>
+Date:   Thu Mar 28 01:31:00 2024 +0200
+
+    Allow the user to search for Products
+    + Allow the user to search for Products in Categories
+
+[33mcommit c9e3e743bd50be5d8cdbde461a37139a68c0af8b[m
+Author: Mohammad Hirbawi <40454410+mohammadhirbawi@users.noreply.github.com>
+Date:   Thu Mar 28 00:46:13 2024 +0200
+
+     Display products by Category
+
+[33mcommit 0c4e453457b577e07ebd8884ac0bc5ff1ebdcfa5[m
+Author: Mohammad Hirbawi <40454410+mohammadhirbawi@users.noreply.github.com>
+Date:   Thu Mar 28 00:26:13 2024 +0200
+
+    Display the correct product details in the Product Details Screen
+
+[33mcommit c4e6abff8b6cbc71cd6a7bf6eb5ee64d10207886[m
+Author: Mohammad Hirbawi <40454410+mohammadhirbawi@users.noreply.github.com>
+Date:   Thu Mar 28 00:10:25 2024 +0200
+
+    Display the products on the screen using a dynamic way
+
+[33mcommit 839cf524573bbeaca96558f5dd81e3173769ef45[m
+Author: Mohammad Hirbawi <40454410+mohammadhirbawi@users.noreply.github.com>
+Date:   Wed Mar 27 02:25:29 2024 +0200
+
+    some editing
+
+[33mcommit d2f68f4abdd6f26a0a486f002c7836c24120a453[m
+Author: Abu_Saker <hamza.damra@students.alquds.edu>
+Date:   Tue Mar 26 17:15:07 2024 +0200
+
+    Display the correct products using Provider State Management
+
+[33mcommit 18fbb6364ca8d3d227c775cf221f5a4e2555a17d[m
+Author: Mohammad Hirbawi <40454410+mohammadhirbawi@users.noreply.github.com>
+Date:   Tue Mar 26 02:28:32 2024 +0200
+
+     Display the correct products on the Search Screen
+
+[33mcommit 1c160bc035e7611f7801bee80f891ffc5ee47e56[m
+Author: Mohammad Hirbawi <40454410+mohammadhirbawi@users.noreply.github.com>
+Date:   Tue Mar 26 02:04:27 2024 +0200
+
+    Create the Product Model
+
+[33mcommit 42e6588d1d3b1cf181f5cc17d9c459e817a2f5ac[m
+Author: Mohammad Hirbawi <40454410+mohammadhirbawi@users.noreply.github.com>
+Date:   Mon Mar 25 02:41:37 2024 +0200
+
+    some editing
+
+[33mcommit 230e284aadb8db09cb9749391d76e0907b6c3dae[m
+Author: Abu_Saker <hamza.damra@students.alquds.edu>
+Date:   Sun Mar 24 00:11:54 2024 +0200
+
+    Implement the Forgot Password Screen and Test the App
+
+[33mcommit 879c1bce229bfad8a6c195d1a6d4b6e928bc3ad8[m
+Author: Abu_Saker <hamza.damra@students.alquds.edu>
+Date:   Sat Mar 23 23:59:10 2024 +0200
+
+    Implement the Orders screen
+
+[33mcommit b48bf231c8f89ed99d1960aac820e886f8ce0e92[m
+Author: Mohammad Hirbawi <40454410+mohammadhirbawi@users.noreply.github.com>
+Date:   Sat Mar 23 23:12:25 2024 +0200
+
+    Allow the user to pick up an image using Camera or Gallery
+
+[33mcommit d2ceaaa13156af8f856a218514af0da8f42711fd[m
+Author: Mohammad Hirbawi <40454410+mohammadhirbawi@users.noreply.github.com>
+Date:   Sat Mar 23 22:55:37 2024 +0200
+
+    Implement the Pick Image Dialog
+
+[33mcommit 1de985bd3cb00faa19a3bb72a429ce8d80ee6912[m
+Author: Mohammad Hirbawi <40454410+mohammadhirbawi@users.noreply.github.com>
+Date:   Sat Mar 23 22:39:26 2024 +0200
+
+    Implement the Profile Image Picker Widget
+
+[33mcommit 6dbbc24b2dbce40ab9d621833138fa89a936a016[m
+Author: Abu_Saker <hamza.damra@students.alquds.edu>
+Date:   Sat Mar 23 10:45:23 2024 +0200
+
+    Start Implementing the Register Screen
+
+[33mcommit 78007620062e53cc56ccfa4ab2c6a2ba6e6c18bc[m
+Author: Mohammad Hirbawi <40454410+mohammadhirbawi@users.noreply.github.com>
+Date:   Fri Mar 22 02:35:05 2024 +0200
+
+     Implement the Sign in with google button widget
+
+[33mcommit 5bbd18d16658254d03ed842cac8d9819935731b8[m
+Author: Mohammad Hirbawi <40454410+mohammadhirbawi@users.noreply.github.com>
+Date:   Fri Mar 22 02:00:47 2024 +0200
+
+    Implement the login screen design
+
+[33mcommit 65c1c370f8d7564a2b849937810d1e28a3b601c0[m
+Author: Mohammad Hirbawi <40454410+mohammadhirbawi@users.noreply.github.com>
+Date:   Thu Mar 21 17:18:57 2024 +0200
+
+    Implement the error & warning dialog
+
+[33mcommit 7c00bce7fae0e89ee793d72a6bce47b21d0cd384[m
+Author: Hamza Damra <hamza.damra@students.alquds.edu>
+Date:   Sun Mar 17 09:16:46 2024 +0200
+
+    some editing and implement the viewed recently screen
+
+[33mcommit ca126e93256cdfac31565d17939582c63d13cf11[m
+Author: mohammadhirbawi <woimn.2002@gmail.com>
+Date:   Sun Mar 17 02:44:07 2024 +0200
+
+    . Implement the wishlist screen
+
+[33mcommit 549d5c6183ad121721f67199c111063002e0130f[m
+Author: mohammadhirbawi <woimn.2002@gmail.com>
+Date:   Wed Mar 13 23:42:04 2024 +0200
+
+    Implement the product details screen
+
+[33mcommit c035dc16991c0da017d222da8890465622ab39a5[m
+Author: mohammadhirbawi <woimn.2002@gmail.com>
+Date:   Tue Mar 12 01:32:54 2024 +0200
+
+    Implement the Swiper in the Home Screen
+
+[33mcommit 7f870abfeb7e7376d10b6d219716eca8a2d3e43b[m
+Author: Hamza Damra <hamza.damra@students.alquds.edu>
+Date:   Tue Mar 12 00:05:11 2024 +0200
+
+    Finish implementing the search screen
+
+[33mcommit ea40ea74c8318c2407fde18422a8176f380c6b93[m
+Author: Hamza Damra <hamza.damra@students.alquds.edu>
+Date:   Mon Mar 11 23:41:46 2024 +0200
+
+    testing from hamza
+
+[33mcommit 7cbd6bab382a33a91c982d6c2c59964648ed0015[m
+Author: mohammadhirbawi <woimn.2002@gmail.com>
+Date:   Sat Mar 9 21:09:02 2024 +0200
+
+    Start implementing the search screen
+
+[33mcommit b636effa690dd2b627230e02f81c5927e975f47a[m
+Author: mohammadhirbawi <woimn.2002@gmail.com>
+Date:   Tue Mar 5 00:13:27 2024 +0200
+
+    Create the Cart quantity dialogue
+
+[33mcommit 4fec92718a350f60da5009f24027019e7d375d98[m
+Author: hamza-damra <81427462+hamza-damra@users.noreply.github.com>
+Date:   Sun Mar 3 20:38:07 2024 +0200
+
+    Create cart screen when added product
+
+[33mcommit 0507beaf17730b1f96a1317f3cdd7d82d89e7638[m
+Author: mohammadhirbawi <woimn.2002@gmail.com>
+Date:   Fri Mar 1 00:54:30 2024 +0200
+
+    Create the empty cart screen
+
+[33mcommit 5c40243789d70bfe252a708a6b2c14ac50bc46bb[m
+Author: mohammadhirbawi <woimn.2002@gmail.com>
+Date:   Wed Feb 28 21:44:53 2024 +0200
+
+    Create the profile screen
+
+[33mcommit cd4c8a18b83a806a96565b4700dbb27915982e53[m
+Author: mohammadhirbawi <woimn.2002@gmail.com>
+Date:   Wed Feb 28 15:15:24 2024 +0200
+
+    bottom bar
+
+[33mcommit fdaca21a2d3532cb5bddddfd47b4c5026e1ad2c4[m
+Author: mohammadhirbawi <woimn.2002@gmail.com>
+Date:   Sun Feb 25 15:53:36 2024 +0200
+
+    Create the update address dialog
+
+[33mcommit 4d38bfb84a35d60c33e35dc4b7de089a47e13fec[m
+Author: Hamza Damra <hamza.damra@students.alquds.edu>
+Date:   Sat Feb 24 20:27:13 2024 +0200
+
+    implement the user screen
+
+[33mcommit 262c2ba7d25bb4c45c5c8111e8bff5adc14d2f02[m
+Author: mohammadhirbawi <woimn.2002@gmail.com>
+Date:   Sat Feb 24 17:00:15 2024 +0200
+
+    text color in dark mode
+
+[33mcommit 274480aeab04ec8b4751863acf9078b6e06982b6[m
+Author: mohammadhirbawi <woimn.2002@gmail.com>
+Date:   Fri Feb 23 20:37:05 2024 +0200
+
+    Implement the bottom bar
+
+[33mcommit 3d66fffae1ced13d64407b146ddb3b09d5d4edde[m
+Author: mohammadhirbawi <woimn.2002@gmail.com>
+Date:   Fri Feb 23 17:42:41 2024 +0200
+
+    Dark theme implementation
+
+[33mcommit 85ce500cb3064b7fb42b7cbf927a1f7977d3c91d[m
+Author: mohammadhirbawi <woimn.2002@gmail.com>
+Date:   Thu Feb 22 21:47:36 2024 +0200
+
+    new
+
+[33mcommit e3c19b68c22c2e189ea04b1224c5114b095cac92[m
+Author: Hamza Damra <hamza.damra@students.alquds.edu>
+Date:   Thu Feb 22 21:45:17 2024 +0200
+
+    mohammed test
+
+[33mcommit c7cf6b3fc5ecbcecf96da69d3afd565e05e45301[m
+Author: mohammadhirbawi <woimn.2002@gmail.com>
+Date:   Thu Feb 22 21:43:26 2024 +0200
+
+    hamza damra
+
+[33mcommit 831d85e55ed7961ffe6cc07fc92c990a26dc71ca[m
+Author: Hamza Damra <hamza.damra@students.alquds.edu>
+Date:   Thu Feb 22 21:40:18 2024 +0200
+
+    testing two
+
+[33mcommit 20f90f389e48969ee2ea92d8c4c04c5acf8e9142[m
+Author: Hamza Damra <hamza.damra@students.alquds.edu>
+Date:   Thu Feb 22 21:26:07 2024 +0200
+
+    testing main class
+
+[33mcommit 86c6a1afeecd8d78c65e4b26d630ad71cb80734c[m
+Author: Hamza Damra <hamza.damra@students.alquds.edu>
+Date:   Thu Feb 22 21:23:06 2024 +0200
+
+    Creating The Project
+
+[33mcommit 49c07d375e934198687837b0946a0d8181b46c55[m
+Author: hamza-damra <81427462+hamza-damra@users.noreply.github.com>
+Date:   Thu Feb 22 21:15:49 2024 +0200
+
+    Initial commit

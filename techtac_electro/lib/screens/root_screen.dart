@@ -1,14 +1,17 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:techtac_electro/provider/cart_provider.dart';
+import 'package:techtac_electro/provider/product_provider.dart';
 import 'package:techtac_electro/screens/cart/cart_screen.dart';
 import 'package:techtac_electro/screens/search_screen.dart';
 import 'package:techtac_electro/screens/home_screen.dart';
 import 'package:techtac_electro/screens/profile_screen.dart';
 
 class RootScreen extends StatefulWidget {
-    static const routName = '/RootScreen';
+  static const routName = '/RootScreen';
   const RootScreen({super.key});
 
   @override
@@ -18,6 +21,7 @@ class RootScreen extends StatefulWidget {
 class _RootScreenState extends State<RootScreen> {
   late PageController controller;
   int currentScreen = 0;
+  bool isLoadingProds = true;
   List<Widget> screens = [
     const HomeScreen(),
     const SearchScreen(),
@@ -32,9 +36,34 @@ class _RootScreenState extends State<RootScreen> {
     );
   }
 
+  Future<void> fetchFCT() async {
+    final productsProvider =
+        Provider.of<ProductProvider>(context, listen: false);
+    try {
+      Future.wait({
+        productsProvider.fetchProducts(),
+      });
+    } catch (error) {
+      log(error.toString());
+    } finally {
+      setState(() {
+        isLoadingProds = false;
+      });
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (isLoadingProds) {
+      fetchFCT();
+    }
+
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final cartProvider = Provider.of<CartProvider>(context);
+    // final cartProvider = Provider.of<CartProvider>(context);
     return Scaffold(
       body: PageView(
         controller: controller,
@@ -65,10 +94,15 @@ class _RootScreenState extends State<RootScreen> {
           ),
           NavigationDestination(
             selectedIcon: const Icon(IconlyBold.bag2),
-            icon: Badge(
-                backgroundColor: Colors.blue,
-                label: Text(cartProvider.getCartItems.length.toString()),
-                child: const Icon(IconlyLight.bag2)),
+            icon: Consumer<CartProvider>(
+              builder: (context, cartProvider, child) {
+                return Badge(
+                  backgroundColor: Colors.blue,
+                  label: Text(cartProvider.getCartItems.length.toString()),
+                  child: const Icon(IconlyLight.bag2),
+                );
+              },
+            ),
             label: "Cart",
           ),
           const NavigationDestination(

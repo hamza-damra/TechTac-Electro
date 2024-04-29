@@ -39,6 +39,7 @@ class ProductProvider with ChangeNotifier {
   Future<List<ProductModel>> fetchProducts() async {
     try {
       await productDB.get().then((productsSnapshot) {
+        _products.clear();
         for (var element in productsSnapshot.docs) {
           _products.insert(0, ProductModel.fromFirestore(element));
         }
@@ -46,6 +47,21 @@ class ProductProvider with ChangeNotifier {
       notifyListeners();
       return _products;
     } catch (error) {
+      rethrow;
+    }
+  }
+
+  Stream<List<ProductModel>> fetchProductStream() {
+    try {
+      return productDB.snapshots().map((snapshot) {
+        _products.clear();
+        //_products = [];
+        for (var element in snapshot.docs) {
+          _products.insert(0, ProductModel.fromFirestore(element));
+        }
+        return _products;
+      });
+    } catch (e) {
       rethrow;
     }
   }

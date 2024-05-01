@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:techtac_electro/models/cart_model.dart';
 import 'package:techtac_electro/models/product_model.dart';
 import 'package:techtac_electro/provider/product_provider.dart';
+import 'package:techtac_electro/services/my_app_method.dart';
 import 'package:uuid/uuid.dart';
 
 class CartProvider with ChangeNotifier {
@@ -9,6 +13,37 @@ class CartProvider with ChangeNotifier {
 
   Map<String, CartModel> get getCartItems {
     return _cartItems;
+  }
+// Firebase
+
+  final usersDB = FirebaseFirestore.instance.collection("users");
+  final _auth = FirebaseAuth.instance;
+  Future<void> addToCartFirebase(
+      {required String productId,
+      required int qty,
+      required BuildContext context}) async {
+    final User? user = _auth.currentUser;
+    if (user == null) {
+      MyAppMethods.showErrorORWarningDialog(
+          context: context, subtitle: "No user found", fct: () {});
+      return;
+    }
+    final uid = user.uid;
+    final cartId = const Uuid().v4();
+    try {
+      usersDB.doc(uid).update({
+        'userCart': FieldValue.arrayUnion([
+          {
+            "cartId": cartId,
+            'productId': productId,
+            'quantity': qty,
+          }
+        ])
+      });
+      Fluttertoast.showToast(msg: "Item has been added to cart");
+    } catch (e) {
+      rethrow;
+    }
   }
 
   bool isProductInCart({required String productId}) {
@@ -61,8 +96,8 @@ class CartProvider with ChangeNotifier {
     return total;
   }
 
-  void removeOneItem({required String productID}) {
-    _cartItems.remove(productID);
+  void removeOneItem({required String productId}) {
+    _cartItems.remove(productId);
     notifyListeners();
   }
 

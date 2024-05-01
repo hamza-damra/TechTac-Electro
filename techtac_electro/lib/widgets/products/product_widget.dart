@@ -5,10 +5,10 @@ import 'package:techtac_electro/provider/cart_provider.dart';
 import 'package:techtac_electro/provider/product_provider.dart';
 import 'package:techtac_electro/provider/viewed_prod_provider.dart';
 import 'package:techtac_electro/screens/inner_screens/product_details.dart';
+import 'package:techtac_electro/services/my_app_method.dart';
+import 'package:techtac_electro/widgets/products/heart_btn.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
-
-import 'heart_btn.dart';
 
 class ProductWidget extends StatefulWidget {
   const ProductWidget({
@@ -96,13 +96,25 @@ class _ProductWidgetState extends State<ProductWidget> {
                             child: InkWell(
                               splashColor: Colors.red,
                               borderRadius: BorderRadius.circular(16.0),
-                              onTap: () {
+                              onTap: () async {
                                 if (cartProvider.isProductInCart(
                                     productId: getCurrProduct.productId)) {
                                   return;
                                 }
-                                cartProvider.addProductToCart(
-                                    productId: getCurrProduct.productId);
+                                // cartProvider.addProductToCart(
+                                //     productId: getCurrProduct.productId);
+                                try {
+                                  await cartProvider.addToCartFirebase(
+                                      productId: getCurrProduct.productId,
+                                      qty: 1,
+                                      context: context);
+                                } catch (error) {
+                                  MyAppMethods.showErrorORWarningDialog(
+                                      // ignore: use_build_context_synchronously
+                                      context: context,
+                                      subtitle: error.toString(),
+                                      fct: () {});
+                                }
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),

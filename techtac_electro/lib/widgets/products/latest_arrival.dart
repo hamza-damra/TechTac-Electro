@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:techtac_electro/provider/cart_provider.dart';
 import 'package:techtac_electro/provider/product_provider.dart';
 import 'package:techtac_electro/provider/viewed_prod_provider.dart';
+import 'package:techtac_electro/services/my_app_method.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import '../../models/product_model.dart';
 import '../../screens/inner_screens/product_details.dart';
@@ -67,13 +68,28 @@ class LatestArrivalProductsWidget extends StatelessWidget {
                         children: [
                           HeartButtonWidget(productId: productsModel.productId),
                           IconButton(
-                            onPressed: () {
+                            onPressed: () async{
                                if (cartProvider.isProductInCart(
-                                    productId: getCurrProduct!.productId)) {
+                                    productId: getCurrProduct.productId)) {
                                   return;
+                                }
+
+                                 try {
+                                  await cartProvider.addToCartFirebase(
+                                      productId: getCurrProduct.productId,
+                                      qty: 1,
+                                      context: context);
+                                } catch (error) {
+                                  MyAppMethods.showErrorORWarningDialog(
+                                      // ignore: use_build_context_synchronously
+                                      context: context,
+                                      subtitle: error.toString(),
+                                      fct: () {});
                                 }
                                 cartProvider.addProductToCart(
                                     productId: getCurrProduct.productId);
+
+                                    
                             },
                             icon:  Icon(
                                cartProvider.isProductInCart(

@@ -59,7 +59,7 @@ class CartWidget extends StatelessWidget {
                                   IconButton(
                                     onPressed: () {
                                       cartProvider.removeOneItem(
-                                        productID: getCurrProduct.productId,
+                                       productId: getCurrProduct.productId,
                                       );
                                     },
                                     icon: const Icon(

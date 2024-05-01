@@ -18,7 +18,18 @@ import 'consts/theme_data.dart';
 import 'screens/inner_screens/product_details.dart';
 import 'screens/inner_screens/wishlist.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: "AIzaSyCafT4k49z1hH0KYgTklSj0Cw7RoqsGgL4",
+      appId: "1:542912087664:android:dbc5eaa77b253a274e16b5",
+      messagingSenderId: "542912087664",
+      projectId: "techtacelectro",
+      storageBucket: "techtacelectro.appspot.com",
+    ),
+  );
   runApp(const MyApp());
 }
 

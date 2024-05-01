@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:techtac_electro/provider/cart_provider.dart';
+import 'package:techtac_electro/provider/product_provider.dart';
 import 'package:techtac_electro/provider/viewed_prod_provider.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import '../../models/product_model.dart';
@@ -8,13 +12,17 @@ import '../../screens/inner_screens/product_details.dart';
 import 'heart_btn.dart';
 
 class LatestArrivalProductsWidget extends StatelessWidget {
-  const LatestArrivalProductsWidget({super.key});
-
+  const LatestArrivalProductsWidget({super.key, required this.productId});
+  final String productId;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final productsModel = Provider.of<ProductModel>(context);
     final viewedProvider = Provider.of<ViewedProdProvider>(context);
+    final cartProvider = Provider.of<CartProvider>(context); 
+    final productProvider = Provider.of<ProductProvider>(context);
+    final getCurrProduct = productProvider.findByProdId(productId);
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
@@ -59,10 +67,21 @@ class LatestArrivalProductsWidget extends StatelessWidget {
                         children: [
                           HeartButtonWidget(productId: productsModel.productId),
                           IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.add_shopping_cart_rounded,
-                              size: 18,
+                            onPressed: () {
+                               if (cartProvider.isProductInCart(
+                                    productId: getCurrProduct!.productId)) {
+                                  return;
+                                }
+                                cartProvider.addProductToCart(
+                                    productId: getCurrProduct.productId);
+                            },
+                            icon:  Icon(
+                               cartProvider.isProductInCart(
+                                productId: getCurrProduct!.productId)
+                                ? Icons.check
+                                      : Icons.add_shopping_cart_rounded,
+                                  size: 20,
+                                  color: Colors.blue,
                             ),
                           ),
                         ],

@@ -37,8 +37,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
-    final passedCategory =
-        ModalRoute.of(context)!.settings.arguments as String?;
+    final passedCategory = ModalRoute.of(context)!.settings.arguments as String?;
     final List<ProductModel> productList = passedCategory == null
         ? productProvider.getProducts
         : productProvider.findByCategory(ctgName: passedCategory);

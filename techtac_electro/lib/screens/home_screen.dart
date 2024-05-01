@@ -1,4 +1,5 @@
 import 'package:card_swiper/card_swiper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:techtac_electro/consts/app_constants.dart';
@@ -79,7 +80,7 @@ class HomeScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return ChangeNotifierProvider.value(
                             value: productProvider.getProducts[index],
-                            child: const LatestArrivalProductsWidget());
+                            child:  LatestArrivalProductsWidget(productId: productProvider.getProducts[index].productId));
                       }),
                 ),
               ),

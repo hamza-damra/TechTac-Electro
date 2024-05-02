@@ -101,8 +101,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                                     productId: getCurrProduct.productId)) {
                                   return;
                                 }
-                                // cartProvider.addProductToCart(
-                                //     productId: getCurrProduct.productId);
+                                cartProvider.addProductToCart(
+                                    productId: getCurrProduct.productId);
                                 try {
                                   await cartProvider.addToCartFirebase(
                                       productId: getCurrProduct.productId,

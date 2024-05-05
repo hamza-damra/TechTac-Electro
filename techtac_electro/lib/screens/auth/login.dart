@@ -9,7 +9,6 @@ import 'package:techtac_electro/screens/loading_manager.dart';
 import 'package:techtac_electro/screens/root_screen.dart';
 import 'package:techtac_electro/services/my_app_method.dart';
 import 'package:techtac_electro/widgets/app_name_text.dart';
-import 'package:techtac_electro/widgets/auth/google_btn.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 
@@ -228,12 +227,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(
                           height: 16.0,
                         ),
-                        SubtitleTextWidget(
-                          label: "OR connect using".toUpperCase(),
-                        ),
-                        const SizedBox(
-                          height: 16.0,
-                        ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: SizedBox(
@@ -241,15 +234,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                const Expanded(
-                                  flex: 2,
-                                  child: SizedBox(
-                                    height: kBottomNavigationBarHeight,
-                                    child: FittedBox(
-                                      child: GoogleButton(),
-                                    ),
-                                  ),
-                                ),
                                 const SizedBox(
                                   width: 8,
                                 ),
@@ -268,7 +252,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                       ),
                                       child: const Text(
-                                        "Guest",
+                                        "Continue As Guest",
                                         style: TextStyle(
                                           fontSize: 20,
                                         ),

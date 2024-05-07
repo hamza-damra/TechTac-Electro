@@ -20,17 +20,16 @@ class UserProvider with ChangeNotifier {
       final userDoc =
           await FirebaseFirestore.instance.collection("users").doc(uid).get();
       final userDocDict = userDoc.data();
-
       userModel = UserModel(
         userId: userDoc.get("userId"),
         userName: userDoc.get("userName"),
         userImage: userDoc.get("userImage"),
-        userEmail: userDoc.get("userEmail"),
-        createdAt: userDoc.get("createdAt"),
+        userEmail: userDoc.get('userEmail'),
         userCart:
             userDocDict!.containsKey("userCart") ? userDoc.get("userCart") : [],
         userWish:
-            userDocDict!.containsKey("userWish") ? userDoc.get("userWish") : [],
+            userDocDict.containsKey("userWish") ? userDoc.get("userWish") : [],
+        createdAt: userDoc.get('createdAt'),
       );
       return userModel;
     } on FirebaseException catch (error) {

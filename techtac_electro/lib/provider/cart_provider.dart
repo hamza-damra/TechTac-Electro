@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -40,12 +42,44 @@ class CartProvider with ChangeNotifier {
           }
         ])
       });
+      await fetchCart();
       Fluttertoast.showToast(msg: "Item has been added to cart");
     } catch (e) {
       rethrow;
     }
   }
 
+  Future<void> fetchCart() async {
+    User? user = _auth.currentUser;
+    if (user == null) {
+      log("the function has been called and the user is null");
+      _cartItems.clear();
+      return;
+    }
+    try {
+      final userDoc = await usersDB.doc(user.uid).get();
+      final data = userDoc.data();
+      if (data == null || !data.containsKey("userCart")) {
+        return;
+      }
+      final leng = userDoc.get("userCart").length;
+      for (int index = 0; index < leng; index++) {
+        _cartItems.putIfAbsent(
+          userDoc.get('userCart')[index]['productId'],
+          () => CartModel(
+            cartId: userDoc.get('userCart')[index]['cartId'],
+            productId: userDoc.get('userCart')[index]['productId'],
+            quantity: userDoc.get('userCart')[index]['quantity'],
+          ),
+        );
+      }
+    } catch (e) {
+      rethrow;
+    }
+    notifyListeners();
+  }
+
+// Local
   bool isProductInCart({required String productId}) {
     return _cartItems.containsKey(productId);
   }

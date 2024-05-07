@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -57,10 +59,20 @@ class CartWidget extends StatelessWidget {
                               Column(
                                 children: [
                                   IconButton(
-                                    onPressed: () {
-                                      cartProvider.removeOneItem(
-                                       productId: getCurrProduct.productId,
-                                      );
+                                    onPressed: () async {
+                                      try {
+                                        await cartProvider
+                                            .removeCartItemFromFirebase(
+                                          cartId: cartModelProvider.cartId,
+                                          productId: getCurrProduct.productId,
+                                          qty: cartModelProvider.quantity,
+                                        );
+                                      } catch (error) {
+                                        log(error.toString());
+                                      }
+                                      // cartProvider.removeOneItem(
+                                      //   productId: getCurrProduct.productId,
+                                      // );
                                     },
                                     icon: const Icon(
                                       Icons.clear,

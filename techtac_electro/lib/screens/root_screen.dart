@@ -5,6 +5,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:techtac_electro/provider/cart_provider.dart';
 import 'package:techtac_electro/provider/product_provider.dart';
+import 'package:techtac_electro/provider/wishlist_provider.dart';
 import 'package:techtac_electro/screens/cart/cart_screen.dart';
 import 'package:techtac_electro/screens/search_screen.dart';
 import 'package:techtac_electro/screens/home_screen.dart';
@@ -39,9 +40,17 @@ class _RootScreenState extends State<RootScreen> {
   Future<void> fetchFCT() async {
     final productsProvider =
         Provider.of<ProductProvider>(context, listen: false);
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
+    final wishlistProvider =
+        Provider.of<WishlistProvider>(context, listen: false);
+
     try {
       Future.wait({
         productsProvider.fetchProducts(),
+      });
+      Future.wait({
+        cartProvider.fetchCart(),
+        wishlistProvider.fetchWishlist(),
       });
     } catch (error) {
       log(error.toString());

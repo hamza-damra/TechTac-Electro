@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +18,7 @@ class LatestArrivalProductsWidget extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     final productsModel = Provider.of<ProductModel>(context);
     final viewedProvider = Provider.of<ViewedProdProvider>(context);
-    final cartProvider = Provider.of<CartProvider>(context); 
+    final cartProvider = Provider.of<CartProvider>(context);
     final productProvider = Provider.of<ProductProvider>(context);
     final getCurrProduct = productProvider.findByProdId(productId);
 
@@ -68,36 +66,34 @@ class LatestArrivalProductsWidget extends StatelessWidget {
                         children: [
                           HeartButtonWidget(productId: productsModel.productId),
                           IconButton(
-                            onPressed: () async{
-                               if (cartProvider.isProductInCart(
-                                    productId: getCurrProduct.productId)) {
-                                  return;
-                                }
+                            onPressed: () async {
+                              if (cartProvider.isProductInCart(
+                                  productId: getCurrProduct.productId)) {
+                                return;
+                              }
 
-                                 try {
-                                  await cartProvider.addToCartFirebase(
-                                      productId: getCurrProduct.productId,
-                                      qty: 1,
-                                      context: context);
-                                } catch (error) {
-                                  MyAppMethods.showErrorORWarningDialog(
-                                      // ignore: use_build_context_synchronously
-                                      context: context,
-                                      subtitle: error.toString(),
-                                      fct: () {});
-                                }
-                                cartProvider.addProductToCart(
-                                    productId: getCurrProduct.productId);
-
-                                    
+                              try {
+                                await cartProvider.addToCartFirebase(
+                                    productId: getCurrProduct.productId,
+                                    qty: 1,
+                                    context: context);
+                              } catch (error) {
+                                MyAppMethods.showErrorORWarningDialog(
+                                    // ignore: use_build_context_synchronously
+                                    context: context,
+                                    subtitle: error.toString(),
+                                    fct: () {});
+                              }
+                              cartProvider.addProductToCart(
+                                  productId: getCurrProduct.productId);
                             },
-                            icon:  Icon(
-                               cartProvider.isProductInCart(
-                                productId: getCurrProduct!.productId)
-                                ? Icons.check
-                                      : Icons.add_shopping_cart_rounded,
-                                  size: 20,
-                                  color: Colors.blue,
+                            icon: Icon(
+                              cartProvider.isProductInCart(
+                                      productId: getCurrProduct!.productId)
+                                  ? Icons.check
+                                  : Icons.add_shopping_cart_rounded,
+                              size: 20,
+                              color: Colors.blue,
                             ),
                           ),
                         ],

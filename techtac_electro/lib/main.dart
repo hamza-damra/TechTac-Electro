@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:techtac_electro/provider/cart_provider.dart';
 import 'package:techtac_electro/provider/dark_theme_provider.dart';
+import 'package:techtac_electro/provider/order_provider.dart';
 import 'package:techtac_electro/provider/product_provider.dart';
 import 'package:techtac_electro/provider/user_provier.dart';
 import 'package:techtac_electro/provider/viewed_prod_provider.dart';
@@ -78,6 +79,9 @@ class MyApp extends StatelessWidget {
                 ),
                 ChangeNotifierProvider(
                   create: (_) => UserProvider(),
+                ),
+                ChangeNotifierProvider(
+                  create: (_) => OrdersProvider(),
                 ),
               ],
               child: Consumer<ThemeProvider>(

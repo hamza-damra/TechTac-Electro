@@ -121,7 +121,7 @@ class _CartScreenState extends State<CartScreen> {
         final getCurrProduct = productProvider.findByProdId(value.productId);
         final orderId = const Uuid().v4();
         await FirebaseFirestore.instance
-            .collection("ordersAdanced")
+            .collection("ordersAdvanced")
             .doc(orderId)
             .set({
           'orderId': orderId,

@@ -6,8 +6,8 @@ import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 
 class CartBottomCheckout extends StatelessWidget {
-  const CartBottomCheckout({super.key});
-
+  const CartBottomCheckout({super.key, required this.function});
+  final Function function;
   @override
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
@@ -42,7 +42,9 @@ class CartBottomCheckout extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () async{
+                  await function();
+                  },
                 child: const Text("Checkout"),
               ),
             ],

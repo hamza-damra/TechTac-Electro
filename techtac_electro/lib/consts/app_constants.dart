@@ -10,44 +10,44 @@ class AppConstants {
   ];
   static List<CategoryModel> categoriesList = [
     CategoryModel(
-      id: "Phones",
-      image: AssetsManager.mobiles,
-      name: "Phones",
+      id: "IOT",
+      image: AssetsManager.iot,
+      name: "IOT",
     ),
     CategoryModel(
-      id: "Laptops",
-      image: AssetsManager.pc,
-      name: "Laptops",
+      id: "Sensors",
+      image: AssetsManager.sensor,
+      name: "Sensors",
     ),
     CategoryModel(
-      id: "Clothes",
-      image: AssetsManager.fashion,
-      name: "Clothes",
+      id: "Network",
+      image: AssetsManager.network,
+      name: "Network",
     ),
     CategoryModel(
-      id: "Electronics",
-      image: AssetsManager.electronics,
-      name: "Electronics",
+      id: "RaspberryPi",
+      image: AssetsManager.raspberry,
+      name: "RaspberryPi",
     ),
     CategoryModel(
-      id: "Watches",
-      image: AssetsManager.watch,
-      name: "Watches",
+      id: "Arduino",
+      image: AssetsManager.arduino,
+      name: "Arduino",
     ),
     CategoryModel(
-      id: "Cosmetics",
-      image: AssetsManager.cosmetics,
-      name: "Cosmetics",
+      id: "Display",
+      image: AssetsManager.display,
+      name: "Display",
     ),
     CategoryModel(
-      id: "Shoes",
-      image: AssetsManager.shoes,
-      name: "Shoes",
+      id: "Microcontroller",
+      image: AssetsManager.microcontroller,
+      name: "Microcontroller",
     ),
     CategoryModel(
-      id: "Books",
-      image: AssetsManager.book,
-      name: "Books",
+      id: "Modules",
+      image: AssetsManager.modules,
+      name: "Modules",
     ),
   ];
 }

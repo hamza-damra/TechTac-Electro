@@ -40,4 +40,14 @@ class AssetsManager {
   static String cosmetics = "$categoriesImagesPath/cosmetics.png";
   static String shoes = "$categoriesImagesPath/shoes.png";
   static String pc = "$categoriesImagesPath/pc.png";
+
+  // New Categories
+  static String display = "$categoriesImagesPath/displayy.png";
+  static String iot = "$categoriesImagesPath/iot.png";
+  static String microcontroller = "$categoriesImagesPath/Microcontrollers.png";
+  static String arduino = "$categoriesImagesPath/Arduino.png";
+  static String modules = "$categoriesImagesPath/Modules.png";
+  static String raspberry = "$categoriesImagesPath/raspberry-pi.png";
+  static String network = "$categoriesImagesPath/network.png";
+  static String sensor = "$categoriesImagesPath/sensor.png";
 }

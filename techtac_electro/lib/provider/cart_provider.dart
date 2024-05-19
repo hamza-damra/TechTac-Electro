@@ -1,14 +1,13 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:techtac_electro/models/cart_model.dart';
 import 'package:techtac_electro/models/product_model.dart';
 import 'package:techtac_electro/provider/product_provider.dart';
 import 'package:techtac_electro/services/my_app_method.dart';
 import 'package:uuid/uuid.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 class CartProvider with ChangeNotifier {
   final Map<String, CartModel> _cartItems = {};
@@ -16,14 +15,15 @@ class CartProvider with ChangeNotifier {
   Map<String, CartModel> get getCartItems {
     return _cartItems;
   }
-// Firebase
 
   final usersDB = FirebaseFirestore.instance.collection("users");
   final _auth = FirebaseAuth.instance;
-  Future<void> addToCartFirebase(
-      {required String productId,
-      required int qty,
-      required BuildContext context}) async {
+
+  Future<void> addToCartFirebase({
+    required String productId,
+    required int qty,
+    required BuildContext context,
+  }) async {
     final User? user = _auth.currentUser;
     if (user == null) {
       MyAppMethods.showErrorORWarningDialog(
@@ -43,7 +43,14 @@ class CartProvider with ChangeNotifier {
         ])
       });
       await fetchCart();
-      Fluttertoast.showToast(msg: "Item has been added to cart");
+      showToast(
+        'Item has been added to cart',
+        context: context,
+        animation: StyledToastAnimation.scale,
+        duration: const Duration(seconds: 2),
+        backgroundColor: Colors.green,
+        borderRadius: BorderRadius.circular(8.0),
+      );
     } catch (e) {
       rethrow;
     }
@@ -79,10 +86,11 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> removeCartItemFromFirebase(
-      {required String cartId,
-      required String productId,
-      required int qty}) async {
+  Future<void> removeCartItemFromFirebase({
+    required String cartId,
+    required String productId,
+    required int qty,
+  }) async {
     User? user = _auth.currentUser;
     try {
       await usersDB.doc(user!.uid).update({
@@ -113,7 +121,6 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
-// Local
   bool isProductInCart({required String productId}) {
     return _cartItems.containsKey(productId);
   }

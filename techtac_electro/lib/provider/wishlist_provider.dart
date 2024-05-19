@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:techtac_electro/models/wishlist_model.dart';
 import 'package:techtac_electro/services/my_app_method.dart';
 import 'package:uuid/uuid.dart';
@@ -20,8 +20,10 @@ class WishlistProvider with ChangeNotifier {
   // Firebase
   final usersDB = FirebaseFirestore.instance.collection("users");
   final _auth = FirebaseAuth.instance;
-  Future<void> addToWishlistFirebase(
-      {required String productId, required BuildContext context}) async {
+  Future<void> addToWishlistFirebase({
+    required String productId,
+    required BuildContext context,
+  }) async {
     final User? user = _auth.currentUser;
     if (user == null) {
       MyAppMethods.showErrorORWarningDialog(
@@ -43,7 +45,14 @@ class WishlistProvider with ChangeNotifier {
         ])
       });
       // await fetchWishlist();
-      Fluttertoast.showToast(msg: "Item has been added to Wishlist");
+      showToast(
+        'Item has been added to Wishlist',
+        context: context,
+        animation: StyledToastAnimation.scale,
+        duration: const Duration(seconds: 2),
+        backgroundColor: Colors.green,
+        borderRadius: BorderRadius.circular(8.0),
+      );
     } catch (e) {
       rethrow;
     }

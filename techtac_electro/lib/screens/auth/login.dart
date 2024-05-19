@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:techtac_electro/consts/my_validators.dart';
 import 'package:techtac_electro/screens/auth/forgot_password.dart';
 import 'package:techtac_electro/screens/auth/register.dart';
@@ -65,10 +65,13 @@ class _LoginScreenState extends State<LoginScreen> {
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
-        Fluttertoast.showToast(
-          msg: "Login Successful",
-          toastLength: Toast.LENGTH_SHORT,
-          textColor: Colors.white,
+        showToast(
+          'Login Successful',
+          context: context,
+          animation: StyledToastAnimation.scale,
+          duration: const Duration(seconds: 2),
+          backgroundColor: Colors.green,
+          borderRadius: BorderRadius.circular(8.0),
         );
         if (!mounted) return;
 
@@ -76,13 +79,13 @@ class _LoginScreenState extends State<LoginScreen> {
       } on FirebaseAuthException catch (error) {
         await MyAppMethods.showErrorORWarningDialog(
           context: context,
-          subtitle: "An error has been occured ${error.message}",
+          subtitle: "An error has been occurred ${error.message}",
           fct: () {},
         );
       } catch (error) {
         await MyAppMethods.showErrorORWarningDialog(
           context: context,
-          subtitle: "An error has been occured $error",
+          subtitle: "An error has been occurred $error",
           fct: () {},
         );
       } finally {

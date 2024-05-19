@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:techtac_electro/consts/my_validators.dart';
 import 'package:techtac_electro/screens/loading_manager.dart';
@@ -39,6 +39,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   XFile? _pickedImage;
   final auth = FirebaseAuth.instance;
   String? userImageUrl;
+  
   @override
   void initState() {
     _nameController = TextEditingController();
@@ -106,10 +107,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
           'userWish': [],
           'userCart': [],
         });
-        Fluttertoast.showToast(
-          msg: "An account has been created",
-          toastLength: Toast.LENGTH_SHORT,
-          textColor: Colors.white,
+        showToast(
+          'An account has been created',
+          context: context,
+          animation: StyledToastAnimation.scale,
+          duration: const Duration(seconds: 2),
+          backgroundColor: Colors.green,
+          borderRadius: BorderRadius.circular(8.0),
         );
         if (!mounted) return;
         Navigator.pushReplacementNamed(context, RootScreen.routName);

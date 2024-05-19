@@ -8,6 +8,8 @@ import 'package:techtac_electro/provider/product_provider.dart';
 import 'package:techtac_electro/provider/user_provier.dart';
 import 'package:techtac_electro/provider/viewed_prod_provider.dart';
 import 'package:techtac_electro/provider/wishlist_provider.dart';
+import 'package:techtac_electro/screens/address/add_address_screen.dart';
+import 'package:techtac_electro/screens/address/address_screen.dart';
 import 'package:techtac_electro/screens/auth/forgot_password.dart';
 import 'package:techtac_electro/screens/auth/login.dart';
 import 'package:techtac_electro/screens/auth/register.dart';
@@ -113,6 +115,8 @@ class MyApp extends StatelessWidget {
                           const ForgotPasswordScreen(),
                       SearchScreen.routName: (context) => const SearchScreen(),
                       RootScreen.routName: (context) => const RootScreen(),
+                      AddressScreen.routName: (context) => const AddressScreen(),
+                      AddAddressScreen.routName: (context) => const AddAddressScreen()
                     },
                   );
                 },

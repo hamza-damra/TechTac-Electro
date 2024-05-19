@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:techtac_electro/models/user_model.dart';
 import 'package:techtac_electro/provider/dark_theme_provider.dart';
 import 'package:techtac_electro/provider/user_provier.dart';
+import 'package:techtac_electro/screens/address/address_screen.dart';
 import 'package:techtac_electro/screens/auth/login.dart';
 import 'package:techtac_electro/screens/inner_screens/orders/orders_screen.dart';
 import 'package:techtac_electro/screens/inner_screens/viewed_recently.dart';
@@ -176,7 +177,9 @@ class _ProfileScreenState extends State<ProfileScreen>
                       CustomListTile(
                         imagePath: AssetsManager.address,
                         text: "Address",
-                        function: () {},
+                        function: () {
+                          Navigator.pushReplacementNamed(context, AddressScreen.routName);
+                        },
                       ),
                       const Divider(
                         thickness: 1,

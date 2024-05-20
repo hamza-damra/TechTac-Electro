@@ -8,6 +8,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:techtac_electro/consts/my_validators.dart';
+import 'package:techtac_electro/provider/order_provider.dart';
 import 'package:techtac_electro/screens/loading_manager.dart';
 import 'package:techtac_electro/screens/root_screen.dart';
 import 'package:techtac_electro/services/my_app_method.dart';
@@ -17,6 +18,7 @@ import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 import 'package:techtac_electro/provider/wishlist_provider.dart';
 import 'package:techtac_electro/provider/viewed_prod_provider.dart';
+import 'package:techtac_electro/provider/cart_provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const routName = '/RegisterScreen';
@@ -110,10 +112,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
         final wishlistProvider = Provider.of<WishlistProvider>(context, listen: false);
         final viewedProdProvider = Provider.of<ViewedProdProvider>(context, listen: false);
+        final cartProvider = Provider.of<CartProvider>(context, listen: false);
+        final ordersProvider = Provider.of<OrdersProvider>(context, listen: false);
         
         await wishlistProvider.fetchWishlist();
-        // Initialize viewed products if needed
-        // await viewedProdProvider.fetchViewedProducts();
+        viewedProdProvider.clearState();  
+        await cartProvider.fetchCart();
+        await ordersProvider.fetchOrder();
 
         showToast(
           'An account has been created',

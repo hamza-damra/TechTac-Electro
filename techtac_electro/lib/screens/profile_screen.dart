@@ -4,9 +4,11 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:techtac_electro/models/user_model.dart';
 import 'package:techtac_electro/provider/dark_theme_provider.dart';
+import 'package:techtac_electro/provider/order_provider.dart';
 import 'package:techtac_electro/provider/user_provier.dart';
 import 'package:techtac_electro/provider/wishlist_provider.dart';
 import 'package:techtac_electro/provider/viewed_prod_provider.dart';
+import 'package:techtac_electro/provider/cart_provider.dart';
 import 'package:techtac_electro/screens/address/address_screen.dart';
 import 'package:techtac_electro/screens/auth/login.dart';
 import 'package:techtac_electro/screens/inner_screens/orders/orders_screen.dart';
@@ -71,6 +73,8 @@ class _ProfileScreenState extends State<ProfileScreen>
     final themeProvider = Provider.of<ThemeProvider>(context);
     final wishlistProvider = Provider.of<WishlistProvider>(context, listen: false);
     final viewedProdProvider = Provider.of<ViewedProdProvider>(context, listen: false);
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
+    final ordersProvider = Provider.of<OrdersProvider>(context, listen: false);
 
     return WillPopScope(
       onWillPop: () async {
@@ -251,6 +255,8 @@ class _ProfileScreenState extends State<ProfileScreen>
                             await FirebaseAuth.instance.signOut();
                             wishlistProvider.clearState();
                             viewedProdProvider.clearState();
+                            cartProvider.clearLocalCart();
+                            ordersProvider.clearState();
                             if (!mounted) return;
                             await Navigator.pushNamed(
                               context,

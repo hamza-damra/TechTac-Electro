@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:techtac_electro/models/order.dart';
 import 'package:techtac_electro/provider/order_provider.dart';
 import 'package:techtac_electro/services/assets_manager.dart';
 import 'package:techtac_electro/widgets/empty_bag.dart';

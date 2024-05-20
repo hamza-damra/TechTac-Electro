@@ -4,6 +4,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:provider/provider.dart';
 import 'package:techtac_electro/consts/my_validators.dart';
+import 'package:techtac_electro/provider/order_provider.dart';
 import 'package:techtac_electro/screens/auth/forgot_password.dart';
 import 'package:techtac_electro/screens/auth/register.dart';
 import 'package:techtac_electro/screens/loading_manager.dart';
@@ -14,6 +15,7 @@ import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 import 'package:techtac_electro/provider/wishlist_provider.dart';
 import 'package:techtac_electro/provider/viewed_prod_provider.dart';
+import 'package:techtac_electro/provider/cart_provider.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routName = '/LoginScreen';
@@ -69,10 +71,13 @@ class _LoginScreenState extends State<LoginScreen> {
         );
         final wishlistProvider = Provider.of<WishlistProvider>(context, listen: false);
         final viewedProdProvider = Provider.of<ViewedProdProvider>(context, listen: false);
-        
+        final cartProvider = Provider.of<CartProvider>(context, listen: false);
+        final ordersProvider = Provider.of<OrdersProvider>(context, listen: false);
+
         await wishlistProvider.fetchWishlist();
-        // Initialize viewed products if needed
-        // await viewedProdProvider.fetchViewedProducts();
+        viewedProdProvider.clearState();  // Assuming you want to clear viewed products
+        await cartProvider.fetchCart();
+        await ordersProvider.fetchOrder();
 
         showToast(
           'Login Successful',

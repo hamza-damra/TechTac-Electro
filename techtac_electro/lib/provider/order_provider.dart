@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:techtac_electro/models/order.dart';
 
@@ -17,7 +18,9 @@ class OrdersProvider with ChangeNotifier {
     }
     var uid = user.uid;
     try {
-      print("Fetching orders for user: $uid");
+      if (kDebugMode) {
+        print("Fetching orders for user: $uid");
+      }
       final orderSnapshot = await FirebaseFirestore.instance
           .collection("ordersAdvanced")
           .where("userId", isEqualTo: uid)
@@ -46,5 +49,10 @@ class OrdersProvider with ChangeNotifier {
       print("Error fetching orders: $e");
       rethrow;
     }
+  }
+
+  void clearState() {
+    orders.clear();
+    notifyListeners();
   }
 }

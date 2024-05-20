@@ -20,9 +20,9 @@ class AppConstants {
       name: "Sensors",
     ),
     CategoryModel(
-      id: "Network",
+      id: "Wireless",
       image: AssetsManager.network,
-      name: "Network",
+      name: "Wireless",
     ),
     CategoryModel(
       id: "RaspberryPi",
@@ -40,9 +40,9 @@ class AppConstants {
       name: "Display",
     ),
     CategoryModel(
-      id: "Microcontroller",
-      image: AssetsManager.microcontroller,
-      name: "Microcontroller",
+      id: "Components",
+      image: AssetsManager.components,
+      name: "Components",
     ),
     CategoryModel(
       id: "Modules",

@@ -45,6 +45,8 @@ class AssetsManager {
   static String display = "$categoriesImagesPath/displayy.png";
   static String iot = "$categoriesImagesPath/iot.png";
   static String microcontroller = "$categoriesImagesPath/Microcontrollers.png";
+  static String components = "$categoriesImagesPath/capacitor.png";
+
   static String arduino = "$categoriesImagesPath/Arduino.png";
   static String modules = "$categoriesImagesPath/Modules.png";
   static String raspberry = "$categoriesImagesPath/raspberry-pi.png";

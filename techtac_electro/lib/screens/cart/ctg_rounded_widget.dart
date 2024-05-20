@@ -4,11 +4,13 @@ import 'package:techtac_electro/widgets/subtitle_text.dart';
 
 class CategoryRoundedWidget extends StatelessWidget {
   const CategoryRoundedWidget({
-    super.key,
+    Key? key,
     required this.image,
     required this.name,
-  });
+  }) : super(key: key);
+
   final String image, name;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -30,7 +32,7 @@ class CategoryRoundedWidget extends StatelessWidget {
             const SizedBox(height: 15),
             SubtitleTextWidget(
               label: name,
-              fontSize: 18,
+              fontSize: 15,
               fontWeight: FontWeight.bold,
             ),
           ],

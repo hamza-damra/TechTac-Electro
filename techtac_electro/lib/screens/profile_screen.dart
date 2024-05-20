@@ -51,7 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen>
     } catch (error) {
       await MyAppMethods.showErrorORWarningDialog(
         context: context,
-        subtitle: "An error has been occurred $error",
+        subtitle: "An error has occurred $error",
         fct: () {},
       );
     } finally {
@@ -96,7 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Visibility(
-                  visible: user == null ? true : false,
+                  visible: user == null,
                   child: const Padding(
                     padding: EdgeInsets.all(20.0),
                     child: TitlesTextWidget(
@@ -190,14 +190,14 @@ class _ProfileScreenState extends State<ProfileScreen>
                         },
                       ),
                       user == null
-                          ? const SizedBox.shrink():
-                      CustomListTile(
-                        imagePath: AssetsManager.address,
-                        text: "Address",
-                        function: () {
-                          Navigator.pushNamed(context, AddressScreen.routeName);
-                        },
-                      ),
+                          ? const SizedBox.shrink()
+                          : CustomListTile(
+                              imagePath: AssetsManager.address,
+                              text: "Address",
+                              function: () {
+                                Navigator.pushNamed(context, AddressScreen.routeName);
+                              },
+                            ),
                       const Divider(
                         thickness: 1,
                       ),
@@ -279,13 +279,16 @@ class _ProfileScreenState extends State<ProfileScreen>
 }
 
 class CustomListTile extends StatelessWidget {
-  const CustomListTile(
-      {super.key,
-      required this.imagePath,
-      required this.text,
-      required this.function});
+  const CustomListTile({
+    super.key,
+    required this.imagePath,
+    required this.text,
+    required this.function,
+  });
+
   final String imagePath, text;
   final Function function;
+
   @override
   Widget build(BuildContext context) {
     return ListTile(

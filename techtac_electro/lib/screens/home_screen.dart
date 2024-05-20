@@ -1,5 +1,4 @@
 import 'package:card_swiper/card_swiper.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:techtac_electro/consts/app_constants.dart';
@@ -31,20 +30,23 @@ class HomeScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            // mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 height: size.height * 0.24,
                 child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
                   child: Swiper(
                     itemBuilder: (BuildContext context, int index) {
-                      return Image.asset(
-                        AppConstants.bannersImages[index],
+                      final product = productProvider.getProducts[index];
+                      return Image.network(
+                        product.productImage,
                         fit: BoxFit.fill,
                       );
                     },
                     autoplay: true,
-                    itemCount: AppConstants.bannersImages.length,
+                    itemCount: productProvider.getProducts.length < 10
+                        ? productProvider.getProducts.length
+                        : 10,
                     pagination: const SwiperPagination(
                       alignment: Alignment.bottomCenter,
                       builder: DotSwiperPaginationBuilder(
@@ -73,15 +75,19 @@ class HomeScreen extends StatelessWidget {
                 child: SizedBox(
                   height: size.height * 0.2,
                   child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: productProvider.getProducts.length < 10
-                          ? productProvider.getProducts.length
-                          : 10,
-                      itemBuilder: (context, index) {
-                        return ChangeNotifierProvider.value(
-                            value: productProvider.getProducts[index],
-                            child:  LatestArrivalProductsWidget(productId: productProvider.getProducts[index].productId));
-                      }),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: productProvider.getProducts.length < 10
+                        ? productProvider.getProducts.length
+                        : 10,
+                    itemBuilder: (context, index) {
+                      return ChangeNotifierProvider.value(
+                        value: productProvider.getProducts[index],
+                        child: LatestArrivalProductsWidget(
+                          productId: productProvider.getProducts[index].productId,
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
               const SizedBox(
@@ -95,16 +101,16 @@ class HomeScreen extends StatelessWidget {
                 height: 18,
               ),
               GridView.count(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  crossAxisCount: 4,
-                  children: List.generate(AppConstants.categoriesList.length,
-                      (index) {
-                    return CategoryRoundedWidget(
-                      image: AppConstants.categoriesList[index].image,
-                      name: AppConstants.categoriesList[index].name,
-                    );
-                  }))
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 4,
+                children: List.generate(AppConstants.categoriesList.length, (index) {
+                  return CategoryRoundedWidget(
+                    image: AppConstants.categoriesList[index].image,
+                    name: AppConstants.categoriesList[index].name,
+                  );
+                }),
+              )
             ],
           ),
         ),

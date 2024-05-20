@@ -5,9 +5,8 @@ import 'package:techtac_electro/models/user_model.dart';
 
 class UserProvider with ChangeNotifier {
   UserModel? userModel;
-  UserModel? get getUserModel {
-    return userModel;
-  }
+
+  UserModel? get getUserModel => userModel;
 
   Future<UserModel?> fetchUserInfo() async {
     final FirebaseAuth auth = FirebaseAuth.instance;
@@ -17,25 +16,21 @@ class UserProvider with ChangeNotifier {
     }
     var uid = user.uid;
     try {
-      final userDoc =
-          await FirebaseFirestore.instance.collection("users").doc(uid).get();
-      final userDocDict = userDoc.data();
+      final userDoc = await FirebaseFirestore.instance.collection("users").doc(uid).get();
+      final userDocDict = userDoc.data()!;
       userModel = UserModel(
-        userId: userDoc.get("userId"),
-        userName: userDoc.get("userName"),
-        userImage: userDoc.get("userImage"),
-        userEmail: userDoc.get('userEmail'),
-        userCart:
-            userDocDict!.containsKey("userCart") ? userDoc.get("userCart") : [],
-        userWish:
-            userDocDict.containsKey("userWish") ? userDoc.get("userWish") : [],
-        createdAt: userDoc.get('createdAt'),
+        userId: userDocDict["userId"],
+        userName: userDocDict["userName"],
+        userImage: userDocDict["userImage"],
+        userEmail: userDocDict['userEmail'],
+        userCart: userDocDict.containsKey("userCart") ? userDocDict["userCart"] : [],
+        userWish: userDocDict.containsKey("userWish") ? userDocDict["userWish"] : [],
+        createdAt: userDocDict['createdAt'],
       );
+      notifyListeners();
       return userModel;
-    } on FirebaseException catch (error) {
-      throw error.message.toString();
     } catch (error) {
-      rethrow;
+      throw error.toString();
     }
   }
 }

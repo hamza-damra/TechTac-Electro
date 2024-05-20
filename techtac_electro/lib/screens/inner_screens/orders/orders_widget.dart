@@ -1,6 +1,5 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:techtac_electro/consts/app_constants.dart';
 import 'package:techtac_electro/models/order.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
@@ -45,13 +44,7 @@ class _OrdersWidgetFreeState extends State<OrdersWidgetFree> {
                           fontSize: 15,
                         ),
                       ),
-                      IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.clear,
-                            color: Colors.red,
-                            size: 22,
-                          )),
+                  
                     ],
                   ),
                   Row(

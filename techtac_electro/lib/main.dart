@@ -100,7 +100,7 @@ class MyApp extends StatelessWidget {
                     home: const RootScreen(),
                     // home: const RegisterScreen(),
                     routes: {
-                      ProductDetails.routName: (context) =>
+                      ProductDetails.routeName: (context) =>
                           const ProductDetails(),
                       WishlistScreen.routName: (context) =>
                           const WishlistScreen(),
@@ -116,7 +116,7 @@ class MyApp extends StatelessWidget {
                       SearchScreen.routName: (context) => const SearchScreen(),
                       RootScreen.routName: (context) => const RootScreen(),
                       AddressScreen.routeName: (context) => const AddressScreen(),
-                      AddAddressScreen.routeName: (context) => const AddAddressScreen()
+                      AddAddressScreen.routeName: (context) => const AddAddressScreen(),
                     },
                   );
                 },

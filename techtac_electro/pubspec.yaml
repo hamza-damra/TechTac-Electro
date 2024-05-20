@@ -41,6 +41,7 @@ dependencies:
   ionicons: ^0.2.2
   provider: ^6.1.1
   shared_preferences: ^2.2.2
+  collection: ^1.16.0
   shimmer: ^3.0.0
   uuid: ^4.3.3
   #firebase
@@ -50,6 +51,7 @@ dependencies:
   flutter_styled_toast: ^2.2.1
   google_sign_in: ^6.2.1
   firebase_auth: ^4.17.8
+  logger: ^2.3.0
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:

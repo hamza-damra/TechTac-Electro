@@ -30,7 +30,7 @@ class LatestArrivalProductsWidget extends StatelessWidget {
               productId: productsModel.productId);
           await Navigator.pushNamed(
             context,
-            ProductDetails.routName,
+            ProductDetails.routeName,
             arguments: productsModel.productId,
           );
         },

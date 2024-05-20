@@ -2,6 +2,7 @@ import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:techtac_electro/provider/viewed_prod_provider.dart';
+import 'package:techtac_electro/screens/root_screen.dart';
 import 'package:techtac_electro/services/assets_manager.dart';
 import 'package:techtac_electro/widgets/empty_bag.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
@@ -21,7 +22,9 @@ class ViewedRecentlyScreen extends StatelessWidget {
               title: "Your Viewed recently is empty",
               subtitle:
                   'Looks like you didn\'t add anything yet to your cart \ngo ahead and start shopping now',
-              buttonText: "Shop Now",
+              buttonText: "Shop Now",  function: () {
+                Navigator.pushReplacementNamed(context, RootScreen.routName);
+              },
             ),
           )
         : Scaffold(

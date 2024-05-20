@@ -7,6 +7,7 @@ import 'package:techtac_electro/provider/product_provider.dart';
 import 'package:techtac_electro/provider/user_provier.dart';
 import 'package:techtac_electro/screens/cart/cart_widget.dart';
 import 'package:techtac_electro/screens/loading_manager.dart';
+import 'package:techtac_electro/screens/root_screen.dart';
 import 'package:techtac_electro/services/assets_manager.dart';
 import 'package:techtac_electro/services/my_app_method.dart';
 import 'package:techtac_electro/widgets/empty_bag.dart';
@@ -38,7 +39,9 @@ class _CartScreenState extends State<CartScreen> {
               title: "Your cart is empty",
               subtitle:
                   'Looks like you didn\'t add anything yet to your cart \ngo ahead and start shopping now',
-              buttonText: "Shop Now",
+              buttonText: "Shop Now",  function: () {
+                Navigator.pushReplacementNamed(context, RootScreen.routName);
+              },
             ),
           )
         : Scaffold(

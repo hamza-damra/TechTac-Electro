@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:techtac_electro/provider/order_provider.dart';
+import 'package:techtac_electro/screens/root_screen.dart';
 import 'package:techtac_electro/services/assets_manager.dart';
 import 'package:techtac_electro/widgets/empty_bag.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
@@ -57,7 +58,9 @@ class _OrdersScreenFreeState extends State<OrdersScreenFree> {
                 imagePath: AssetsManager.orderBag,
                 title: "No orders have been placed yet",
                 subtitle: "",
-                buttonText: "Shop now",
+                buttonText: "Shop now",  function: () {
+                Navigator.pushReplacementNamed(context, RootScreen.routName);
+              },
               );
             }
             return ListView.separated(

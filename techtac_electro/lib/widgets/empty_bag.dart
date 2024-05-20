@@ -8,8 +8,9 @@ class EmptyBagWidget extends StatelessWidget {
       required this.imagePath,
       required this.title,
       required this.subtitle,
-      required this.buttonText});
+      required this.buttonText, required this.function});
   final String imagePath, title, subtitle, buttonText;
+  final Function function;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,9 @@ class EmptyBagWidget extends StatelessWidget {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(20), elevation: 0),
-              onPressed: () {},
+              onPressed: () {
+                function();
+              },
               child: Text(
                 buttonText,
                 style: const TextStyle(fontSize: 22),

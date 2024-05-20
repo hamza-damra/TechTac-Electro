@@ -64,7 +64,6 @@ class _CartScreenState extends State<CartScreen> {
                         context: context,
                         subtitle: "Remove items",
                         fct: () async {
-                          // cartProvider.clearLocalCart();
                           await cartProvider.clearCartFromFirebase();
                         });
                   },

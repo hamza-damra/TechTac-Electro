@@ -5,19 +5,22 @@ import 'package:provider/provider.dart';
 import 'package:techtac_electro/models/user_model.dart';
 import 'package:techtac_electro/provider/dark_theme_provider.dart';
 import 'package:techtac_electro/provider/user_provier.dart';
+import 'package:techtac_electro/provider/wishlist_provider.dart';
+import 'package:techtac_electro/provider/viewed_prod_provider.dart';
 import 'package:techtac_electro/screens/address/address_screen.dart';
 import 'package:techtac_electro/screens/auth/login.dart';
 import 'package:techtac_electro/screens/inner_screens/orders/orders_screen.dart';
 import 'package:techtac_electro/screens/inner_screens/viewed_recently.dart';
 import 'package:techtac_electro/screens/inner_screens/wishlist.dart';
 import 'package:techtac_electro/screens/loading_manager.dart';
+import 'package:techtac_electro/services/assets_manager.dart';
 import 'package:techtac_electro/services/my_app_method.dart';
 import 'package:techtac_electro/widgets/app_name_text.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
-import '../services/assets_manager.dart';
 
 class ProfileScreen extends StatefulWidget {
+  static const routeName = '/ProfileScreen';
   const ProfileScreen({super.key});
 
   @override
@@ -46,7 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen>
     } catch (error) {
       await MyAppMethods.showErrorORWarningDialog(
         context: context,
-        subtitle: "An error has been occured $error",
+        subtitle: "An error has been occurred $error",
         fct: () {},
       );
     } finally {
@@ -66,7 +69,15 @@ class _ProfileScreenState extends State<ProfileScreen>
   Widget build(BuildContext context) {
     super.build(context);
     final themeProvider = Provider.of<ThemeProvider>(context);
-    return Scaffold(
+    final wishlistProvider = Provider.of<WishlistProvider>(context, listen: false);
+    final viewedProdProvider = Provider.of<ViewedProdProvider>(context, listen: false);
+
+    return WillPopScope(
+      onWillPop: () async {
+        // Prevent default back navigation
+        return false;
+      },
+      child: Scaffold(
         appBar: AppBar(
           title: const AppNameTextWidget(fontSize: 20),
           leading: Padding(
@@ -174,11 +185,13 @@ class _ProfileScreenState extends State<ProfileScreen>
                           );
                         },
                       ),
+                      user == null
+                          ? const SizedBox.shrink():
                       CustomListTile(
                         imagePath: AssetsManager.address,
                         text: "Address",
                         function: () {
-                          Navigator.pushReplacementNamed(context, AddressScreen.routName);
+                          Navigator.pushNamed(context, AddressScreen.routeName);
                         },
                       ),
                       const Divider(
@@ -236,6 +249,8 @@ class _ProfileScreenState extends State<ProfileScreen>
                           subtitle: "Are you sure?",
                           fct: () async {
                             await FirebaseAuth.instance.signOut();
+                            wishlistProvider.clearState();
+                            viewedProdProvider.clearState();
                             if (!mounted) return;
                             await Navigator.pushNamed(
                               context,
@@ -251,7 +266,9 @@ class _ProfileScreenState extends State<ProfileScreen>
               ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
 

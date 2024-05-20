@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +18,9 @@ class WishlistProvider with ChangeNotifier {
     return _wishlistItems.containsKey(productId);
   }
 
-  // Firebase
   final usersDB = FirebaseFirestore.instance.collection("users");
   final _auth = FirebaseAuth.instance;
+
   Future<void> addToWishlistFirebase({
     required String productId,
     required BuildContext context,
@@ -44,7 +45,6 @@ class WishlistProvider with ChangeNotifier {
           }
         ])
       });
-      // await fetchWishlist();
       showToast(
         'Item has been added to Wishlist',
         context: context,
@@ -61,7 +61,7 @@ class WishlistProvider with ChangeNotifier {
   Future<void> fetchWishlist() async {
     User? user = _auth.currentUser;
     if (user == null) {
-      // log("the function has been called and the user is null");
+      log("The function has been called and the user is null");
       _wishlistItems.clear();
       return;
     }
@@ -71,8 +71,8 @@ class WishlistProvider with ChangeNotifier {
       if (data == null || !data.containsKey("userWish")) {
         return;
       }
-      final leng = userDoc.get("userWish").length;
-      for (int index = 0; index < leng; index++) {
+      final length = userDoc.get("userWish").length;
+      for (int index = 0; index < length; index++) {
         _wishlistItems.putIfAbsent(
           userDoc.get('userWish')[index]['productId'],
           () => WishlistModel(
@@ -102,7 +102,7 @@ class WishlistProvider with ChangeNotifier {
         ])
       });
       _wishlistItems.remove(productId);
-      // await fetchWishlist();
+      await fetchWishlist();
     } catch (e) {
       rethrow;
     }
@@ -120,7 +120,10 @@ class WishlistProvider with ChangeNotifier {
     notifyListeners();
   }
 
-// Local
+  void clearLocalWishlist() {
+    _wishlistItems.clear();
+    notifyListeners();
+  }
 
   void addOrRemoveFromWishlist({required String productId}) {
     if (_wishlistItems.containsKey(productId)) {
@@ -138,7 +141,7 @@ class WishlistProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void clearLocalWishlist() {
+  void clearState() {
     _wishlistItems.clear();
     notifyListeners();
   }

@@ -115,8 +115,8 @@ class MyApp extends StatelessWidget {
                           const ForgotPasswordScreen(),
                       SearchScreen.routName: (context) => const SearchScreen(),
                       RootScreen.routName: (context) => const RootScreen(),
-                      AddressScreen.routName: (context) => const AddressScreen(),
-                      AddAddressScreen.routName: (context) => const AddAddressScreen()
+                      AddressScreen.routeName: (context) => const AddressScreen(),
+                      AddAddressScreen.routeName: (context) => const AddAddressScreen()
                     },
                   );
                 },

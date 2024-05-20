@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:provider/provider.dart';
 import 'package:techtac_electro/consts/my_validators.dart';
 import 'package:techtac_electro/screens/auth/forgot_password.dart';
 import 'package:techtac_electro/screens/auth/register.dart';
@@ -11,6 +12,8 @@ import 'package:techtac_electro/services/my_app_method.dart';
 import 'package:techtac_electro/widgets/app_name_text.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
+import 'package:techtac_electro/provider/wishlist_provider.dart';
+import 'package:techtac_electro/provider/viewed_prod_provider.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routName = '/LoginScreen';
@@ -30,11 +33,11 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
 
   final auth = FirebaseAuth.instance;
+  
   @override
   void initState() {
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
-    // Focus Nodes
     _emailFocusNode = FocusNode();
     _passwordFocusNode = FocusNode();
     super.initState();
@@ -44,7 +47,6 @@ class _LoginScreenState extends State<LoginScreen> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
-    // Focus Nodes
     _emailFocusNode.dispose();
     _passwordFocusNode.dispose();
     super.dispose();
@@ -65,6 +67,13 @@ class _LoginScreenState extends State<LoginScreen> {
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
+        final wishlistProvider = Provider.of<WishlistProvider>(context, listen: false);
+        final viewedProdProvider = Provider.of<ViewedProdProvider>(context, listen: false);
+        
+        await wishlistProvider.fetchWishlist();
+        // Initialize viewed products if needed
+        // await viewedProdProvider.fetchViewedProducts();
+
         showToast(
           'Login Successful',
           context: context,
@@ -79,13 +88,13 @@ class _LoginScreenState extends State<LoginScreen> {
       } on FirebaseAuthException catch (error) {
         await MyAppMethods.showErrorORWarningDialog(
           context: context,
-          subtitle: "An error has been occurred ${error.message}",
+          subtitle: "An error has occurred ${error.message}",
           fct: () {},
         );
       } catch (error) {
         await MyAppMethods.showErrorORWarningDialog(
           context: context,
-          subtitle: "An error has been occurred $error",
+          subtitle: "An error has occurred $error",
           fct: () {},
         );
       } finally {
@@ -208,7 +217,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.all(12),
-                              // backgroundColor: Colors.red,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
                                   10,
@@ -246,8 +254,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                         padding: const EdgeInsets.all(12),
-                                        // backgroundColor:
-                                        // Theme.of(context).colorScheme.background,
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(
                                             10,

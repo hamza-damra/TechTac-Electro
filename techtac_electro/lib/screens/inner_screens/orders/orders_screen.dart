@@ -17,37 +17,52 @@ class OrdersScreenFree extends StatefulWidget {
 }
 
 class _OrdersScreenFreeState extends State<OrdersScreenFree> {
-  bool isEmptyOrders = false;
+  late Future<void> _ordersFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _ordersFuture = _fetchOrders();
+  }
+
+  Future<void> _fetchOrders() async {
+    final ordersProvider = Provider.of<OrdersProvider>(context, listen: false);
+    await ordersProvider.fetchOrder();
+  }
+
   @override
   Widget build(BuildContext context) {
     final ordersProvider = Provider.of<OrdersProvider>(context);
     return Scaffold(
-        appBar: AppBar(
-          title: const TitlesTextWidget(
-            label: 'Placed orders',
-          ),
+      appBar: AppBar(
+        title: const TitlesTextWidget(
+          label: 'Placed orders',
         ),
-        body: FutureBuilder<List<OrdersModelAdvanced>>(
-          future: ordersProvider.fetchOrder(),
-          builder: ((context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (snapshot.hasError) {
-              return Center(
-                child: SelectableText(
-                    "An error has been occured ${snapshot.error}"),
-              );
-            } else if (!snapshot.hasData || ordersProvider.getOrders.isEmpty) {
+      ),
+      body: FutureBuilder<void>(
+        future: _ordersFuture,
+        builder: ((context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: SelectableText(
+                "An error has occurred: ${snapshot.error}",
+              ),
+            );
+          } else {
+            if (ordersProvider.getOrders.isEmpty) {
               return EmptyBagWidget(
-                  imagePath: AssetsManager.orderBag,
-                  title: "No orders has been placed yet",
-                  subtitle: "",
-                  buttonText: "Shop now");
+                imagePath: AssetsManager.orderBag,
+                title: "No orders have been placed yet",
+                subtitle: "",
+                buttonText: "Shop now",
+              );
             }
             return ListView.separated(
-              itemCount: snapshot.data!.length,
+              itemCount: ordersProvider.getOrders.length,
               itemBuilder: (ctx, index) {
                 return Padding(
                   padding:
@@ -60,7 +75,9 @@ class _OrdersScreenFreeState extends State<OrdersScreenFree> {
                 return const Divider();
               },
             );
-          }),
-        ));
+          }
+        }),
+      ),
+    );
   }
 }

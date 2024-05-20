@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:techtac_electro/screens/address/add_address_screen.dart';
 import 'package:techtac_electro/screens/loading_manager.dart';
+import 'package:techtac_electro/screens/profile_screen.dart';
 import 'package:techtac_electro/services/my_app_method.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 
 class AddressScreen extends StatefulWidget {
-  static const routName = '/AddressScreen';
+  static const routeName = '/AddressScreen';
 
   const AddressScreen({super.key});
 

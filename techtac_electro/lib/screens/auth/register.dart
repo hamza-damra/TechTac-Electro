@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -7,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:techtac_electro/consts/my_validators.dart';
 import 'package:techtac_electro/screens/loading_manager.dart';
 import 'package:techtac_electro/screens/root_screen.dart';
@@ -15,6 +15,8 @@ import 'package:techtac_electro/widgets/app_name_text.dart';
 import 'package:techtac_electro/widgets/auth/pick_image_widget.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
+import 'package:techtac_electro/provider/wishlist_provider.dart';
+import 'package:techtac_electro/provider/viewed_prod_provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const routName = '/RegisterScreen';
@@ -39,14 +41,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
   XFile? _pickedImage;
   final auth = FirebaseAuth.instance;
   String? userImageUrl;
-  
+
   @override
   void initState() {
     _nameController = TextEditingController();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
     _confirmPasswordController = TextEditingController();
-    // Focus Nodes
     _nameFocusNode = FocusNode();
     _emailFocusNode = FocusNode();
     _passwordFocusNode = FocusNode();
@@ -60,7 +61,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
-    // Focus Nodes
     _nameFocusNode.dispose();
     _emailFocusNode.dispose();
     _passwordFocusNode.dispose();
@@ -107,6 +107,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
           'userWish': [],
           'userCart': [],
         });
+
+        final wishlistProvider = Provider.of<WishlistProvider>(context, listen: false);
+        final viewedProdProvider = Provider.of<ViewedProdProvider>(context, listen: false);
+        
+        await wishlistProvider.fetchWishlist();
+        // Initialize viewed products if needed
+        // await viewedProdProvider.fetchViewedProducts();
+
         showToast(
           'An account has been created',
           context: context,
@@ -120,13 +128,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
       } on FirebaseAuthException catch (error) {
         await MyAppMethods.showErrorORWarningDialog(
           context: context,
-          subtitle: "An error has been occured ${error.message}",
+          subtitle: "An error has occurred ${error.message}",
           fct: () {},
         );
       } catch (error) {
         await MyAppMethods.showErrorORWarningDialog(
           context: context,
-          subtitle: "An error has been occured $error",
+          subtitle: "An error has occurred $error",
           fct: () {},
         );
       } finally {
@@ -331,7 +339,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           child: ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.all(12),
-                              // backgroundColor: Colors.red,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
                                   10,

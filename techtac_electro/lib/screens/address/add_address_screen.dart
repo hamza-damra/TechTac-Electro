@@ -1,13 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:techtac_electro/consts/my_validators.dart';
 import 'package:techtac_electro/screens/loading_manager.dart';
 import 'package:techtac_electro/services/my_app_method.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 
 class AddAddressScreen extends StatefulWidget {
-  static const routName = '/AddAddressScreen';
+  static const routeName = '/AddAddressScreen';
   final Map<String, dynamic>? address;
 
   const AddAddressScreen({super.key, this.address});
@@ -23,7 +22,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
   final _stateProvinceController = TextEditingController();
   final _cityController = TextEditingController();
   final _zipCodeController = TextEditingController();
-  final _phoneController = TextEditingController();
+  final _phoneNumberController = TextEditingController();
   bool _isLoading = false;
 
   @override
@@ -35,24 +34,12 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
       _stateProvinceController.text = widget.address!['stateProvince'] ?? '';
       _cityController.text = widget.address!['city'] ?? '';
       _zipCodeController.text = widget.address!['zipCode'] ?? '';
-      _phoneController.text = widget.address!['phoneNumber'] ?? '';
+      _phoneNumberController.text = widget.address!['phoneNumber'] ?? '';
     }
   }
 
-  @override
-  void dispose() {
-    _streetController.dispose();
-    _aptSuiteUnitController.dispose();
-    _stateProvinceController.dispose();
-    _cityController.dispose();
-    _zipCodeController.dispose();
-    _phoneController.dispose();
-    super.dispose();
-  }
-
   Future<void> _saveAddress() async {
-    final isValid = _formKey.currentState!.validate();
-    if (!isValid) return;
+    if (!_formKey.currentState!.validate()) return;
 
     setState(() {
       _isLoading = true;
@@ -60,46 +47,34 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
 
     User? user = FirebaseAuth.instance.currentUser;
     if (user == null) {
+      await MyAppMethods.showErrorORWarningDialog(
+        context: context,
+        subtitle: "No user found",
+        fct: () {},
+      );
       setState(() {
         _isLoading = false;
       });
       return;
     }
 
+    final newAddress = {
+      'street': _streetController.text,
+      'aptSuiteUnit': _aptSuiteUnitController.text,
+      'stateProvince': _stateProvinceController.text,
+      'city': _cityController.text,
+      'zipCode': _zipCodeController.text,
+      'phoneNumber': _phoneNumberController.text,
+    };
+
     try {
-      DocumentReference userRef = FirebaseFirestore.instance.collection('users').doc(user.uid);
-      DocumentSnapshot userSnapshot = await userRef.get();
-      List<Map<String, dynamic>> addresses = userSnapshot.exists ? List<Map<String, dynamic>>.from((userSnapshot.data() as Map<String, dynamic>)['addresses'] ?? []) : [];
-
-      if (widget.address != null) {
-        int index = addresses.indexWhere((address) => address['street'] == widget.address!['street']);
-        if (index != -1) {
-          addresses[index] = {
-            'street': _streetController.text,
-            'aptSuiteUnit': _aptSuiteUnitController.text,
-            'stateProvince': _stateProvinceController.text,
-            'city': _cityController.text,
-            'zipCode': _zipCodeController.text,
-            'phoneNumber': _phoneController.text,
-          };
-        }
-      } else {
-        addresses.add({
-          'street': _streetController.text,
-          'aptSuiteUnit': _aptSuiteUnitController.text,
-          'stateProvince': _stateProvinceController.text,
-          'city': _cityController.text,
-          'zipCode': _zipCodeController.text,
-          'phoneNumber': _phoneController.text,
-        });
-      }
-
-      await userRef.update({
-        'addresses': addresses,
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .update({
+        'addresses': FieldValue.arrayUnion([newAddress]),
       });
-
-      if (!mounted) return;
-      Navigator.pop(context);
+      Navigator.of(context).pop();
     } catch (error) {
       await MyAppMethods.showErrorORWarningDialog(
         context: context,
@@ -111,6 +86,17 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
         _isLoading = false;
       });
     }
+  }
+
+  @override
+  void dispose() {
+    _streetController.dispose();
+    _aptSuiteUnitController.dispose();
+    _stateProvinceController.dispose();
+    _cityController.dispose();
+    _zipCodeController.dispose();
+    _phoneNumberController.dispose();
+    super.dispose();
   }
 
   @override
@@ -127,67 +113,69 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
             key: _formKey,
             child: ListView(
               children: [
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  elevation: 4,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        _buildTextFormField(
-                          controller: _streetController,
-                          label: 'Street',
-                          validator: MyValidators.addressValidator,
-                        ),
-                        const SizedBox(height: 10),
-                        _buildTextFormField(
-                          controller: _aptSuiteUnitController,
-                          label: 'Apt/Suite/Unit (optional)',
-                        ),
-                        const SizedBox(height: 10),
-                        _buildTextFormField(
-                          controller: _stateProvinceController,
-                          label: 'State/Province',
-                          validator: MyValidators.addressValidator,
-                        ),
-                        const SizedBox(height: 10),
-                        _buildTextFormField(
-                          controller: _cityController,
-                          label: 'City',
-                          validator: MyValidators.cityValidator,
-                        ),
-                        const SizedBox(height: 10),
-                        _buildTextFormField(
-                          controller: _zipCodeController,
-                          label: 'Zip Code',
-                          validator: MyValidators.zipCodeValidator,
-                        ),
-                        const SizedBox(height: 10),
-                        _buildTextFormField(
-                          controller: _phoneController,
-                          label: 'Phone Number',
-                          validator: MyValidators.phoneValidator,
-                        ),
-                      ],
-                    ),
-                  ),
+                _buildTextFormField(
+                  controller: _streetController,
+                  label: 'Street',
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter the street';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 10),
+                _buildTextFormField(
+                  controller: _aptSuiteUnitController,
+                  label: 'Apt/Suite/Unit',
+                ),
+                const SizedBox(height: 10),
+                _buildTextFormField(
+                  controller: _stateProvinceController,
+                  label: 'State/Province',
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter the state or province';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 10),
+                _buildTextFormField(
+                  controller: _cityController,
+                  label: 'City',
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter the city';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 10),
+                _buildTextFormField(
+                  controller: _zipCodeController,
+                  label: 'Zip Code',
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter the zip code';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 10),
+                _buildTextFormField(
+                  controller: _phoneNumberController,
+                  label: 'Phone Number',
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter the phone number';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton.icon(
-                    onPressed: _saveAddress,
-                    icon: const Icon(Icons.save),
-                    label: const Text('Save Address'),
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                  ),
+                ElevatedButton(
+                  onPressed: _saveAddress,
+                  child: const Text('Save Address'),
                 ),
               ],
             ),
@@ -206,13 +194,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
       controller: controller,
       decoration: InputDecoration(
         labelText: label,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: Colors.blue),
-        ),
+        border: const OutlineInputBorder(),
       ),
       validator: validator,
     );

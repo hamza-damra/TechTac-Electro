@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:techtac_electro/models/review_model.dart';
 import 'package:techtac_electro/models/user_model.dart';
 import 'package:techtac_electro/provider/cart_provider.dart';
+import 'package:techtac_electro/provider/dark_theme_provider.dart';
 import 'package:techtac_electro/provider/product_provider.dart';
 import 'package:techtac_electro/provider/user_provier.dart';
 import 'package:techtac_electro/widgets/app_name_text.dart';
@@ -29,7 +30,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
+    final themeProvider = Provider.of<ThemeProvider>(context);
     final productProvider = Provider.of<ProductProvider>(context, listen: false);
     final userProvider = Provider.of<UserProvider>(context);
     final user = userProvider.getUserModel;
@@ -55,108 +56,113 @@ class _ProductDetailsState extends State<ProductDetails> {
       body: getCurrProduct == null
           ? const SizedBox.shrink()
           : SingleChildScrollView(
+        child: Column(
+          children: [
+            FancyShimmerImage(
+              imageUrl: getCurrProduct.productImage,
+              height: size.height * 0.38,
+              width: double.infinity,
+              boxFit: BoxFit.contain,
+            ),
+            const SizedBox(height: 10.0),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  FancyShimmerImage(
-                    imageUrl: getCurrProduct.productImage,
-                    height: size.height * 0.38,
-                    width: double.infinity,
-                    boxFit: BoxFit.contain,
-                  ),
-                  const SizedBox(height: 10.0),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Flexible(
-                              child: Text(
-                                getCurrProduct.productTitle,
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 14),
-                            SubtitleTextWidget(
-                              label: "${getCurrProduct.productPrice}\$",
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 25),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              HeartButtonWidget(
-                                productId: getCurrProduct.productId,
-                                color: Colors.blue.shade300,
-                              ),
-                              const SizedBox(width: 10),
-                              Expanded(
-                                child: SizedBox(
-                                  height: kBottomNavigationBarHeight - 10,
-                                  child: ElevatedButton.icon(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.lightBlue,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      if (cartProvider.isProductInCart(productId: getCurrProduct.productId)) {
-                                        return;
-                                      }
-                                      cartProvider.addProductToCart(productId: getCurrProduct.productId);
-                                    },
-                                    icon: Icon(
-                                      cartProvider.isProductInCart(productId: getCurrProduct.productId)
-                                          ? Icons.check
-                                          : Icons.add_shopping_cart_rounded,
-                                    ),
-                                    label: Text(
-                                      cartProvider.isProductInCart(productId: getCurrProduct.productId)
-                                          ? "In cart"
-                                          : "Add to cart",
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          getCurrProduct.productTitle,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(height: 25),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const TitlesTextWidget(label: "About this item"),
-                            SubtitleTextWidget(label: "In ${getCurrProduct.productCategory}"),
-                          ],
+                      ),
+                      const SizedBox(width: 14),
+                      SubtitleTextWidget(
+                        label: "${getCurrProduct.productPrice}\$",
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 25),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        HeartButtonWidget(
+                          productId: getCurrProduct.productId,
+                          color: Colors.blue.shade300,
                         ),
-                        const SizedBox(height: 25),
-                        SubtitleTextWidget(label: getCurrProduct.productDescription),
-                        const SizedBox(height: 25),
-                        const Divider(),
-                        const TitlesTextWidget(label: "Reviews"),
-                        _buildReviewForm(context, productId, user),
-                        _buildReviewsList(context, productId, user),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: SizedBox(
+                            height: kBottomNavigationBarHeight - 10,
+                            child: ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.lightBlue,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                              ),
+                              onPressed: () {
+                                if (cartProvider.isProductInCart(productId: getCurrProduct.productId)) {
+                                  return;
+                                }
+                                cartProvider.addProductToCart(productId: getCurrProduct.productId);
+                              },
+                              icon: Icon(
+                                cartProvider.isProductInCart(productId: getCurrProduct.productId)
+                                    ? Icons.check
+                                    : Icons.add_shopping_cart_rounded,
+                              ),
+                              label: Text(
+                                cartProvider.isProductInCart(productId: getCurrProduct.productId)
+                                    ? "In cart"
+                                    : "Add to cart",
+                                style: TextStyle(
+                                  color: themeProvider.getIsDarkTheme ? Colors.white : Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
+                  const SizedBox(height: 25),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const TitlesTextWidget(label: "About this item"),
+                      SubtitleTextWidget(label: "In ${getCurrProduct.productCategory}"),
+                    ],
+                  ),
+                  const SizedBox(height: 25),
+                  SubtitleTextWidget(label: getCurrProduct.productDescription),
+                  const SizedBox(height: 25),
+                  const Divider(),
+                  const TitlesTextWidget(label: "Reviews"),
+                  const Divider(),
+                  const SizedBox(height: 15),
+                  _buildReviewForm(context, productId, user, themeProvider),
+                  _buildReviewsList(context, productId, user),
                 ],
               ),
             ),
+          ],
+        ),
+      ),
     );
   }
 
-  Widget _buildReviewForm(BuildContext context, String productId, UserModel? user) {
+  Widget _buildReviewForm(BuildContext context, String productId, UserModel? user, ThemeProvider themeProvider) {
     if (user == null) {
       return const Padding(
         padding: EdgeInsets.all(8.0),
@@ -188,57 +194,71 @@ class _ProductDetailsState extends State<ProductDetails> {
                 decoration: const InputDecoration(labelText: 'Enter your review'),
                 maxLines: 3,
               ),
-              Row(
-                children: [
-                  const Text('Rating:'),
-                  Expanded(
-                    child: Slider(
-                      value: _rating,
-                      onChanged: (newRating) {
-                        setState(() {
-                          _rating = newRating;
-                        });
-                      },
-                      min: 1,
-                      max: 5,
-                      divisions: 4,
-                      label: _rating.toString(),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0), // Apply padding to the Row
+                child: Row(
+                  children: [
+                    const Text('Rating:'),
+                    Expanded(
+                      child: Slider(
+                        value: _rating,
+                        onChanged: (newRating) {
+                          setState(() {
+                            _rating = newRating;
+                          });
+                        },
+                        min: 1,
+                        max: 5,
+                        divisions: 4,
+                        label: _rating.toString(),
+                      ),
                     ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (_reviewController.text.isEmpty) {
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.lightBlue,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      onPressed: () {
+                        if (_reviewController.text.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Please enter a review."),
+                            ),
+                          );
+                          return;
+                        }
+                        final newReview = ReviewModel(
+                          productId: productId,
+                          userId: user.userId,
+                          username: user.userName,
+                          userProfileImage: user.userImage,
+                          reviewText: _reviewController.text,
+                          rating: _rating,
+                          createdAt: Timestamp.now(),
+                        );
+                        Provider.of<ProductProvider>(context, listen: false).addReview(productId, newReview);
+                        _reviewController.clear();
+                        setState(() {
+                          _rating = 5.0;
+                          _hasSubmittedReview = true;
+                        });
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text("Please enter a review."),
+                            content: Text("Review submitted successfully."),
                           ),
                         );
-                        return;
-                      }
-                      final newReview = ReviewModel(
-                        productId: productId,
-                        userId: user.userId,
-                        username: user.userName,
-                        userProfileImage: user.userImage,
-                        reviewText: _reviewController.text,
-                        rating: _rating,
-                        createdAt: Timestamp.now(),
-                      );
-                      Provider.of<ProductProvider>(context, listen: false).addReview(productId, newReview);
-                      _reviewController.clear();
-                      setState(() {
-                        _rating = 5.0;
-                        _hasSubmittedReview = true;
-                      });
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Review submitted successfully."),
+                      },
+                      child: Text(
+                        'Submit Review',
+                        style: TextStyle(
+                          color: themeProvider.getIsDarkTheme ? Colors.white : Colors.black,
                         ),
-                      );
-                    },
-                    child: const Text('Submit Review'),
-                  ),
-                ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ],
@@ -381,80 +401,83 @@ class _ReviewCardState extends State<ReviewCard> {
             const SizedBox(height: 10),
             isEditing
                 ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextField(
+                  controller: _editReviewController,
+                  decoration: const InputDecoration(labelText: 'Edit your review'),
+                  maxLines: 3,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0), // Apply padding to the Row
+                  child: Row(
                     children: [
-                      TextField(
-                        controller: _editReviewController,
-                        decoration: const InputDecoration(labelText: 'Edit your review'),
-                        maxLines: 3,
+                      const SubtitleTextWidget(label: 'Rating:'),
+                      Expanded(
+                        child: Slider(
+                          value: _editRating,
+                          onChanged: (newRating) {
+                            setState(() {
+                              _editRating = newRating;
+                            });
+                          },
+                          min: 1,
+                          max: 5,
+                          divisions: 4,
+                          label: _editRating.toString(),
+                        ),
                       ),
-                      Row(
-                        children: [
-                          const SubtitleTextWidget(label: 'Rating:'),
-                          Expanded(
-                            child: Slider(
-                              value: _editRating,
-                              onChanged: (newRating) {
-                                setState(() {
-                                  _editRating = newRating;
-                                });
-                              },
-                              min: 1,
-                              max: 5,
-                              divisions: 4,
-                              label: _editRating.toString(),
-                            ),
-                          ),
-                          ElevatedButton(
-                            onPressed: () async {
-                              if (_editReviewController.text.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("Please enter a review."),
-                                  ),
-                                );
-                                return;
-                              }
+                      ElevatedButton(
+                        onPressed: () async {
+                          if (_editReviewController.text.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Please enter a review."),
+                              ),
+                            );
+                            return;
+                          }
 
-                              final updatedReview = ReviewModel(
-                                reviewId: review.reviewId,
-                                productId: review.productId,
-                                userId: review.userId,
-                                username: review.username,
-                                userProfileImage: review.userProfileImage,
-                                reviewText: _editReviewController.text,
-                                rating: _editRating,
-                                createdAt: review.createdAt,
-                              );
+                          final updatedReview = ReviewModel(
+                            reviewId: review.reviewId,
+                            productId: review.productId,
+                            userId: review.userId,
+                            username: review.username,
+                            userProfileImage: review.userProfileImage,
+                            reviewText: _editReviewController.text,
+                            rating: _editRating,
+                            createdAt: review.createdAt,
+                          );
 
-                              try {
-                                await Provider.of<ProductProvider>(context, listen: false)
-                                    .updateReview(review.productId, updatedReview);
-                                setState(() {
-                                  isEditing = false;
-                                });
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("Review updated successfully."),
-                                  ),
-                                );
-                              } catch (e) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("Failed to update review."),
-                                  ),
-                                );
-                              }
-                            },
-                            child: const Text('Update'),
-                          ),
-                        ],
+                          try {
+                            await Provider.of<ProductProvider>(context, listen: false)
+                                .updateReview(review.productId, updatedReview);
+                            setState(() {
+                              isEditing = false;
+                            });
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Review updated successfully."),
+                              ),
+                            );
+                          } catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Failed to update review."),
+                              ),
+                            );
+                          }
+                        },
+                        child: const Text('Update'),
                       ),
                     ],
-                  )
-                : SubtitleTextWidget(
-                   label:  review.reviewText,
                   ),
+                ),
+              ],
+            )
+                : SubtitleTextWidget(
+              label:  review.reviewText,
+            ),
             const SizedBox(height: 10),
             _buildStarRating(review.rating),
           ],

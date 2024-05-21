@@ -63,6 +63,34 @@ class _AddressScreenState extends State<AddressScreen> {
     }
   }
 
+  Future<void> _deleteAddress(Map<String, dynamic> address) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      await MyAppMethods.showErrorORWarningDialog(
+        context: context,
+        subtitle: "No user found",
+        fct: () {},
+      );
+      return;
+    }
+
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .update({
+        'addresses': FieldValue.arrayRemove([address]),
+      });
+      fetchAddresses();
+    } catch (error) {
+      await MyAppMethods.showErrorORWarningDialog(
+        context: context,
+        subtitle: "An error occurred: $error",
+        fct: () {},
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,41 +103,52 @@ class _AddressScreenState extends State<AddressScreen> {
           padding: const EdgeInsets.all(8.0),
           child: _addresses.isEmpty
               ? const Center(
-                  child: TitlesTextWidget(label: 'No addresses found.'),
-                )
+            child: TitlesTextWidget(label: 'No addresses found.'),
+          )
               : ListView.builder(
-                  itemCount: _addresses.length,
-                  itemBuilder: (context, index) {
-                    final address = _addresses[index];
-                    return Card(
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      child: ListTile(
-                        title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SubtitleTextWidget(label: 'Street: ${address['street']}'),
-                            SubtitleTextWidget(label: 'Apt/Suite/Unit: ${address['aptSuiteUnit']}'),
-                            SubtitleTextWidget(label: 'State/Province: ${address['stateProvince']}'),
-                            SubtitleTextWidget(label: 'City: ${address['city']}'),
-                            SubtitleTextWidget(label: 'Zip Code: ${address['zipCode']}'),
-                            SubtitleTextWidget(label: 'Phone Number: ${address['phoneNumber']}'),
-                          ],
-                        ),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.edit),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => AddAddressScreen(address: address),
-                              ),
-                            ).then((_) => fetchAddresses());
-                          },
-                        ),
+            itemCount: _addresses.length,
+            itemBuilder: (context, index) {
+              final address = _addresses[index];
+              return Card(
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                child: ListTile(
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SubtitleTextWidget(label: 'Street: ${address['street']}'),
+                      SubtitleTextWidget(label: 'Apt/Suite/Unit: ${address['aptSuiteUnit']}'),
+                      SubtitleTextWidget(label: 'State/Province: ${address['stateProvince']}'),
+                      SubtitleTextWidget(label: 'City: ${address['city']}'),
+                      SubtitleTextWidget(label: 'Zip Code: ${address['zipCode']}'),
+                      SubtitleTextWidget(label: 'Phone Number: ${address['phoneNumber']}'),
+                    ],
+                  ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.edit),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AddAddressScreen(address: address),
+                            ),
+                          ).then((_) => fetchAddresses());
+                        },
                       ),
-                    );
-                  },
+                      IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () async {
+                          await _deleteAddress(address);
+                        },
+                      ),
+                    ],
+                  ),
                 ),
+              );
+            },
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

@@ -7,6 +7,7 @@ import 'package:techtac_electro/provider/viewed_prod_provider.dart';
 import 'package:techtac_electro/services/my_app_method.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import '../../models/product_model.dart';
+import '../../provider/user_provier.dart';
 import '../../screens/inner_screens/product_details.dart';
 import 'heart_btn.dart';
 
@@ -67,35 +68,50 @@ class LatestArrivalProductsWidget extends StatelessWidget {
                           HeartButtonWidget(productId: productsModel.productId),
                           IconButton(
                             onPressed: () async {
-                              if (cartProvider.isProductInCart(
-                                  productId: getCurrProduct.productId)) {
+                              // Check if user is logged in
+                              final userProvider = Provider.of<UserProvider>(context, listen: false);
+                              final user = await userProvider.fetchUserInfo();
+
+                              if (user == null) {
+                                // Display a message or navigate to the login screen
+                                MyAppMethods.showErrorORWarningDialog(
+                                  context: context,
+                                  subtitle: 'Please log in to add items to the cart.',
+                                  fct: () {},
+                                );
+                                return;
+                              }
+
+                              // Check if the product is already in the cart
+                              if (cartProvider.isProductInCart(productId: getCurrProduct.productId)) {
                                 return;
                               }
 
                               try {
                                 await cartProvider.addToCartFirebase(
-                                    productId: getCurrProduct.productId,
-                                    qty: 1,
-                                    context: context);
+                                  productId: getCurrProduct.productId,
+                                  qty: 1,
+                                  context: context,
+                                );
                               } catch (error) {
                                 MyAppMethods.showErrorORWarningDialog(
-                                    // ignore: use_build_context_synchronously
-                                    context: context,
-                                    subtitle: error.toString(),
-                                    fct: () {});
+                                  // ignore: use_build_context_synchronously
+                                  context: context,
+                                  subtitle: error.toString(),
+                                  fct: () {},
+                                );
                               }
-                              cartProvider.addProductToCart(
-                                  productId: getCurrProduct.productId);
+                              cartProvider.addProductToCart(productId: getCurrProduct.productId);
                             },
                             icon: Icon(
-                              cartProvider.isProductInCart(
-                                      productId: getCurrProduct!.productId)
+                              cartProvider.isProductInCart(productId: getCurrProduct!.productId)
                                   ? Icons.check
                                   : Icons.add_shopping_cart_rounded,
                               size: 20,
                               color: Colors.blue,
                             ),
                           ),
+
                         ],
                       ),
                     ),

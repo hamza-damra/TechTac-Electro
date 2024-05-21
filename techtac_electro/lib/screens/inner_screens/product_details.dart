@@ -7,12 +7,14 @@ import 'package:techtac_electro/models/user_model.dart';
 import 'package:techtac_electro/provider/cart_provider.dart';
 import 'package:techtac_electro/provider/dark_theme_provider.dart';
 import 'package:techtac_electro/provider/product_provider.dart';
-import 'package:techtac_electro/provider/user_provier.dart';
 import 'package:techtac_electro/widgets/app_name_text.dart';
 import 'package:techtac_electro/widgets/products/heart_btn.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 import 'package:intl/intl.dart';
+
+import '../../provider/user_provier.dart';
+import '../../services/my_app_method.dart';
 
 class ProductDetails extends StatefulWidget {
   static const routeName = '/ProductDetails';
@@ -111,9 +113,36 @@ class _ProductDetailsState extends State<ProductDetails> {
                                   borderRadius: BorderRadius.circular(30),
                                 ),
                               ),
-                              onPressed: () {
+                              onPressed: () async {
+                                final userProvider = Provider.of<UserProvider>(context, listen: false);
+                                final user = await userProvider.fetchUserInfo();
+
+                                if (user == null) {
+                                  // Display a message or navigate to the login screen
+                                  MyAppMethods.showErrorORWarningDialog(
+                                    context: context,
+                                    subtitle: 'Please log in to add items to the cart.',
+                                    fct: () {},
+                                  );
+                                  return;
+                                }
+
                                 if (cartProvider.isProductInCart(productId: getCurrProduct.productId)) {
                                   return;
+                                }
+
+                                try {
+                                  await cartProvider.addToCartFirebase(
+                                    productId: getCurrProduct.productId,
+                                    qty: 1,
+                                    context: context,
+                                  );
+                                } catch (error) {
+                                  MyAppMethods.showErrorORWarningDialog(
+                                    context: context,
+                                    subtitle: error.toString(),
+                                    fct: () {},
+                                  );
                                 }
                                 cartProvider.addProductToCart(productId: getCurrProduct.productId);
                               },

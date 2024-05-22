@@ -51,10 +51,33 @@ class AddressProvider with ChangeNotifier {
     }
 
     try {
-      await FirebaseFirestore.instance.collection('users').doc(user.uid).update({
-        'addresses': FieldValue.arrayUnion([address]),
-      });
-      fetchAddresses(context: context);
+      // Check if the address already exists
+      bool addressExists = false;
+      for (var addr in _addresses) {
+        if (addr['id'] == address['id']) {
+          addressExists = true;
+          break;
+        }
+      }
+
+      if (addressExists) {
+        // Update the existing address
+        List<Map<String, dynamic>> updatedAddresses = _addresses.map((addr) {
+          if (addr['id'] == address['id']) {
+            return address;
+          }
+          return addr;
+        }).toList();
+        await FirebaseFirestore.instance.collection('users').doc(user.uid).update({
+          'addresses': updatedAddresses,
+        });
+      } else {
+        // Add new address
+        await FirebaseFirestore.instance.collection('users').doc(user.uid).update({
+          'addresses': FieldValue.arrayUnion([address]),
+        });
+      }
+      await fetchAddresses(context: context);
     } catch (error) {
       await MyAppMethods.showErrorORWarningDialog(
         context: context,
@@ -79,7 +102,7 @@ class AddressProvider with ChangeNotifier {
       await FirebaseFirestore.instance.collection('users').doc(user.uid).update({
         'addresses': FieldValue.arrayRemove([address]),
       });
-      fetchAddresses(context: context);
+      await fetchAddresses(context: context);
     } catch (error) {
       await MyAppMethods.showErrorORWarningDialog(
         context: context,

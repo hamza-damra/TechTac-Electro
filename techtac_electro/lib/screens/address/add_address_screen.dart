@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:techtac_electro/screens/loading_manager.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../provider/address_provider.dart';
 
@@ -43,6 +44,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
     final addressProvider = Provider.of<AddressProvider>(context, listen: false);
 
     final newAddress = {
+      'id': widget.address != null ? widget.address!['id'] : const Uuid().v4(),
       'street': _streetController.text,
       'aptSuiteUnit': _aptSuiteUnitController.text,
       'stateProvince': _stateProvinceController.text,
@@ -143,7 +145,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () => _saveAddress(context),
-                  child: const Text('Save Address'),
+                  child: widget.address != null ? const Text('Update Address') : const Text('Save Address'),
                 ),
               ],
             ),

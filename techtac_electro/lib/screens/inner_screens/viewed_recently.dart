@@ -15,7 +15,7 @@ class ViewedRecentlyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewedProvider = Provider.of<ViewedProdProvider>(context);
-    return viewedProvider.getviewedProdItems.isEmpty
+    return viewedProvider.getViewedProdItems.isEmpty
         ? Scaffold(
             body: EmptyBagWidget(
               imagePath: AssetsManager.shoppingBasket,
@@ -31,7 +31,7 @@ class ViewedRecentlyScreen extends StatelessWidget {
             appBar: AppBar(
               title: TitlesTextWidget(
                   label:
-                      "Viewed recently (${viewedProvider.getviewedProdItems.length})"),
+                      "Viewed recently (${viewedProvider.getViewedProdItems.length})"),
               leading: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Image.asset(AssetsManager.shoppingCart),
@@ -47,12 +47,12 @@ class ViewedRecentlyScreen extends StatelessWidget {
               ],
             ),
             body: DynamicHeightGridView(
-              itemCount: viewedProvider.getviewedProdItems.length,
+              itemCount: viewedProvider.getViewedProdItems.length,
               builder: ((context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ProductWidget(
-                    productId: viewedProvider.getviewedProdItems.values
+                    productId: viewedProvider.getViewedProdItems.values
                         .toList()[index]
                         .productId,
                   ),

@@ -1,11 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 import 'package:techtac_electro/screens/address/add_address_screen.dart';
-import 'package:techtac_electro/screens/loading_manager.dart';
-import 'package:techtac_electro/services/my_app_method.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
+
+import '../../provider/address_provider.dart';
+import '../loading_manager.dart';
 
 class AddressScreen extends StatefulWidget {
   static const routeName = '/AddressScreen';
@@ -17,98 +17,34 @@ class AddressScreen extends StatefulWidget {
 }
 
 class _AddressScreenState extends State<AddressScreen> {
-  bool _isLoading = true;
-  List<Map<String, dynamic>> _addresses = [];
-
   @override
   void initState() {
     super.initState();
-    fetchAddresses();
-  }
-
-  Future<void> fetchAddresses() async {
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user == null) {
-      setState(() {
-        _isLoading = false;
-      });
-      return;
-    }
-
-    try {
-      DocumentSnapshot snapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .get();
-
-      if (snapshot.exists) {
-        setState(() {
-          _addresses = List<Map<String, dynamic>>.from((snapshot.data() as Map<String, dynamic>)['addresses'] ?? []);
-          _isLoading = false;
-        });
-      } else {
-        setState(() {
-          _isLoading = false;
-        });
-      }
-    } catch (error) {
-      await MyAppMethods.showErrorORWarningDialog(
-        context: context,
-        subtitle: "An error occurred: $error",
-        fct: () {},
-      );
-      setState(() {
-        _isLoading = false;
-      });
-    }
-  }
-
-  Future<void> _deleteAddress(Map<String, dynamic> address) async {
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user == null) {
-      await MyAppMethods.showErrorORWarningDialog(
-        context: context,
-        subtitle: "No user found",
-        fct: () {},
-      );
-      return;
-    }
-
-    try {
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .update({
-        'addresses': FieldValue.arrayRemove([address]),
-      });
-      fetchAddresses();
-    } catch (error) {
-      await MyAppMethods.showErrorORWarningDialog(
-        context: context,
-        subtitle: "An error occurred: $error",
-        fct: () {},
-      );
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<AddressProvider>(context, listen: false).fetchAddresses(context: context);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final addressProvider = Provider.of<AddressProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const TitlesTextWidget(label: 'Addresses'),
       ),
       body: LoadingManager(
-        isLoading: _isLoading,
+        isLoading: addressProvider.isLoading,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: _addresses.isEmpty
+          child: addressProvider.addresses.isEmpty
               ? const Center(
             child: TitlesTextWidget(label: 'No addresses found.'),
           )
               : ListView.builder(
-            itemCount: _addresses.length,
+            itemCount: addressProvider.addresses.length,
             itemBuilder: (context, index) {
-              final address = _addresses[index];
+              final address = addressProvider.addresses[index];
               return Card(
                 margin: const EdgeInsets.symmetric(vertical: 8),
                 child: ListTile(
@@ -134,13 +70,13 @@ class _AddressScreenState extends State<AddressScreen> {
                             MaterialPageRoute(
                               builder: (context) => AddAddressScreen(address: address),
                             ),
-                          ).then((_) => fetchAddresses());
+                          ).then((_) => addressProvider.fetchAddresses(context: context));
                         },
                       ),
                       IconButton(
                         icon: const Icon(Icons.delete),
                         onPressed: () async {
-                          await _deleteAddress(address);
+                          await addressProvider.deleteAddress(address, context: context);
                         },
                       ),
                     ],
@@ -158,7 +94,7 @@ class _AddressScreenState extends State<AddressScreen> {
             MaterialPageRoute(
               builder: (context) => const AddAddressScreen(),
             ),
-          ).then((_) => fetchAddresses());
+          ).then((_) => addressProvider.fetchAddresses(context: context));
         },
         child: const Icon(Icons.add),
       ),

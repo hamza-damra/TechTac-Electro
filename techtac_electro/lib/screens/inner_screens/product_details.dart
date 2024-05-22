@@ -13,7 +13,7 @@ import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 import 'package:intl/intl.dart';
 
-import '../../provider/user_provier.dart';
+import '../../provider/user_provider.dart';
 import '../../services/my_app_method.dart';
 
 class ProductDetails extends StatefulWidget {

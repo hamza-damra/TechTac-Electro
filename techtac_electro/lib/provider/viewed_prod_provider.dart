@@ -5,7 +5,7 @@ import 'package:uuid/uuid.dart';
 class ViewedProdProvider with ChangeNotifier {
   final Map<String, ViewedProdModel> _viewedProdItems = {};
 
-  Map<String, ViewedProdModel> get getviewedProdItems {
+  Map<String, ViewedProdModel> get getViewedProdItems {
     return _viewedProdItems;
   }
 

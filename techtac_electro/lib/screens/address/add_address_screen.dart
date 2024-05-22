@@ -1,9 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 import 'package:techtac_electro/screens/loading_manager.dart';
-import 'package:techtac_electro/services/my_app_method.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
+
+import '../../provider/address_provider.dart';
 
 class AddAddressScreen extends StatefulWidget {
   static const routeName = '/AddAddressScreen';
@@ -23,7 +23,6 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
   final _cityController = TextEditingController();
   final _zipCodeController = TextEditingController();
   final _phoneNumberController = TextEditingController();
-  bool _isLoading = false;
 
   @override
   void initState() {
@@ -38,25 +37,10 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
     }
   }
 
-  Future<void> _saveAddress() async {
+  Future<void> _saveAddress(BuildContext context) async {
     if (!_formKey.currentState!.validate()) return;
 
-    setState(() {
-      _isLoading = true;
-    });
-
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user == null) {
-      await MyAppMethods.showErrorORWarningDialog(
-        context: context,
-        subtitle: "No user found",
-        fct: () {},
-      );
-      setState(() {
-        _isLoading = false;
-      });
-      return;
-    }
+    final addressProvider = Provider.of<AddressProvider>(context, listen: false);
 
     final newAddress = {
       'street': _streetController.text,
@@ -67,25 +51,8 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
       'phoneNumber': _phoneNumberController.text,
     };
 
-    try {
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .update({
-        'addresses': FieldValue.arrayUnion([newAddress]),
-      });
-      Navigator.of(context).pop();
-    } catch (error) {
-      await MyAppMethods.showErrorORWarningDialog(
-        context: context,
-        subtitle: "An error occurred: $error",
-        fct: () {},
-      );
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
+    await addressProvider.addOrUpdateAddress(newAddress, context: context);
+    Navigator.of(context).pop();
   }
 
   @override
@@ -101,12 +68,13 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final addressProvider = Provider.of<AddressProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const TitlesTextWidget(label: 'Add/Edit Address'),
       ),
       body: LoadingManager(
-        isLoading: _isLoading,
+        isLoading: addressProvider.isLoading,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Form(
@@ -174,7 +142,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: _saveAddress,
+                  onPressed: () => _saveAddress(context),
                   child: const Text('Save Address'),
                 ),
               ],

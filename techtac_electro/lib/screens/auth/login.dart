@@ -69,10 +69,13 @@ class _LoginScreenState extends State<LoginScreen> {
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
-        final wishlistProvider = Provider.of<WishlistProvider>(context, listen: false);
-        final viewedProdProvider = Provider.of<ViewedProdProvider>(context, listen: false);
-        final cartProvider = Provider.of<CartProvider>(context, listen: false);
-        final ordersProvider = Provider.of<OrdersProvider>(context, listen: false);
+
+            final wishlistProvider = Provider.of<WishlistProvider>(context, listen: false);
+            final viewedProdProvider = Provider.of<ViewedProdProvider>(context, listen: false);
+            final cartProvider = Provider.of<CartProvider>(context, listen: false);
+            final ordersProvider = Provider.of<OrdersProvider>(context, listen: false);
+
+
 
         await wishlistProvider.fetchWishlist();
         viewedProdProvider.clearState();  // Assuming you want to clear viewed products

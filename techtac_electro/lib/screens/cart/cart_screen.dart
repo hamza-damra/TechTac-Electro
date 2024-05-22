@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:techtac_electro/provider/cart_provider.dart';
 import 'package:techtac_electro/provider/product_provider.dart';
-import 'package:techtac_electro/provider/user_provier.dart';
+import 'package:techtac_electro/provider/user_provider.dart';
 import 'package:techtac_electro/screens/cart/cart_widget.dart';
 import 'package:techtac_electro/screens/loading_manager.dart';
 import 'package:techtac_electro/screens/root_screen.dart';

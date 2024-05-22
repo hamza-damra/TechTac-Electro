@@ -1,11 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:techtac_electro/provider/address_provider.dart';
 import 'package:techtac_electro/provider/cart_provider.dart';
 import 'package:techtac_electro/provider/dark_theme_provider.dart';
 import 'package:techtac_electro/provider/order_provider.dart';
 import 'package:techtac_electro/provider/product_provider.dart';
-import 'package:techtac_electro/provider/user_provier.dart';
+import 'package:techtac_electro/provider/user_provider.dart';
 import 'package:techtac_electro/provider/viewed_prod_provider.dart';
 import 'package:techtac_electro/provider/wishlist_provider.dart';
 import 'package:techtac_electro/screens/address/add_address_screen.dart';
@@ -41,86 +42,61 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: FutureBuilder(
-          future: Firebase.initializeApp(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Scaffold(
-                body: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              );
-            } else if (snapshot.hasError) {
-              return Scaffold(
-                body: Center(
-                  child: SelectableText(
-                      "An error has been occured ${snapshot.error}"),
-                ),
-              );
-            }
-            return MultiProvider(
-              providers: [
-                ChangeNotifierProvider(
-                  create: (_) => ThemeProvider(),
-                ),
-                ChangeNotifierProvider(
-                  create: (_) => ProductProvider(),
-                ),
-                ChangeNotifierProvider(
-                  create: (_) => CartProvider(),
-                ),
-                ChangeNotifierProvider(
-                  create: (_) => WishlistProvider(),
-                ),
-                ChangeNotifierProvider(
-                  create: (_) => ViewedProdProvider(),
-                ),
-                ChangeNotifierProvider(
-                  create: (_) => UserProvider(),
-                ),
-                ChangeNotifierProvider(
-                  create: (_) => OrdersProvider(),
-                ),
-              ],
-              child: Consumer<ThemeProvider>(
-                builder: (
-                  context,
-                  themeProvider,
-                  child,
-                ) {
-                  return MaterialApp(
-                    title: 'Shop Smart AR',
-                    theme: Styles.themeData(
-                        isDarkTheme: themeProvider.getIsDarkTheme,
-                        context: context),
-                    home: const RootScreen(),
-                    // home: const RegisterScreen(),
-                    routes: {
-                      ProductDetails.routeName: (context) =>
-                          const ProductDetails(),
-                      WishlistScreen.routName: (context) =>
-                          const WishlistScreen(),
-                      ViewedRecentlyScreen.routName: (context) =>
-                          const ViewedRecentlyScreen(),
-                      RegisterScreen.routName: (context) =>
-                          const RegisterScreen(),
-                      LoginScreen.routName: (context) => const LoginScreen(),
-                      OrdersScreenFree.routeName: (context) =>
-                          const OrdersScreenFree(),
-                      ForgotPasswordScreen.routeName: (context) =>
-                          const ForgotPasswordScreen(),
-                      SearchScreen.routName: (context) => const SearchScreen(),
-                      RootScreen.routName: (context) => const RootScreen(),
-                      AddressScreen.routeName: (context) => const AddressScreen(),
-                      AddAddressScreen.routeName: (context) => const AddAddressScreen(),
-                    },
-                  );
-                },
-              ),
-            );
-          }),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => ThemeProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ProductProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => CartProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => WishlistProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ViewedProdProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => UserProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => OrdersProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => AddressProvider(),
+        ),
+      ],
+      child: Consumer<ThemeProvider>(
+        builder: (
+            context,
+            themeProvider,
+            child,
+            ) {
+          return MaterialApp(
+            title: 'Shop Smart AR',
+            theme: Styles.themeData(
+                isDarkTheme: themeProvider.getIsDarkTheme, context: context),
+            debugShowCheckedModeBanner: false,
+            home: const RootScreen(),
+            routes: {
+              ProductDetails.routeName: (context) => const ProductDetails(),
+              WishlistScreen.routName: (context) => const WishlistScreen(),
+              ViewedRecentlyScreen.routName: (context) => const ViewedRecentlyScreen(),
+              RegisterScreen.routName: (context) => const RegisterScreen(),
+              LoginScreen.routName: (context) => const LoginScreen(),
+              OrdersScreenFree.routeName: (context) => const OrdersScreenFree(),
+              ForgotPasswordScreen.routeName: (context) => const ForgotPasswordScreen(),
+              SearchScreen.routName: (context) => const SearchScreen(),
+              RootScreen.routName: (context) => const RootScreen(),
+              AddressScreen.routeName: (context) => const AddressScreen(),
+              AddAddressScreen.routeName: (context) => const AddAddressScreen(),
+            },
+          );
+        },
+      ),
     );
   }
 }

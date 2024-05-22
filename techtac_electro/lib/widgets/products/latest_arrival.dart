@@ -7,7 +7,7 @@ import 'package:techtac_electro/provider/viewed_prod_provider.dart';
 import 'package:techtac_electro/services/my_app_method.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import '../../models/product_model.dart';
-import '../../provider/user_provier.dart';
+import '../../provider/user_provider.dart';
 import '../../screens/inner_screens/product_details.dart';
 import 'heart_btn.dart';
 

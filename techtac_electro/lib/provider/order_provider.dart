@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:techtac_electro/models/order.dart';
 
 class OrdersProvider with ChangeNotifier {
@@ -13,7 +12,9 @@ class OrdersProvider with ChangeNotifier {
     final auth = FirebaseAuth.instance;
     User? user = auth.currentUser;
     if (user == null) {
-      print("User is null");
+      if (kDebugMode) {
+        print("User is null");
+      }
       return;
     }
     var uid = user.uid;
@@ -44,9 +45,13 @@ class OrdersProvider with ChangeNotifier {
         );
       }
       notifyListeners();
-      print("Orders fetched successfully");
+      if (kDebugMode) {
+        print("Orders fetched successfully");
+      }
     } catch (e) {
-      print("Error fetching orders: $e");
+      if (kDebugMode) {
+        print("Error fetching orders: $e");
+      }
       rethrow;
     }
   }

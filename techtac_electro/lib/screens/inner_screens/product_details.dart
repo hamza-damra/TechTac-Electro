@@ -85,7 +85,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ),
                       const SizedBox(width: 14),
                       SubtitleTextWidget(
-                        label: "${getCurrProduct.productPrice}\$",
+                        label: "${getCurrProduct.productPrice}\₪",
                         color: Colors.blue,
                         fontWeight: FontWeight.bold,
                         fontSize: 20,

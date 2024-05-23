@@ -55,7 +55,7 @@ class _OrdersWidgetFreeState extends State<OrdersWidgetFree> {
                       ),
                       Flexible(
                         child: SubtitleTextWidget(
-                          label: "${widget.ordersModelAdvanced.price} \$",
+                          label: "${widget.ordersModelAdvanced.price} \₪",
                           fontSize: 15,
                           color: Colors.blue,
                         ),

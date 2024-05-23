@@ -33,8 +33,7 @@ class _HeartButtonWidgetState extends State<HeartButtonWidget> {
           shape: const CircleBorder(),
         ),
         onPressed: () async {
-          // wishlistProvider.addOrRemoveFromWishlist(productId: widget.productId);
-          // log("wishlist Map is: ${wishlistProvider.getWishlistItems} ");
+           wishlistProvider.addOrRemoveFromWishlist(productId: widget.productId);
           setState(() {
             isLoading = true;
           });

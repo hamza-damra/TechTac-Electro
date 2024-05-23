@@ -83,7 +83,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                   Flexible(
                     flex: 3,
                     child: SubtitleTextWidget(
-                      label: "${getCurrProduct.productPrice}\$",
+                      label: "${getCurrProduct.productPrice}\₪",
                     ),
                   ),
                   Flexible(

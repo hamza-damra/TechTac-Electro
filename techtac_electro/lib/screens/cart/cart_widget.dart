@@ -90,7 +90,7 @@ class CartWidget extends StatelessWidget {
                             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               SubtitleTextWidget(
-                                label: "${getCurrProduct.productPrice}\$",
+                                label: "${getCurrProduct.productPrice}\₪",
                                 fontSize: 20,
                                 color: Colors.blue,
                               ),

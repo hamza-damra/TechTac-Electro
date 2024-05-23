@@ -76,7 +76,7 @@ class MyApp extends StatelessWidget {
             child,
             ) {
           return MaterialApp(
-            title: 'Shop Smart AR',
+            title: 'TechTac Electro',
             theme: Styles.themeData(
                 isDarkTheme: themeProvider.getIsDarkTheme, context: context),
             debugShowCheckedModeBanner: false,

@@ -78,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
         await wishlistProvider.fetchWishlist();
-        viewedProdProvider.clearState();  // Assuming you want to clear viewed products
+        viewedProdProvider.clearState();
         await cartProvider.fetchCart();
         await ordersProvider.fetchOrder();
 

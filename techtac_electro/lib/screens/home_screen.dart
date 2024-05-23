@@ -44,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                       );
                     },
                     autoplay: true,
-                    itemCount: productProvider.getProducts.length < 10
+                    itemCount: productProvider.getProducts.length <= 10
                         ? productProvider.getProducts.length
                         : 10,
                     pagination: const SwiperPagination(
@@ -68,7 +68,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 18,
+                height: 10,
               ),
               Visibility(
                 visible: productProvider.getProducts.isNotEmpty,
@@ -91,7 +91,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 18,
+                height: 2,
               ),
               const TitlesTextWidget(
                 label: "Categories",

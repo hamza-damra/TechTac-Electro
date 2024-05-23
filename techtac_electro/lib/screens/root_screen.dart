@@ -11,6 +11,7 @@ import 'package:techtac_electro/screens/home_screen.dart';
 import 'package:techtac_electro/screens/profile_screen.dart';
 import 'package:techtac_electro/screens/search_screen.dart';
 
+
 class RootScreen extends StatefulWidget {
   static const routName = '/RootScreen';
   const RootScreen({super.key});
@@ -37,20 +38,18 @@ class _RootScreenState extends State<RootScreen> {
     );
   }
 
-  Future<void> fetchFCT() async {
-    final productsProvider =
-        Provider.of<ProductProvider>(context, listen: false);
-    final cartProvider = Provider.of<CartProvider>(context, listen: false);
-    final wishlistProvider =
-        Provider.of<WishlistProvider>(context, listen: false);
+  Future<void> fetchAppData() async {
 
+    final productsProvider = Provider.of<ProductProvider>(context, listen: false);
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
+    final wishlistProvider = Provider.of<WishlistProvider>(context, listen: false);
     final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+
     try {
       Future.wait({
         productsProvider.fetchProducts(),
         userProvider.fetchUserInfo(),
-      });
-      Future.wait({
         cartProvider.fetchCart(),
         wishlistProvider.fetchWishlist(),
       });
@@ -65,16 +64,14 @@ class _RootScreenState extends State<RootScreen> {
 
   @override
   void didChangeDependencies() {
-    if (isLoadingProds) {
-      fetchFCT();
-    }
-
     super.didChangeDependencies();
+    if (isLoadingProds) {
+      fetchAppData();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    // final cartProvider = Provider.of<CartProvider>(context);
     return Scaffold(
       body: PageView(
         controller: controller,

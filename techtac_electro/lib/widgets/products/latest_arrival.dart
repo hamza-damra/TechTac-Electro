@@ -36,7 +36,7 @@ class LatestArrivalProductsWidget extends StatelessWidget {
           );
         },
         child: SizedBox(
-          width: size.width * 0.45,
+          width: size.width * 0.6,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

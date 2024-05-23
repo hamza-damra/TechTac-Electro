@@ -12,9 +12,9 @@ import 'package:techtac_electro/widgets/products/heart_btn.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 import 'package:intl/intl.dart';
-
 import '../../provider/user_provider.dart';
 import '../../services/my_app_method.dart';
+import '../../widgets/products/rating_distribution_widget.dart';
 
 class ProductDetails extends StatefulWidget {
   static const routeName = '/ProductDetails';
@@ -181,7 +181,30 @@ class _ProductDetailsState extends State<ProductDetails> {
                   const Divider(),
                   const SizedBox(height: 15),
                   _buildReviewForm(context, productId, user, themeProvider),
-                  _buildReviewsList(context, productId, user),
+                  StreamBuilder<List<ReviewModel>>(
+                    stream: Provider.of<ProductProvider>(context).fetchReviews(productId),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return const CircularProgressIndicator();
+                      }
+
+                      final reviews = snapshot.data!;
+                      if (reviews.isEmpty) {
+                        return const Text('No reviews yet. Be the first to review!');
+                      }
+
+                      return Column(
+                        children: [
+                          RatingDistributionWidget(
+                            averageRating: _calculateAverageRating(reviews),
+                            totalReviews: reviews.length,
+                            ratingCounts: _calculateRatingCounts(reviews),
+                          ),
+                          _buildReviewsList(context, productId, user, reviews),
+                        ],
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
@@ -189,6 +212,20 @@ class _ProductDetailsState extends State<ProductDetails> {
         ),
       ),
     );
+  }
+
+  double _calculateAverageRating(List<ReviewModel> reviews) {
+    if (reviews.isEmpty) return 0.0;
+    double totalRating = reviews.fold(0.0, (sum, review) => sum + review.rating);
+    return totalRating / reviews.length;
+  }
+
+  Map<int, int> _calculateRatingCounts(List<ReviewModel> reviews) {
+    final ratingCounts = <int, int>{};
+    for (int i = 1; i <= 5; i++) {
+      ratingCounts[i] = reviews.where((review) => review.rating == i).length;
+    }
+    return ratingCounts;
   }
 
   Widget _buildReviewForm(BuildContext context, String productId, UserModel? user, ThemeProvider themeProvider) {
@@ -296,45 +333,32 @@ class _ProductDetailsState extends State<ProductDetails> {
     );
   }
 
-  Widget _buildReviewsList(BuildContext context, String productId, UserModel? user) {
-    return StreamBuilder<List<ReviewModel>>(
-      stream: Provider.of<ProductProvider>(context).fetchReviews(productId),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return const CircularProgressIndicator();
-        }
+  Widget _buildReviewsList(BuildContext context, String productId, UserModel? user, List<ReviewModel> reviews) {
+    // Separate current user's review
+    ReviewModel? currentUserReview;
+    final otherReviews = <ReviewModel>[];
 
-        final reviews = snapshot.data!;
-        if (reviews.isEmpty) {
-          return const Text('No reviews yet. Be the first to review!');
-        }
+    for (var review in reviews) {
+      if (user != null && review.userId == user.userId) {
+        currentUserReview = review;
+      } else {
+        otherReviews.add(review);
+      }
+    }
 
-        // Separate current user's review
-        ReviewModel? currentUserReview;
-        final otherReviews = <ReviewModel>[];
+    // Combine current user's review at the top
+    final sortedReviews = [
+      if (currentUserReview != null) currentUserReview,
+      ...otherReviews,
+    ];
 
-        for (var review in reviews) {
-          if (user != null && review.userId == user.userId) {
-            currentUserReview = review;
-          } else {
-            otherReviews.add(review);
-          }
-        }
-
-        // Combine current user's review at the top
-        final sortedReviews = [
-          if (currentUserReview != null) currentUserReview,
-          ...otherReviews,
-        ];
-
-        return Column(
-          children: sortedReviews.map((review) => ReviewCard(review: review)).toList(),
-        );
-      },
+    return Column(
+      children: sortedReviews.map((review) => ReviewCard(review: review)).toList(),
     );
   }
 }
 
+// Define the ReviewCard widget
 class ReviewCard extends StatefulWidget {
   final ReviewModel review;
   const ReviewCard({Key? key, required this.review}) : super(key: key);
@@ -438,7 +462,7 @@ class _ReviewCardState extends State<ReviewCard> {
                   maxLines: 3,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0), // Apply padding to the Row
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Row(
                     children: [
                       const SubtitleTextWidget(label: 'Rating:'),
@@ -505,7 +529,7 @@ class _ReviewCardState extends State<ReviewCard> {
               ],
             )
                 : SubtitleTextWidget(
-              label:  review.reviewText,
+              label: review.reviewText,
             ),
             const SizedBox(height: 10),
             _buildStarRating(review.rating),
@@ -544,3 +568,4 @@ class _ReviewCardState extends State<ReviewCard> {
     );
   }
 }
+

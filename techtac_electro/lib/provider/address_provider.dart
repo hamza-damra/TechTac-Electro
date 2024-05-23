@@ -51,7 +51,6 @@ class AddressProvider with ChangeNotifier {
     }
 
     try {
-      // Check if the address already exists
       bool addressExists = false;
       for (var addr in _addresses) {
         if (addr['id'] == address['id']) {
@@ -61,7 +60,6 @@ class AddressProvider with ChangeNotifier {
       }
 
       if (addressExists) {
-        // Update the existing address
         List<Map<String, dynamic>> updatedAddresses = _addresses.map((addr) {
           if (addr['id'] == address['id']) {
             return address;
@@ -72,7 +70,6 @@ class AddressProvider with ChangeNotifier {
           'addresses': updatedAddresses,
         });
       } else {
-        // Add new address
         await FirebaseFirestore.instance.collection('users').doc(user.uid).update({
           'addresses': FieldValue.arrayUnion([address]),
         });

@@ -232,7 +232,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           decoration: const InputDecoration(
                             hintText: "Full name",
                             prefixIcon: Icon(
-                              IconlyLight.message,
+                              Icons.text_fields,
                             ),
                           ),
                           validator: (value) {
@@ -254,8 +254,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           decoration: const InputDecoration(
                             hintText: "Email address",
                             prefixIcon: Icon(
-                              IconlyLight.message,
-                            ),
+                              Icons.alternate_email_rounded
+                            )
+
+                            ,
                           ),
                           validator: (value) {
                             return MyValidators.emailValidator(value);

@@ -83,6 +83,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 AssetsManager.forgotPassword,
                 width: size.width * 0.6,
                 height: size.width * 0.6,
+                fit: BoxFit.fill,
               ),
               const SizedBox(
                 height: 10,
@@ -105,7 +106,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   children: [
                     TextFormField(
                       controller: _emailController,
-                      textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         hintText: 'youremail@email.com',

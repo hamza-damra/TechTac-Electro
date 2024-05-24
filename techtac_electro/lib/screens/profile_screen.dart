@@ -29,8 +29,7 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen>
-    with AutomaticKeepAliveClientMixin {
+class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
   User? user = FirebaseAuth.instance.currentUser;

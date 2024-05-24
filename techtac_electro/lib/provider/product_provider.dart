@@ -26,8 +26,7 @@ class ProductProvider with ChangeNotifier {
     return passedList
         .where((element) => element.productTitle
             .toLowerCase()
-            .contains(searchText.toLowerCase()))
-        .toList();
+            .contains(searchText.toLowerCase())).toList();
   }
 
   final productDB = FirebaseFirestore.instance.collection("products");

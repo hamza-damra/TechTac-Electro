@@ -37,8 +37,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
     final passedCategory = ModalRoute.of(context)!.settings.arguments as String?;
-    final List<ProductModel> productList = passedCategory == null
-        ? productProvider.getProducts
+    final List<ProductModel> productList = passedCategory == null ? productProvider.getProducts
         : productProvider.findByCategory(ctgName: passedCategory);
 
     return GestureDetector(
@@ -103,13 +102,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 ),
                               ),
                             ),
-                            onChanged: (value) {
-                              //setState(() {
-                              //productListSearch = productProvider.searchQuery(
-                              //  searchText: searchTextController.text,
-                              //passedList: productList);
-                              //});
-                            },
+                            onChanged: (value) {},
                             onSubmitted: (value) {
                               setState(() {
                                 productListSearch = productProvider.searchQuery(

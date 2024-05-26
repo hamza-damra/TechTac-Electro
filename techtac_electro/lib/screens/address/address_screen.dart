@@ -68,7 +68,7 @@ class _AddressScreenState extends State<AddressScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => AddAddressScreen(address: address),
+                              builder: (context) => AddAddressScreen(passedAddress: address),
                             ),
                           ).then((_) => addressProvider.fetchAddresses(context: context));
                         },

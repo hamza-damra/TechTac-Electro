@@ -8,9 +8,9 @@ import '../../provider/address_provider.dart';
 
 class AddAddressScreen extends StatefulWidget {
   static const routeName = '/AddAddressScreen';
-  final Map<String, dynamic>? address;
+  final Map<String, dynamic>? passedAddress;
 
-  const AddAddressScreen({super.key, this.address});
+  const AddAddressScreen({super.key, this.passedAddress});
 
   @override
   _AddAddressScreenState createState() => _AddAddressScreenState();
@@ -28,13 +28,13 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
   @override
   void initState() {
     super.initState();
-    if (widget.address != null) {
-      _streetController.text = widget.address!['street'] ?? '';
-      _aptSuiteUnitController.text = widget.address!['aptSuiteUnit'] ?? '';
-      _stateProvinceController.text = widget.address!['stateProvince'] ?? '';
-      _cityController.text = widget.address!['city'] ?? '';
-      _zipCodeController.text = widget.address!['zipCode'] ?? '';
-      _phoneNumberController.text = widget.address!['phoneNumber'] ?? '';
+    if (widget.passedAddress != null) {
+      _streetController.text = widget.passedAddress!['street'] ?? '';
+      _aptSuiteUnitController.text = widget.passedAddress!['aptSuiteUnit'] ?? '';
+      _stateProvinceController.text = widget.passedAddress!['stateProvince'] ?? '';
+      _cityController.text = widget.passedAddress!['city'] ?? '';
+      _zipCodeController.text = widget.passedAddress!['zipCode'] ?? '';
+      _phoneNumberController.text = widget.passedAddress!['phoneNumber'] ?? '';
     }
   }
 
@@ -55,7 +55,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
     final addressProvider = Provider.of<AddressProvider>(context, listen: false);
 
     final newAddress = {
-      'id': widget.address != null ? widget.address!['id'] : const Uuid().v4(),
+      'id': widget.passedAddress != null ? widget.passedAddress!['id'] : const Uuid().v4(),
       'street': _streetController.text,
       'aptSuiteUnit': _aptSuiteUnitController.text,
       'stateProvince': _stateProvinceController.text,
@@ -64,7 +64,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
       'phoneNumber': _phoneNumberController.text,
     };
 
-    if (widget.address != null) {
+    if (widget.passedAddress != null) {
       await addressProvider.updateAddress(newAddress, context: context);
     } else {
       await addressProvider.addNewAddress(newAddress, context: context);
@@ -153,7 +153,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () => _saveAddress(context),
-                  child: widget.address != null ? const Text('Update Address') : const Text('Save Address'),
+                  child: widget.passedAddress != null ? const Text('Update Address') : const Text('Save Address'),
                 ),
               ],
             ),

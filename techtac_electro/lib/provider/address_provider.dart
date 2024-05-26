@@ -100,7 +100,7 @@ class AddressProvider with ChangeNotifier {
   }
 
 
-  Future<void> deleteAddress(Map<String, dynamic> address, {required BuildContext context}) async {
+  Future<void> deleteAddress(Map<String, dynamic> passedAddress, {required BuildContext context}) async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user == null) {
       await MyAppMethods.showErrorORWarningDialog(
@@ -113,7 +113,7 @@ class AddressProvider with ChangeNotifier {
 
     try {
       await FirebaseFirestore.instance.collection('users').doc(user.uid).update({
-        'addresses': FieldValue.arrayRemove([address]),
+        'addresses': FieldValue.arrayRemove([passedAddress]),
       });
       await fetchAddresses(context: context);
     } catch (error) {

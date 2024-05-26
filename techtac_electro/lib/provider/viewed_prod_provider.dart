@@ -21,7 +21,7 @@ class ViewedProdProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void clearState() {
+  void clearViewedProducts() {
     _viewedProdItems.clear();
     notifyListeners();
   }

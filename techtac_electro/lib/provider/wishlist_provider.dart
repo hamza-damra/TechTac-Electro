@@ -141,7 +141,7 @@ class WishlistProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void clearState() {
+  void clearWishlistItems() {
     _wishlistItems.clear();
     notifyListeners();
   }

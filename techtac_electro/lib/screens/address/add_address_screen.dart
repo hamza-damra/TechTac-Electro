@@ -38,6 +38,17 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
     }
   }
 
+  @override
+  void dispose() {
+    _streetController.dispose();
+    _aptSuiteUnitController.dispose();
+    _stateProvinceController.dispose();
+    _cityController.dispose();
+    _zipCodeController.dispose();
+    _phoneNumberController.dispose();
+    super.dispose();
+  }
+
   Future<void> _saveAddress(BuildContext context) async {
     if (!_formKey.currentState!.validate()) return;
 
@@ -53,20 +64,17 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
       'phoneNumber': _phoneNumberController.text,
     };
 
-    await addressProvider.addOrUpdateAddress(newAddress, context: context);
+    if (widget.address != null) {
+      await addressProvider.updateAddress(newAddress, context: context);
+    } else {
+      await addressProvider.addNewAddress(newAddress, context: context);
+    }
+
     Navigator.of(context).pop();
   }
 
-  @override
-  void dispose() {
-    _streetController.dispose();
-    _aptSuiteUnitController.dispose();
-    _stateProvinceController.dispose();
-    _cityController.dispose();
-    _zipCodeController.dispose();
-    _phoneNumberController.dispose();
-    super.dispose();
-  }
+
+
 
   @override
   Widget build(BuildContext context) {

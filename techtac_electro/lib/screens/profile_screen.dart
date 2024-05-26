@@ -162,7 +162,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                               function: () async {
                                 await Navigator.pushNamed(
                                   context,
-                                  OrdersScreenFree.routeName,
+                                  OrdersScreen.routeName,
                                 );
                               },
                             ),
@@ -252,10 +252,10 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                           subtitle: "Are you sure?",
                           fct: () async {
                             await FirebaseAuth.instance.signOut();
-                            wishlistProvider.clearState();
-                            viewedProdProvider.clearState();
+                            wishlistProvider.clearWishlistItems();
+                            viewedProdProvider.clearViewedProducts();
                             cartProvider.clearLocalCart();
-                            ordersProvider.clearState();
+                            ordersProvider.clearOrders();
                             if (!mounted) return;
                             await Navigator.pushNamed(
                               context,

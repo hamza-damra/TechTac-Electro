@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
-class OrdersModelAdvanced with ChangeNotifier {
+class OrdersModel with ChangeNotifier {
   final String orderId;
   final String userId;
   final String productId;
@@ -12,7 +12,7 @@ class OrdersModelAdvanced with ChangeNotifier {
   final String quantity;
   final Timestamp orderDate;
 
-  OrdersModelAdvanced(
+  OrdersModel(
       {required this.orderId,
       required this.userId,
       required this.productId,

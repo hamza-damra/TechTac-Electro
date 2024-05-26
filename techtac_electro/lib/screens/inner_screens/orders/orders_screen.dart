@@ -7,16 +7,16 @@ import 'package:techtac_electro/widgets/empty_bag.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 import 'orders_widget.dart';
 
-class OrdersScreenFree extends StatefulWidget {
+class OrdersScreen extends StatefulWidget {
   static const routeName = '/OrderScreen';
 
-  const OrdersScreenFree({Key? key}) : super(key: key);
+  const OrdersScreen({Key? key}) : super(key: key);
 
   @override
-  State<OrdersScreenFree> createState() => _OrdersScreenFreeState();
+  State<OrdersScreen> createState() => _OrdersScreenState();
 }
 
-class _OrdersScreenFreeState extends State<OrdersScreenFree> {
+class _OrdersScreenState extends State<OrdersScreen> {
   late Future<void> _ordersFuture;
 
   @override
@@ -69,8 +69,8 @@ class _OrdersScreenFreeState extends State<OrdersScreenFree> {
                 return Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 2, vertical: 6),
-                  child: OrdersWidgetFree(
-                      ordersModelAdvanced: ordersProvider.getOrders[index]),
+                  child: OrdersWidget(
+                      ordersModel: ordersProvider.getOrders[index]),
                 );
               },
               separatorBuilder: (BuildContext context, int index) {

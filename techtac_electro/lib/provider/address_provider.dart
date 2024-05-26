@@ -39,7 +39,7 @@ class AddressProvider with ChangeNotifier {
     }
   }
 
-  Future<void> addOrUpdateAddress(Map<String, dynamic> address, {required BuildContext context}) async {
+  Future<void> addNewAddress(Map<String, dynamic> passedAddress, {required BuildContext context}) async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user == null) {
       await MyAppMethods.showErrorORWarningDialog(
@@ -51,29 +51,9 @@ class AddressProvider with ChangeNotifier {
     }
 
     try {
-      bool addressExists = false;
-      for (var addr in _addresses) {
-        if (addr['id'] == address['id']) {
-          addressExists = true;
-          break;
-        }
-      }
-
-      if (addressExists) {
-        List<Map<String, dynamic>> updatedAddresses = _addresses.map((addr) {
-          if (addr['id'] == address['id']) {
-            return address;
-          }
-          return addr;
-        }).toList();
-        await FirebaseFirestore.instance.collection('users').doc(user.uid).update({
-          'addresses': updatedAddresses,
-        });
-      } else {
-        await FirebaseFirestore.instance.collection('users').doc(user.uid).update({
-          'addresses': FieldValue.arrayUnion([address]),
-        });
-      }
+      await FirebaseFirestore.instance.collection('users').doc(user.uid).update({
+        'addresses': FieldValue.arrayUnion([passedAddress]),
+      });
       await fetchAddresses(context: context);
     } catch (error) {
       await MyAppMethods.showErrorORWarningDialog(
@@ -83,6 +63,42 @@ class AddressProvider with ChangeNotifier {
       );
     }
   }
+
+  Future<void> updateAddress(Map<String, dynamic> passedAddress, {required BuildContext context}) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      await MyAppMethods.showErrorORWarningDialog(
+        context: context,
+        subtitle: "No user found",
+        fct: () {},
+      );
+      return;
+    }
+
+    try {
+      List<Map<String, dynamic>> updatedAddresses = [];
+      for (var address in _addresses) {
+        if (address['id'] == passedAddress['id']) {
+          updatedAddresses.add(passedAddress);
+        } else {
+          updatedAddresses.add(address);
+        }
+      }
+
+      await FirebaseFirestore.instance.collection('users').doc(user.uid).update({
+        'addresses': updatedAddresses,
+      });
+
+      await fetchAddresses(context: context);
+    } catch (error) {
+      await MyAppMethods.showErrorORWarningDialog(
+        context: context,
+        subtitle: "An error occurred: $error",
+        fct: () {},
+      );
+    }
+  }
+
 
   Future<void> deleteAddress(Map<String, dynamic> address, {required BuildContext context}) async {
     User? user = FirebaseAuth.instance.currentUser;

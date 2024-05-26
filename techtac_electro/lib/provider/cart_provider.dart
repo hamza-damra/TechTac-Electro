@@ -12,6 +12,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 class CartProvider with ChangeNotifier {
   final Map<String, CartModel> _cartItems = {};
 
+
   Map<String, CartModel> get getCartItems {
     return _cartItems;
   }
@@ -64,6 +65,7 @@ class CartProvider with ChangeNotifier {
       return;
     }
     try {
+      //users
       final userDoc = await usersDB.doc(user.uid).get();
       final data = userDoc.data();
       if (data == null || !data.containsKey("userCart")) {

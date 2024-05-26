@@ -4,14 +4,14 @@ import 'package:techtac_electro/models/order.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 
-class OrdersWidgetFree extends StatefulWidget {
-  const OrdersWidgetFree({super.key, required this.ordersModelAdvanced});
-  final OrdersModelAdvanced ordersModelAdvanced;
+class OrdersWidget extends StatefulWidget {
+  const OrdersWidget({super.key, required this.ordersModel});
+  final OrdersModel ordersModel;
   @override
-  State<OrdersWidgetFree> createState() => _OrdersWidgetFreeState();
+  State<OrdersWidget> createState() => _OrdersWidgetState();
 }
 
-class _OrdersWidgetFreeState extends State<OrdersWidgetFree> {
+class _OrdersWidgetState extends State<OrdersWidget> {
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class _OrdersWidgetFreeState extends State<OrdersWidgetFree> {
             child: FancyShimmerImage(
               height: size.width * 0.25,
               width: size.width * 0.25,
-              imageUrl: widget.ordersModelAdvanced.imageUrl,
+              imageUrl: widget.ordersModel.imageUrl,
             ),
           ),
           Flexible(
@@ -39,7 +39,7 @@ class _OrdersWidgetFreeState extends State<OrdersWidgetFree> {
                     children: [
                       Flexible(
                         child: TitlesTextWidget(
-                          label: widget.ordersModelAdvanced.productTitle,
+                          label: widget.ordersModel.productTitle,
                           maxLines: 2,
                           fontSize: 15,
                         ),
@@ -55,7 +55,7 @@ class _OrdersWidgetFreeState extends State<OrdersWidgetFree> {
                       ),
                       Flexible(
                         child: SubtitleTextWidget(
-                          label: "${widget.ordersModelAdvanced.price} \₪",
+                          label: "${widget.ordersModel.price} \₪",
                           fontSize: 15,
                           color: Colors.blue,
                         ),
@@ -66,25 +66,9 @@ class _OrdersWidgetFreeState extends State<OrdersWidgetFree> {
                     height: 5,
                   ),
                   SubtitleTextWidget(
-                    label: "Qty: ${widget.ordersModelAdvanced.quantity}",
+                    label: "Qty: ${widget.ordersModel.quantity}",
                     fontSize: 15,
                   ),
-                  // const Row(
-                  //   children: [
-                  //     Flexible(
-                  //       child: TitlesTextWidget(
-                  //         label: 'Qty:  ',
-                  //         fontSize: 15,
-                  //       ),
-                  //     ),
-                  //     Flexible(
-                  //       child: SubtitleTextWidget(
-                  //         label: "10",
-                  //         fontSize: 15,
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
                   const SizedBox(
                     height: 5,
                   ),

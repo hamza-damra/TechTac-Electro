@@ -4,9 +4,9 @@ import 'package:flutter/foundation.dart';
 import 'package:techtac_electro/models/order.dart';
 
 class OrdersProvider with ChangeNotifier {
-  final List<OrdersModelAdvanced> orders = [];
+  final List<OrdersModel> orders = [];
 
-  List<OrdersModelAdvanced> get getOrders => orders;
+  List<OrdersModel> get getOrders => orders;
 
   Future<void> fetchOrder() async {
     final auth = FirebaseAuth.instance;
@@ -31,7 +31,7 @@ class OrdersProvider with ChangeNotifier {
       for (var element in orderSnapshot.docs) {
         orders.insert(
           0,
-          OrdersModelAdvanced(
+          OrdersModel(
             orderId: element.get('orderId'),
             productId: element.get('productId'),
             userId: element.get('userId'),
@@ -56,7 +56,7 @@ class OrdersProvider with ChangeNotifier {
     }
   }
 
-  void clearState() {
+  void clearOrders() {
     orders.clear();
     notifyListeners();
   }

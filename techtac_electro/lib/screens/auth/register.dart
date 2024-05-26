@@ -29,7 +29,8 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  late final TextEditingController _nameController,
+  late final TextEditingController
+      _nameController,
       _emailController,
       _passwordController,
       _confirmPasswordController;
@@ -116,7 +117,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         final ordersProvider = Provider.of<OrdersProvider>(context, listen: false);
         
         await wishlistProvider.fetchWishlist();
-        viewedProdProvider.clearState();  
+        viewedProdProvider.clearViewedProducts();
         await cartProvider.fetchCart();
         await ordersProvider.fetchOrder();
 

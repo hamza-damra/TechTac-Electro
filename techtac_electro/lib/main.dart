@@ -87,7 +87,7 @@ class MyApp extends StatelessWidget {
               ViewedRecentlyScreen.routName: (context) => const ViewedRecentlyScreen(),
               RegisterScreen.routName: (context) => const RegisterScreen(),
               LoginScreen.routName: (context) => const LoginScreen(),
-              OrdersScreenFree.routeName: (context) => const OrdersScreenFree(),
+              OrdersScreen.routeName: (context) => const OrdersScreen(),
               ForgotPasswordScreen.routeName: (context) => const ForgotPasswordScreen(),
               SearchScreen.routName: (context) => const SearchScreen(),
               RootScreen.routName: (context) => const RootScreen(),

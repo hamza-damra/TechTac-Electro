@@ -5,7 +5,7 @@ import 'package:techtac_electro/provider/product_provider.dart';
 import 'package:techtac_electro/provider/user_provider.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
-import 'package:techtac_electro/stripe_payment/payment_bottom_sheet.dart';
+import 'package:techtac_electro/services/stripe_payment/payment_bottom_sheet.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../services/order_service.dart';
 import '../../services/my_app_method.dart';
@@ -126,7 +126,7 @@ class _CartScreenState extends State<CartScreen> {
         'Looks like you didn\'t add anything yet to your cart \ngo ahead and start shopping now',
         buttonText: "Shop Now",
         function: () {
-          Navigator.pushReplacementNamed(context, RootScreen.routName);
+          Navigator.pushReplacementNamed(context, RootScreen.routeName);
         },
       ),
     )

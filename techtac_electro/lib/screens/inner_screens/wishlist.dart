@@ -10,7 +10,7 @@ import '../../services/my_app_method.dart';
 import '../../widgets/products/product_widget.dart';
 
 class WishlistScreen extends StatelessWidget {
-  static const routName = '/WishlistScreen';
+  static const routeName = '/WishlistScreen';
   const WishlistScreen({super.key});
 
   @override
@@ -25,7 +25,7 @@ class WishlistScreen extends StatelessWidget {
                   'Looks like you didn\'t add anything yet to your cart \ngo ahead and start shopping now',
               buttonText: "Shop Now",
               function: () {
-                Navigator.pushReplacementNamed(context, RootScreen.routName);
+                Navigator.pushReplacementNamed(context, RootScreen.routeName);
               },
             ),
           )

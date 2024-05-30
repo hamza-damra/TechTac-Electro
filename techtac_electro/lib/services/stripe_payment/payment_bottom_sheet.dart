@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:techtac_electro/stripe_payment/payment_manager.dart';
+import 'package:techtac_electro/services/stripe_payment/payment_manager.dart';
 
 class PaymentBottomSheet extends StatelessWidget {
   final int amount;

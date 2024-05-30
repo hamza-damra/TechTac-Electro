@@ -174,7 +174,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                               function: () async {
                                 await Navigator.pushNamed(
                                   context,
-                                  WishlistScreen.routName,
+                                  WishlistScreen.routeName,
                                 );
                               },
                             ),
@@ -184,7 +184,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                         function: () async {
                           await Navigator.pushNamed(
                             context,
-                            ViewedRecentlyScreen.routName,
+                            ViewedRecentlyScreen.routeName,
                           );
                         },
                       ),
@@ -244,7 +244,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                       if (user == null) {
                         await Navigator.pushNamed(
                           context,
-                          LoginScreen.routName,
+                          LoginScreen.routeName,
                         );
                       } else {
                         await MyAppMethods.showErrorORWarningDialog(
@@ -259,7 +259,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                             if (!mounted) return;
                             await Navigator.pushNamed(
                               context,
-                              LoginScreen.routName,
+                              LoginScreen.routeName,
                             );
                           },
                           isError: false,

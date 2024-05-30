@@ -60,7 +60,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                 subtitle: "",
                 buttonText: "Shop now",
                 function: () {
-                  Navigator.pushReplacementNamed(context, RootScreen.routName);
+                  Navigator.pushReplacementNamed(context, RootScreen.routeName);
                 },
               );
             }

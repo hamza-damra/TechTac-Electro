@@ -55,10 +55,18 @@ dependencies:
   logger: ^2.3.0
   dio: ^5.4.3+1
   flutter_stripe: ^10.1.1
+  flutter_native_splash: ^2.4.0
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/images/splash_screen.png
+  android: true
+  ios: true
+  web: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -75,6 +83,7 @@ flutter:
     - assets/images/banners/
     - assets/images/categories/
     - assets/images/profile/
+    - assets/images/splash_screen.png
     - assets/images/on_boarding_images/
     - assets/images/on_boarding_images/sammy-line-delivery.gif
     - assets/images/on_boarding_images/sammy-line-no-connection.gif

@@ -17,7 +17,7 @@ class CategoryRoundedWidget extends StatelessWidget {
       onTap: () async {
         await Navigator.pushNamed(
           context,
-          SearchScreen.routName,
+          SearchScreen.routeName,
           arguments: name,
         );
       },

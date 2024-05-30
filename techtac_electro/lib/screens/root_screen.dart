@@ -13,7 +13,7 @@ import 'package:techtac_electro/screens/search_screen.dart';
 
 
 class RootScreen extends StatefulWidget {
-  static const routName = '/RootScreen';
+  static const routeName = '/RootScreen';
   const RootScreen({super.key});
 
   @override

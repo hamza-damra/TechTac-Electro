@@ -21,7 +21,7 @@ import 'package:techtac_electro/provider/viewed_prod_provider.dart';
 import 'package:techtac_electro/provider/cart_provider.dart';
 
 class RegisterScreen extends StatefulWidget {
-  static const routName = '/RegisterScreen';
+  static const routeName = '/RegisterScreen';
   const RegisterScreen({super.key});
 
   @override
@@ -130,7 +130,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           borderRadius: BorderRadius.circular(8.0),
         );
         if (!mounted) return;
-        Navigator.pushReplacementNamed(context, RootScreen.routName);
+        Navigator.pushReplacementNamed(context, RootScreen.routeName);
       } on FirebaseAuthException catch (error) {
         await MyAppMethods.showErrorORWarningDialog(
           context: context,

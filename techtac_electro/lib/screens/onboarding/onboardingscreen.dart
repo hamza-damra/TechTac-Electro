@@ -113,7 +113,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           // After we press get started button this onboarding value become true
 
           if (!mounted) return;
-          Navigator.pushReplacementNamed(context, RootScreen.routName);
+          Navigator.pushReplacementNamed(context, RootScreen.routeName);
         },
         child: const Text('Get started', style: TextStyle(color: Colors.white)),
       ),

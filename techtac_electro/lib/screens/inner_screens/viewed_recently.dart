@@ -9,7 +9,7 @@ import 'package:techtac_electro/widgets/text_widget.dart';
 import '../../widgets/products/product_widget.dart';
 
 class ViewedRecentlyScreen extends StatelessWidget {
-  static const routName = '/ViewedRecentlyScreen';
+  static const routeName = '/ViewedRecentlyScreen';
   const ViewedRecentlyScreen({super.key});
 
   @override
@@ -23,7 +23,7 @@ class ViewedRecentlyScreen extends StatelessWidget {
               subtitle:
                   'Looks like you didn\'t add anything yet to your cart \ngo ahead and start shopping now',
               buttonText: "Shop Now",  function: () {
-                Navigator.pushReplacementNamed(context, RootScreen.routName);
+                Navigator.pushReplacementNamed(context, RootScreen.routeName);
               },
             ),
           )

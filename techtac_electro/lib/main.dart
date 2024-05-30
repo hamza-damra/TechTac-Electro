@@ -21,7 +21,8 @@ import 'package:techtac_electro/screens/inner_screens/viewed_recently.dart';
 import 'package:techtac_electro/screens/onboarding/onboardingscreen.dart';
 import 'package:techtac_electro/screens/root_screen.dart';
 import 'package:techtac_electro/screens/search_screen.dart';
-import 'package:techtac_electro/stripe_payment/api_keys.dart';
+import 'package:techtac_electro/screens/splash_screen.dart';
+import 'package:techtac_electro/services/stripe_payment/api_keys.dart';
 import 'consts/theme_data.dart';
 import 'screens/inner_screens/product_details.dart';
 import 'screens/inner_screens/wishlist.dart';
@@ -78,28 +79,28 @@ class MyApp extends StatelessWidget {
       ],
       child: Consumer<ThemeProvider>(
         builder: (
-          context,
-          themeProvider,
-          child,
-        ) {
+            context,
+            themeProvider,
+            child,
+            ) {
           return MaterialApp(
             title: 'TechTac Electro',
             theme: Styles.themeData(
                 isDarkTheme: themeProvider.getIsDarkTheme, context: context),
             debugShowCheckedModeBanner: false,
-            home: onboarding ? RootScreen() : OnboardingScreen(),
+            home: SplashScreen(),  // Use SplashScreen here
             routes: {
               ProductDetails.routeName: (context) => const ProductDetails(),
-              WishlistScreen.routName: (context) => const WishlistScreen(),
-              ViewedRecentlyScreen.routName: (context) =>
-                  const ViewedRecentlyScreen(),
-              RegisterScreen.routName: (context) => const RegisterScreen(),
-              LoginScreen.routName: (context) => const LoginScreen(),
+              WishlistScreen.routeName: (context) => const WishlistScreen(),
+              ViewedRecentlyScreen.routeName: (context) =>
+              const ViewedRecentlyScreen(),
+              RegisterScreen.routeName: (context) => const RegisterScreen(),
+              LoginScreen.routeName: (context) => const LoginScreen(),
               OrdersScreen.routeName: (context) => const OrdersScreen(),
               ForgotPasswordScreen.routeName: (context) =>
-                  const ForgotPasswordScreen(),
-              SearchScreen.routName: (context) => const SearchScreen(),
-              RootScreen.routName: (context) => const RootScreen(),
+              const ForgotPasswordScreen(),
+              SearchScreen.routeName: (context) => const SearchScreen(),
+              RootScreen.routeName: (context) => const RootScreen(),
               AddressScreen.routeName: (context) => const AddressScreen(),
               AddAddressScreen.routeName: (context) => const AddAddressScreen(),
             },

@@ -18,7 +18,7 @@ import 'package:techtac_electro/provider/viewed_prod_provider.dart';
 import 'package:techtac_electro/provider/cart_provider.dart';
 
 class LoginScreen extends StatefulWidget {
-  static const routName = '/LoginScreen';
+  static const routeName = '/LoginScreen';
   const LoginScreen({super.key});
 
   @override
@@ -92,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
         );
         if (!mounted) return;
 
-        Navigator.pushReplacementNamed(context, RootScreen.routName);
+        Navigator.pushReplacementNamed(context, RootScreen.routeName);
       } on FirebaseAuthException catch (error) {
         await MyAppMethods.showErrorORWarningDialog(
           context: context,
@@ -276,7 +276,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                       onPressed: () async {
                                         Navigator.pushNamed(
-                                            context, RootScreen.routName);
+                                            context, RootScreen.routeName);
                                       },
                                     ),
                                   ),
@@ -302,7 +302,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               onPressed: () {
                                 Navigator.pushNamed(
-                                    context, RegisterScreen.routName);
+                                    context, RegisterScreen.routeName);
                               },
                             ),
                           ],

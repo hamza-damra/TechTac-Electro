@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 import 'package:techtac_electro/provider/address_provider.dart';
 import 'package:techtac_electro/provider/cart_provider.dart';
@@ -18,13 +19,14 @@ import 'package:techtac_electro/screens/inner_screens/orders/orders_screen.dart'
 import 'package:techtac_electro/screens/inner_screens/viewed_recently.dart';
 import 'package:techtac_electro/screens/root_screen.dart';
 import 'package:techtac_electro/screens/search_screen.dart';
+import 'package:techtac_electro/stripe_payment/api_keys.dart';
 import 'consts/theme_data.dart';
 import 'screens/inner_screens/product_details.dart';
 import 'screens/inner_screens/wishlist.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  Stripe.publishableKey = ApiKeys.pusblishableKey;
   await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey: "AIzaSyCafT4k49z1hH0KYgTklSj0Cw7RoqsGgL4",

@@ -1,6 +1,6 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:techtac_electro/models/order.dart';
+import 'package:techtac_electro/models/order_model.dart';
 import 'package:techtac_electro/widgets/subtitle_text.dart';
 import 'package:techtac_electro/widgets/text_widget.dart';
 
@@ -44,7 +44,6 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                           fontSize: 15,
                         ),
                       ),
-                  
                     ],
                   ),
                   Row(
@@ -71,6 +70,10 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                   ),
                   const SizedBox(
                     height: 5,
+                  ),
+                  SubtitleTextWidget(
+                    label: "Payment: ${widget.ordersModel.paymentMethod ?? 'N/A'}",
+                    fontSize: 15,
                   ),
                 ],
               ),

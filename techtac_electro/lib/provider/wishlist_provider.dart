@@ -37,7 +37,7 @@ class WishlistProvider with ChangeNotifier {
     final uid = user.uid;
     final wishlistId = const Uuid().v4();
     try {
-      usersDB.doc(uid).update({
+      await usersDB.doc(uid).update({
         'userWish': FieldValue.arrayUnion([
           {
             "wishlistId": wishlistId,
@@ -75,7 +75,7 @@ class WishlistProvider with ChangeNotifier {
       for (int index = 0; index < length; index++) {
         _wishlistItems.putIfAbsent(
           userDoc.get('userWish')[index]['productId'],
-          () => WishlistModel(
+              () => WishlistModel(
             id: userDoc.get('userWish')[index]['wishlistId'],
             productId: userDoc.get('userWish')[index]['productId'],
           ),
@@ -131,7 +131,7 @@ class WishlistProvider with ChangeNotifier {
     } else {
       _wishlistItems.putIfAbsent(
         productId,
-        () => WishlistModel(
+            () => WishlistModel(
           id: const Uuid().v4(),
           productId: productId,
         ),

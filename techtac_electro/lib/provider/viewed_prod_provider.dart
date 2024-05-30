@@ -25,4 +25,6 @@ class ViewedProdProvider with ChangeNotifier {
     _viewedProdItems.clear();
     notifyListeners();
   }
+
+
 }

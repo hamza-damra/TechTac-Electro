@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:techtac_electro/provider/cart_provider.dart';
-import 'package:techtac_electro/provider/product_provider.dart';
-import 'package:techtac_electro/widgets/subtitle_text.dart';
-import 'package:techtac_electro/widgets/text_widget.dart';
+import '../../provider/cart_provider.dart';
+import '../../provider/product_provider.dart';
+import '../../widgets/subtitle_text.dart';
+import '../../widgets/text_widget.dart';
 
-class CartBottomCheckout extends StatelessWidget {
+class CartBottomCheckout extends StatefulWidget {
   const CartBottomCheckout({super.key, required this.function});
   final Function function;
+
+  @override
+  State<CartBottomCheckout> createState() => _CartBottomCheckoutState();
+}
+
+class _CartBottomCheckoutState extends State<CartBottomCheckout> {
+  bool _isProcessing = false;
+
   @override
   Widget build(BuildContext context) {
-    final productProvider = Provider.of<ProductProvider>(context);
     final cartProvider = Provider.of<CartProvider>(context);
+    final productProvider = Provider.of<ProductProvider>(context);
+    final totalAmount = cartProvider.getTotal(productProvider: productProvider).toInt();
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
@@ -30,22 +39,29 @@ class CartBottomCheckout extends StatelessWidget {
                 child: ListView(
                   children: [
                     TitlesTextWidget(
-                        fontSize: 17,
-                        label:
-                            "Total (${cartProvider.getCartItems.length} products/${cartProvider.getQty()})"),
+                      fontSize: 17,
+                      label: "Total (${cartProvider.getCartItems.length} products/${cartProvider.getQty()})",
+                    ),
                     SubtitleTextWidget(
-                      label:
-                          "${cartProvider.getTotal(productProvider: productProvider)}\$",
+                      label: "$totalAmount\$",
                       color: Colors.blue,
                     ),
                   ],
                 ),
               ),
               ElevatedButton(
-                onPressed: () async{
-                  await function();
-                  },
-                child: const Text("Checkout"),
+                onPressed: !_isProcessing
+                    ? () async {
+                  setState(() {
+                    _isProcessing = true;
+                  });
+                  await widget.function();
+                  setState(() {
+                    _isProcessing = false;
+                  });
+                }
+                    : null,
+                child: _isProcessing ? const CircularProgressIndicator() : const Text("Checkout"),
               ),
             ],
           ),

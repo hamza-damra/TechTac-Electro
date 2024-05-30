@@ -13,6 +13,8 @@ import '../../services/assets_manager.dart';
 import 'package:techtac_electro/widgets/empty_bag.dart';
 import 'package:techtac_electro/screens/root_screen.dart';
 import 'package:techtac_electro/screens/loading_manager.dart';
+import 'package:techtac_electro/models/user_model.dart';
+
 import 'cart_widget.dart';
 
 
@@ -25,16 +27,24 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   bool isLoading = false;
-  bool _isProcessing = false;
 
   Future<String> fetchUserName() async {
     final User? user = FirebaseAuth.instance.currentUser;
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
     if (user != null) {
-      return user.displayName ?? 'User';
+      UserModel? userModel = await userProvider.fetchUserInfo(); // Correctly await the Future
+      if (userModel != null) {
+        return userModel.userName; // Correctly access the userName property
+      } else {
+        throw Exception('User information is not available');
+      }
     } else {
       throw Exception('User not logged in');
     }
   }
+
+
 
   Future<String?> selectPaymentMethod(BuildContext context, int totalAmount) async {
     return await showModalBottomSheet<String>(

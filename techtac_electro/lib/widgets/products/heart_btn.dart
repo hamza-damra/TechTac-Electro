@@ -14,12 +14,14 @@ class HeartButtonWidget extends StatefulWidget {
   final double size;
   final Color color;
   final String productId;
+
   @override
   State<HeartButtonWidget> createState() => _HeartButtonWidgetState();
 }
 
 class _HeartButtonWidgetState extends State<HeartButtonWidget> {
   bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     final wishlistProvider = Provider.of<WishlistProvider>(context);
@@ -33,21 +35,20 @@ class _HeartButtonWidgetState extends State<HeartButtonWidget> {
           shape: const CircleBorder(),
         ),
         onPressed: () async {
-           wishlistProvider.addOrRemoveFromWishlist(productId: widget.productId);
           setState(() {
             isLoading = true;
           });
           try {
-            if (wishlistProvider.getWishlistItems
-                .containsKey(widget.productId)) {
-              wishlistProvider.removeWishlistItemFromFirebase(
-                wishlistId:
-                    wishlistProvider.getWishlistItems[widget.productId]!.id,
+            if (wishlistProvider.isProductInWishlist(productId: widget.productId)) {
+              await wishlistProvider.removeWishlistItemFromFirebase(
+                wishlistId: wishlistProvider.getWishlistItems[widget.productId]!.id,
                 productId: widget.productId,
               );
             } else {
-              wishlistProvider.addToWishlistFirebase(
-                  productId: widget.productId, context: context);
+              await wishlistProvider.addToWishlistFirebase(
+                productId: widget.productId,
+                context: context,
+              );
             }
             await wishlistProvider.fetchWishlist();
           } catch (e) {
@@ -65,16 +66,14 @@ class _HeartButtonWidgetState extends State<HeartButtonWidget> {
         icon: isLoading
             ? const CircularProgressIndicator()
             : Icon(
-                wishlistProvider.isProductInWishlist(
-                        productId: widget.productId)
-                    ? IconlyBold.heart
-                    : IconlyLight.heart,
-                size: widget.size,
-                color: wishlistProvider.isProductInWishlist(
-                        productId: widget.productId)
-                    ? Colors.red
-                    : Colors.grey,
-              ),
+          wishlistProvider.isProductInWishlist(productId: widget.productId)
+              ? IconlyBold.heart
+              : IconlyLight.heart,
+          size: widget.size,
+          color: wishlistProvider.isProductInWishlist(productId: widget.productId)
+              ? Colors.red
+              : Colors.grey,
+        ),
       ),
     );
   }

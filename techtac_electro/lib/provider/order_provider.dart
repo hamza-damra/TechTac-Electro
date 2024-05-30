@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:techtac_electro/models/order.dart';
+
+import '../models/order_model.dart';
 
 class OrdersProvider with ChangeNotifier {
   final List<OrdersModel> orders = [];
@@ -29,18 +30,20 @@ class OrdersProvider with ChangeNotifier {
 
       orders.clear();
       for (var element in orderSnapshot.docs) {
+        final data = element.data();
         orders.insert(
           0,
           OrdersModel(
-            orderId: element.get('orderId'),
-            productId: element.get('productId'),
-            userId: element.get('userId'),
-            price: element.get('price').toString(),
-            productTitle: element.get('productTitle').toString(),
-            quantity: element.get('quantity').toString(),
-            imageUrl: element.get('imageUrl'),
-            userName: element.get('userName'),
-            orderDate: element.get('orderDate'),
+            orderId: data['orderId'],
+            productId: data['productId'],
+            userId: data['userId'],
+            price: data['price'].toString(),
+            productTitle: data['productTitle'].toString(),
+            quantity: data['quantity'].toString(),
+            imageUrl: data['imageUrl'],
+            userName: data['userName'],
+            orderDate: data['orderDate'],
+            paymentMethod: data.containsKey('paymentMethod') ? data['paymentMethod'] : null, // Handle missing paymentMethod
           ),
         );
       }

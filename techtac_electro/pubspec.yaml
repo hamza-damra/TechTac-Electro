@@ -51,6 +51,14 @@ dependencies:
   shimmer: ^3.0.0
   smooth_page_indicator: ^1.1.0
   uuid: ^4.3.3
+  #firebase
+  cloud_firestore: ^4.15.8
+  firebase_core: ^2.27.0
+  firebase_storage: ^11.6.9
+  flutter_styled_toast: ^2.2.1
+  google_sign_in: ^6.2.1
+  firebase_auth: ^4.17.8
+  logger: ^2.3.0
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:

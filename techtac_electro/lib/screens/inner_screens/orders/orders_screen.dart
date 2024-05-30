@@ -58,19 +58,20 @@ class _OrdersScreenState extends State<OrdersScreen> {
                 imagePath: AssetsManager.orderBag,
                 title: "No orders have been placed yet",
                 subtitle: "",
-                buttonText: "Shop now",  function: () {
-                Navigator.pushReplacementNamed(context, RootScreen.routName);
-              },
+                buttonText: "Shop now",
+                function: () {
+                  Navigator.pushReplacementNamed(context, RootScreen.routName);
+                },
               );
             }
             return ListView.separated(
               itemCount: ordersProvider.getOrders.length,
               itemBuilder: (ctx, index) {
                 return Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 2, vertical: 6),
+                  padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 6),
                   child: OrdersWidget(
-                      ordersModel: ordersProvider.getOrders[index]),
+                    ordersModel: ordersProvider.getOrders[index],
+                  ),
                 );
               },
               separatorBuilder: (BuildContext context, int index) {

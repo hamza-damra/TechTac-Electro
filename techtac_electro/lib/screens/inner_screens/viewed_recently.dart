@@ -38,7 +38,9 @@ class ViewedRecentlyScreen extends StatelessWidget {
               ),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    viewedProvider.clearViewedProducts();
+                  },
                   icon: const Icon(
                     Icons.delete_forever_rounded,
                     color: Colors.red,

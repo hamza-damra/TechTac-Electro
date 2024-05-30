@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:techtac_electro/provider/address_provider.dart';
 import 'package:techtac_electro/provider/cart_provider.dart';
 import 'package:techtac_electro/provider/dark_theme_provider.dart';
@@ -16,6 +17,7 @@ import 'package:techtac_electro/screens/auth/login.dart';
 import 'package:techtac_electro/screens/auth/register.dart';
 import 'package:techtac_electro/screens/inner_screens/orders/orders_screen.dart';
 import 'package:techtac_electro/screens/inner_screens/viewed_recently.dart';
+import 'package:techtac_electro/screens/onboarding/onboardingscreen.dart';
 import 'package:techtac_electro/screens/root_screen.dart';
 import 'package:techtac_electro/screens/search_screen.dart';
 import 'consts/theme_data.dart';
@@ -34,11 +36,14 @@ void main() async {
       storageBucket: "techtacelectro.appspot.com",
     ),
   );
-  runApp(const MyApp());
+  final prefs = await SharedPreferences.getInstance();
+  final onboarding = prefs.getBool("onboarding") ?? false;
+  runApp(MyApp(onboarding: onboarding));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool onboarding;
+  const MyApp({super.key, this.onboarding = false});
 
   @override
   Widget build(BuildContext context) {
@@ -71,24 +76,26 @@ class MyApp extends StatelessWidget {
       ],
       child: Consumer<ThemeProvider>(
         builder: (
-            context,
-            themeProvider,
-            child,
-            ) {
+          context,
+          themeProvider,
+          child,
+        ) {
           return MaterialApp(
             title: 'TechTac Electro',
             theme: Styles.themeData(
                 isDarkTheme: themeProvider.getIsDarkTheme, context: context),
             debugShowCheckedModeBanner: false,
-            home: const RootScreen(),
+            home: onboarding ? RootScreen() : OnboardingScreen(),
             routes: {
               ProductDetails.routeName: (context) => const ProductDetails(),
               WishlistScreen.routName: (context) => const WishlistScreen(),
-              ViewedRecentlyScreen.routName: (context) => const ViewedRecentlyScreen(),
+              ViewedRecentlyScreen.routName: (context) =>
+                  const ViewedRecentlyScreen(),
               RegisterScreen.routName: (context) => const RegisterScreen(),
               LoginScreen.routName: (context) => const LoginScreen(),
               OrdersScreen.routeName: (context) => const OrdersScreen(),
-              ForgotPasswordScreen.routeName: (context) => const ForgotPasswordScreen(),
+              ForgotPasswordScreen.routeName: (context) =>
+                  const ForgotPasswordScreen(),
               SearchScreen.routName: (context) => const SearchScreen(),
               RootScreen.routName: (context) => const RootScreen(),
               AddressScreen.routeName: (context) => const AddressScreen(),

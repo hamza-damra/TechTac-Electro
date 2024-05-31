@@ -30,7 +30,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   late final TextEditingController
-      _nameController,
+  _nameController,
       _emailController,
       _passwordController,
       _confirmPasswordController;
@@ -101,6 +101,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
         );
         User? user = auth.currentUser;
         final uid = user!.uid;
+
+        // Set display name
+        String username = _emailController.text.split('@')[0];
+        await user.updateProfile(displayName: username);
+
         await FirebaseFirestore.instance.collection("users").doc(uid).set({
           'userId': uid,
           'userName': _nameController.text,
@@ -115,7 +120,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         final viewedProdProvider = Provider.of<ViewedProdProvider>(context, listen: false);
         final cartProvider = Provider.of<CartProvider>(context, listen: false);
         final ordersProvider = Provider.of<OrdersProvider>(context, listen: false);
-        
+
         await wishlistProvider.fetchWishlist();
         viewedProdProvider.clearViewedProducts();
         await cartProvider.fetchCart();
@@ -255,7 +260,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           decoration: const InputDecoration(
                             hintText: "Email address",
                             prefixIcon: Icon(
-                              Icons.alternate_email_rounded
+                                Icons.alternate_email_rounded
                             )
 
                             ,

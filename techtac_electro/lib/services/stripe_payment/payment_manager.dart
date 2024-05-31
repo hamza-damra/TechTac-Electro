@@ -1,13 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-
+import 'currency_converter.dart';
 import 'api_keys.dart';
 
-abstract class PaymentManager{
-
-  static Future<void>makePayment(int amount,String currency)async{
+abstract class PaymentManager {
+  static Future<void> makePayment(int amountNis) async {
     try {
-      String clientSecret=await _getClientSecret((amount*100).toString(), currency);
+      double amountUsd = CurrencyConverter.convertNisToUsd(amountNis.toDouble());
+      int amountInCents = (amountUsd * 100).toInt();
+
+      String clientSecret = await _getClientSecret(amountInCents.toString());
       await _initializePaymentSheet(clientSecret);
       await Stripe.instance.presentPaymentSheet();
     } catch (error) {
@@ -15,18 +17,18 @@ abstract class PaymentManager{
     }
   }
 
-  static Future<void>_initializePaymentSheet(String clientSecret)async{
+  static Future<void> _initializePaymentSheet(String clientSecret) async {
     await Stripe.instance.initPaymentSheet(
       paymentSheetParameters: SetupPaymentSheetParameters(
         paymentIntentClientSecret: clientSecret,
-        merchantDisplayName: "Basel",
+        merchantDisplayName: "Hamza",
       ),
     );
   }
 
-  static Future<String> _getClientSecret(String amount,String currency)async{
-    Dio dio=Dio();
-    var response= await dio.post(
+  static Future<String> _getClientSecret(String amount) async {
+    Dio dio = Dio();
+    var response = await dio.post(
       'https://api.stripe.com/v1/payment_intents',
       options: Options(
         headers: {
@@ -36,10 +38,9 @@ abstract class PaymentManager{
       ),
       data: {
         'amount': amount,
-        'currency': currency,
+        'currency': 'USD',
       },
     );
     return response.data["client_secret"];
   }
-
 }

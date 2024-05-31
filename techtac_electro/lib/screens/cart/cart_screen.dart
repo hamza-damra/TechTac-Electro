@@ -33,9 +33,9 @@ class _CartScreenState extends State<CartScreen> {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     if (user != null) {
-      UserModel? userModel = await userProvider.fetchUserInfo(); // Correctly await the Future
+      UserModel? userModel = await userProvider.fetchUserInfo();
       if (userModel != null) {
-        return userModel.userName; // Correctly access the userName property
+        return userModel.userName;
       } else {
         throw Exception('User information is not available');
       }
@@ -50,7 +50,7 @@ class _CartScreenState extends State<CartScreen> {
     return await showModalBottomSheet<String>(
       context: context,
       isScrollControlled: true,
-      builder: (context) => PaymentBottomSheet(amount: totalAmount, currency: "USD"),
+      builder: (context) => PaymentBottomSheet(amount: totalAmount),
     );
   }
 

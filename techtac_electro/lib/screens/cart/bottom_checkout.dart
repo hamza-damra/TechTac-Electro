@@ -4,6 +4,7 @@ import '../../provider/cart_provider.dart';
 import '../../provider/product_provider.dart';
 import '../../widgets/subtitle_text.dart';
 import '../../widgets/text_widget.dart';
+import 'payment_manager.dart'; // Import the updated PaymentManager
 
 class CartBottomCheckout extends StatefulWidget {
   const CartBottomCheckout({super.key, required this.function});
@@ -43,7 +44,7 @@ class _CartBottomCheckoutState extends State<CartBottomCheckout> {
                       label: "Total (${cartProvider.getCartItems.length} products/${cartProvider.getQty()})",
                     ),
                     SubtitleTextWidget(
-                      label: "$totalAmount\$",
+                      label: "$totalAmount\₪",
                       color: Colors.blue,
                     ),
                   ],
@@ -55,10 +56,15 @@ class _CartBottomCheckoutState extends State<CartBottomCheckout> {
                   setState(() {
                     _isProcessing = true;
                   });
-                  await widget.function();
-                  setState(() {
-                    _isProcessing = false;
-                  });
+                  try {
+                    await PaymentManager.makePayment(totalAmount);
+                  } catch (e) {
+
+                  } finally {
+                    setState(() {
+                      _isProcessing = false;
+                    });
+                  }
                 }
                     : null,
                 child: _isProcessing ? const CircularProgressIndicator() : const Text("Checkout"),

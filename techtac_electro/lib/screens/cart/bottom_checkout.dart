@@ -44,7 +44,7 @@ class _CartBottomCheckoutState extends State<CartBottomCheckout> {
                       label: "Total (${cartProvider.getCartItems.length} products/${cartProvider.getQty()})",
                     ),
                     SubtitleTextWidget(
-                      label: "$totalAmount\₪",
+                      label: "${totalAmount}",
                       color: Colors.blue,
                     ),
                   ],

@@ -8,6 +8,12 @@ class PaymentBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void showSnackbar(String message) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(message)),
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -25,12 +31,10 @@ class PaymentBottomSheet extends StatelessWidget {
             subtitle: const Text('Pay with Stripe'),
             onTap: () async {
               try {
-                await PaymentManager.makePayment(amount);
+                await PaymentManager.makePayment(amount, showSnackbar);
                 Navigator.of(context).pop('Stripe');
               } catch (error) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("Payment failed: $error")),
-                );
+                showSnackbar("Payment failed: $error");
                 Navigator.of(context).pop(null);
               }
             },

@@ -23,6 +23,13 @@ class _CartBottomCheckoutState extends State<CartBottomCheckout> {
     final cartProvider = Provider.of<CartProvider>(context);
     final productProvider = Provider.of<ProductProvider>(context);
     final totalAmount = cartProvider.getTotal(productProvider: productProvider).toInt();
+
+    void showSnackbar(String message) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(message)),
+      );
+    }
+
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
@@ -45,7 +52,7 @@ class _CartBottomCheckoutState extends State<CartBottomCheckout> {
                       label: "Total (${cartProvider.getCartItems.length} products/${cartProvider.getQty()})",
                     ),
                     SubtitleTextWidget(
-                      label: "${totalAmount}",
+                      label: "$totalAmount",
                       color: Colors.blue,
                     ),
                   ],
@@ -58,14 +65,12 @@ class _CartBottomCheckoutState extends State<CartBottomCheckout> {
                     _isProcessing = true;
                   });
                   try {
-                    await PaymentManager.makePayment(totalAmount);
-                  }catch(e)
-                  {
+                    await PaymentManager.makePayment(totalAmount, showSnackbar);
+                  } catch (e) {
                     if (kDebugMode) {
                       print("exception happened: $e");
                     }
-                  }
-                  finally {
+                  } finally {
                     setState(() {
                       _isProcessing = false;
                     });

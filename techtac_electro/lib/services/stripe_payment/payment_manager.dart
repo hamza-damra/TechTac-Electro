@@ -3,14 +3,20 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'api_keys.dart';
 
 abstract class PaymentManager {
-  static Future<void> makePayment(int amountNis) async {
+  static Future<void> makePayment(int amountNis, Function(String) showSnackbar) async {
     try {
       int amountInCents = (amountNis * 100);
       String clientSecret = await _getClientSecret(amountInCents.toString());
       await _initializePaymentSheet(clientSecret);
       await Stripe.instance.presentPaymentSheet();
+    } on StripeException catch (e) {
+      if (e.error.code == FailureCode.Canceled) {
+        showSnackbar('Payment was cancelled');
+      } else {
+        showSnackbar('Error from Stripe: ${e.error.localizedMessage}');
+      }
     } catch (error) {
-      throw Exception(error.toString());
+      showSnackbar('An error occurred: ${error.toString()}');
     }
   }
 

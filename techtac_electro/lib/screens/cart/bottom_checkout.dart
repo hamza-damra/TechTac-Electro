@@ -1,10 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../provider/cart_provider.dart';
 import '../../provider/product_provider.dart';
+import '../../services/stripe_payment/payment_manager.dart';
 import '../../widgets/subtitle_text.dart';
 import '../../widgets/text_widget.dart';
-import 'payment_manager.dart'; // Import the updated PaymentManager
 
 class CartBottomCheckout extends StatefulWidget {
   const CartBottomCheckout({super.key, required this.function});
@@ -58,9 +59,13 @@ class _CartBottomCheckoutState extends State<CartBottomCheckout> {
                   });
                   try {
                     await PaymentManager.makePayment(totalAmount);
-                  } catch (e) {
-
-                  } finally {
+                  }catch(e)
+                  {
+                    if (kDebugMode) {
+                      print("exception happened: $e");
+                    }
+                  }
+                  finally {
                     setState(() {
                       _isProcessing = false;
                     });

@@ -1,14 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'currency_converter.dart';
 import 'api_keys.dart';
 
 abstract class PaymentManager {
   static Future<void> makePayment(int amountNis) async {
     try {
-      double amountUsd = CurrencyConverter.convertNisToUsd(amountNis.toDouble());
-      int amountInCents = (amountUsd * 100).toInt();
-
+      int amountInCents = (amountNis * 100);
       String clientSecret = await _getClientSecret(amountInCents.toString());
       await _initializePaymentSheet(clientSecret);
       await Stripe.instance.presentPaymentSheet();
@@ -38,7 +35,7 @@ abstract class PaymentManager {
       ),
       data: {
         'amount': amount,
-        'currency': 'USD',
+        'currency': 'ILS',
       },
     );
     return response.data["client_secret"];

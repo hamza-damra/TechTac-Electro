@@ -5,8 +5,8 @@ import 'api_keys.dart';
 abstract class PaymentManager {
   static Future<void> makePayment(int amountNis, Function(String) showSnackbar) async {
     try {
-      int amountInCents = (amountNis * 100);
-      String clientSecret = await _getClientSecret(amountInCents.toString());
+      int amountInShekels = (amountNis * 100);
+      String clientSecret = await _getClientSecret(amountInShekels.toString());
       await _initializePaymentSheet(clientSecret);
       await Stripe.instance.presentPaymentSheet();
     } on StripeException catch (e) {

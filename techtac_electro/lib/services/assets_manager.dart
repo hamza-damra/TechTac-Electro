@@ -21,6 +21,7 @@ class AssetsManager {
   static String privacy = "$profileImagesPath/privacy.png";
   static String recent = "$profileImagesPath/recent.png";
   static String theme = "$profileImagesPath/theme.png";
+
   // Bag
   static String bagWish = "$bagImagesPath/bag_wish.png";
   static String shoppingBasket = "$bagImagesPath/shopping_basket.png";
@@ -28,9 +29,11 @@ class AssetsManager {
   static String orderBag = "$bagImagesPath/order.png";
   static String orderSvg = "$bagImagesPath/order_svg.png";
   static String wishlistSvg = "$bagImagesPath/wishlist_svg.png";
+
   // Banners
   static String banner1 = "$bannersImagesPath/banner1.png";
   static String banner2 = "$bannersImagesPath/banner2.png";
+
   // Categories path
   static String mobiles = "$categoriesImagesPath/mobiles.png";
   static String fashion = "$categoriesImagesPath/fashion.png";
@@ -46,7 +49,6 @@ class AssetsManager {
   static String iot = "$categoriesImagesPath/iot.png";
   static String microcontroller = "$categoriesImagesPath/Microcontrollers.png";
   static String components = "$categoriesImagesPath/capacitor.png";
-
   static String arduino = "$categoriesImagesPath/Arduino.png";
   static String modules = "$categoriesImagesPath/Modules.png";
   static String raspberry = "$categoriesImagesPath/raspberry-pi.png";

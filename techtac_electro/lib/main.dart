@@ -18,7 +18,6 @@ import 'package:techtac_electro/screens/auth/login.dart';
 import 'package:techtac_electro/screens/auth/register.dart';
 import 'package:techtac_electro/screens/inner_screens/orders/orders_screen.dart';
 import 'package:techtac_electro/screens/inner_screens/viewed_recently.dart';
-import 'package:techtac_electro/screens/onboarding/onboardingscreen.dart';
 import 'package:techtac_electro/screens/root_screen.dart';
 import 'package:techtac_electro/screens/search_screen.dart';
 import 'package:techtac_electro/screens/splash_screen.dart';
@@ -29,7 +28,7 @@ import 'screens/inner_screens/wishlist.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Stripe.publishableKey = ApiKeys.pusblishableKey;
+  Stripe.publishableKey = ApiKeys.publishableKey;
   await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey: "AIzaSyCafT4k49z1hH0KYgTklSj0Cw7RoqsGgL4",
